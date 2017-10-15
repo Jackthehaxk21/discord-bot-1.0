@@ -13,7 +13,7 @@ client.on('ready', () => {
 });
 
 client.on('message', message => {
-    
+    let points = JSON.parse(fs.readFileSync("./points.json", "utf8"));
     if (message.author.bot) return;
 
     let userData = points[message.author.id];
