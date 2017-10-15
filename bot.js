@@ -3,7 +3,7 @@ const client = new Discord.Client();
 var startup = 0;
 client.on('ready', () => {
     console.log('I am ready!');
-    message.channel.send("BOOTED")
+    //message.channel.send("BOOTED") DOES NOT WORK UNDEFINED
     startup = 1;
 });
 
