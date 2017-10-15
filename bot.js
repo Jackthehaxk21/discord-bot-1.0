@@ -17,9 +17,6 @@ client.on('message', message => {
         message.author.send("")
         message.author.send("!ping - see how fast it takes me to pong !")
     }
-    else {
-        message.reply('Uknown Command !')
-    }
 });
 
 // THIS  MUST  BE  THIS  WAY
