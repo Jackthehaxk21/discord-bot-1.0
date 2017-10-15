@@ -22,9 +22,9 @@ client.on('message', message => {
         message.author.send("------------------------------------------")
         message.author.send("!ping - see how fast it takes me to pong !")
     }
-    if (message.content === "$loop") { 
+    if (message.content === "!loop") { 
       var interval = setInterval (function () {
-        message.channel.send("123")
+        message.channel.send("Thank you for using me for more help type '!help'")
       }, 1 * 1000); 
     }
 });
