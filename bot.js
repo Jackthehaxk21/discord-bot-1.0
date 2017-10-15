@@ -3,7 +3,6 @@ const client = new Discord.Client();
 var startup = 0;
 client.on('ready', () => {
     console.log('I am ready!');
-    client.setPlayingGame('Use !help for info')
     startup = 1;
 });
 
@@ -22,6 +21,11 @@ client.on('message', message => {
         message.author.send("Help Documentation for JACKTHEHACK21 (BOT)")
         message.author.send("------------------------------------------")
         message.author.send("!ping - see how fast it takes me to pong !")
+    }
+    if (message.content === "$loop") { 
+      var interval = setInterval (function () {
+        message.channel.send("123")
+      }, 1 * 1000); 
     }
 });
 
