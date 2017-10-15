@@ -1,15 +1,15 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-var startup = '0';
+var startup = 0;
 client.on('ready', () => {
     console.log('I am ready!');
-    startup = '1';
+    startup = 1;
 });
 
 client.on('message', message => {
-    if (startup === '1') {
+    if (startup === 1) {
         message.channel.send("Booted and ready to use !")
-        startup = '0';
+        startup = 0;
     }
     if (message.content === '!ping') {
     	message.reply('pong');
