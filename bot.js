@@ -3,7 +3,7 @@ const client = new Discord.Client();
 var startup = 0;
 const fs = require("fs");
 
-let points = JSON.parse(fs.readFileSync("./points.json", "utf8"));
+let points = JSON.parse(fs.readFileSync("points.json", "utf8"));
 const prefix = "!";
 
 
@@ -24,6 +24,7 @@ client.on('message', message => {
     userData.points++;
 
     let curLevel = Math.floor(0.1 * Math.sqrt(userData.points));
+    message.channel.send(curLevel);
     if (curLevel > userData.level) {
       // Level up!
       userData.level = curLevel;
@@ -33,7 +34,7 @@ client.on('message', message => {
     if (message.content.startsWith(prefix + "level")) {
       message.reply(`You are currently level ${userData.level}, with ${userData.points} points.`);
     }
-    fs.writeFile("./points.json", JSON.stringify(points), (err) => {
+    fs.writeFile("points.json", JSON.stringify(points), (err) => {
       if (err) console.error(err)
     });
     
