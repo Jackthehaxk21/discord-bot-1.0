@@ -13,12 +13,12 @@ client.on('ready', () => {
 });
 
 client.on('message', message => {
+    
+    if (message.author.bot) return;
+
     let userData = points[message.author.id];
     userData.points++;
     
-    if (!message.content.startsWith(prefix)) return;
-    if (message.author.bot) return;
-
     if (!points[message.author.id]) points[message.author.id] = {
       points: 0,
       level: 0
@@ -32,13 +32,17 @@ client.on('message', message => {
       userData.level = curLevel;
       message.reply(`You"ve leveled up to level **${curLevel}**! Ain"t that dandy?`);
     }
-
-    if (message.content.startsWith(prefix + "level")) {
-      message.reply(`You are currently level ${userData.level}, with ${userData.points} points.`);
-    }
+    
     fs.writeFile("./points.json", JSON.stringify(points), (err) => {
       if (err) console.error(err)
     });
+    
+    if (!message.content.startsWith(prefix)) return;
+    
+    if (message.content.startsWith(prefix + "level")) {
+      message.reply(`You are currently level ${userData.level}, with ${userData.points} points.`);
+    }
+    
     if (startup === 1) {
         startup = 0;
     }
