@@ -16,7 +16,7 @@ client.on('message', message => {
         message.reply('Documentation has been sent to you via Private Message (PM)')
         message.author.send("Help Documentation for JACKTHEHACK21 (BOT)")
         message.author.send("------------------------------------------")
-        message.author.send("\n")
+        message.author.send("{NL}")
         message.author.send("!ping - see how fast it takes me to pong !")
     }
 });
