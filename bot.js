@@ -12,6 +12,8 @@ client.on('message', message => {
         console.log('pinged !')
   	}
     if (message.content === '!help') {
+        console.log('help documents have been sent to '+message.author)
+        message.reply('Documentation has been sent to you via Private Message (PM)')
         message.author.send("Help Documentation for JACKTHEHACK21 (BOT)")
         message.author.send("------------------------------------------")
         message.author.send("")
