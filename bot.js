@@ -13,6 +13,9 @@ client.on('ready', () => {
 });
 
 client.on('message', message => {
+    let userData = points[message.author.id];
+    userData.points++;
+    
     if (!message.content.startsWith(prefix)) return;
     if (message.author.bot) return;
 
@@ -20,10 +23,10 @@ client.on('message', message => {
       points: 0,
       level: 0
     };
-    let userData = points[message.author.id];
-    userData.points++;
 
     let curLevel = Math.floor(0.1 * Math.sqrt(userData.points));
+    message.channel.send(curLevel)
+    
     if (curLevel > userData.level) {
     // Level up!
       userData.level = curLevel;
