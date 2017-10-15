@@ -2,7 +2,6 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 var startup = 0;
 const fs = require("fs");
-const client = new Discord.Client();
 
 let points = JSON.parse(fs.readFileSync("./points.json", "utf8"));
 const prefix = "!";
