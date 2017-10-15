@@ -11,6 +11,9 @@ client.on('message', message => {
         message.channel.send('Pong!');
         console.log('pinged !')
   	}
+    if (message.content === 'help') {
+        message.author.send("Your message here.")
+    }
 });
 
 // THIS  MUST  BE  THIS  WAY
