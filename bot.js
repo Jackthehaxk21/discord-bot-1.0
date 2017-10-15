@@ -9,7 +9,6 @@ client.on('ready', () => {
 
 client.on('message', message => {
     if (startup === 1) {
-        message.channel.send("Booted and ready to use !")
         startup = 0;
     }
     if (message.content === '!ping') {
