@@ -13,9 +13,6 @@ client.on('ready', () => {
 });
 
 client.on('message', message => {
-    if (!message.content.startsWith(prefix)) return;
-    if (message.author.bot) return;
-
     if (!points[message.author.id]) points[message.author.id] = {
       points: 0,
       level: 0
@@ -23,12 +20,15 @@ client.on('message', message => {
     let userData = points[message.author.id];
     userData.points++;
 
-    let curLevel = Math.floor(0.01 * Math.sqrt(userData.points));
+    let curLevel = Math.floor(0.3 * Math.sqrt(userData.points));
     if (curLevel > userData.level) {
       // Level up!
       userData.level = curLevel;
       message.reply(`You"ve leveled up to level **${curLevel}**! Ain"t that dandy?`);
     }
+    
+    if (!message.content.startsWith(prefix)) return;
+    if (message.author.bot) return;
 
     if (message.content.startsWith(prefix + "level")) {
       message.reply(`You are currently level ${userData.level}, with ${userData.points} points.`);
