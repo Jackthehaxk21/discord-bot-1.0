@@ -23,8 +23,7 @@ client.on('message', message => {
     let userData = points[message.author.id];
     userData.points++;
 
-    let curLevel = Math.floor(0.1 * Math.sqrt(userData.points));
-    message.channel.send(curLevel);
+    let curLevel = Math.floor(0.01 * Math.sqrt(userData.points));
     if (curLevel > userData.level) {
       // Level up!
       userData.level = curLevel;
@@ -41,7 +40,7 @@ client.on('message', message => {
     if (startup === 1) {
         startup = 0;
     }
-    if (message.content === '!ping') {
+    if (message.content.startsWith(prefix + 'ping')) {
     	message.reply('pong');
         message.channel.send('Pong!');
         console.log('pinged !')
@@ -52,6 +51,7 @@ client.on('message', message => {
         message.author.send("Help Documentation for JACKTHEHACK21 (BOT)")
         message.author.send("------------------------------------------")
         message.author.send("!ping - see how fast it takes me to pong !")
+        message.author.send("!level - display youre XP AND LEVEL !")
     }
     if (message.content === "!loop") { 
       var interval = setInterval (function () {
