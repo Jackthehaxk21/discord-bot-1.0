@@ -55,8 +55,8 @@ client.on('message', message => {
     }
     if (message.content === "!loop") { 
       var interval = setInterval (function () {
-        message.channel.send("Thank you for using me for more help type '!help'")
-      }, 5 * 60000); 
+        message.channel.send("Thank you for using me !")
+      }, 60 * 60000); 
     }
 });
 
