@@ -41,7 +41,7 @@ client.on('message', message => {
         startup = 0;
     }
     if (message.content.startsWith(prefix + 'ping')) {
-    	message.reply('pong');
+    	//message.reply('pong');
         message.channel.send('Pong!');
         console.log('pinged !')
   	}
