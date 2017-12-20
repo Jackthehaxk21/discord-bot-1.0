@@ -21,6 +21,13 @@ client.on('message', message => {
             break;
         case "test" :
             message.channel.send(args[0]);
+            message.channel.send(args[1]);
+            break;
+        case "setrole" :
+            let role = message.guild.roles.find("name", arg[1]);
+            let member = arg[0];
+            member.addRole(role).catch(console.error);
+            message.channel.send(member+" was added to "+role);
             break;
     }
     /*message.reply(message.content);
