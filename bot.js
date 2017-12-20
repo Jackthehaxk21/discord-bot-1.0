@@ -29,7 +29,7 @@ client.on('message', message => {
             message.channel.send(role);
             let member = message.mentions.members.first();
             message.channel.send(member);
-            member.addRole(role).catch(console.error);
+            member.addRole(role);
             message.channel.send(member+" was added to "+role);
             break;
     }
