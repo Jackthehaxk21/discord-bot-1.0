@@ -14,7 +14,7 @@ client.on('ready', () => {
 
 client.on('message', message => {
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
-    const command = args.shift().toLowerCase();
+    const command = args.shift();
     switch (command) {
         case "ping" :
             message.channel.send('Pong!');
@@ -24,8 +24,11 @@ client.on('message', message => {
             message.channel.send(args[1]);
             break;
         case "setrole" :
+            message.channel.send("setrole");
             let role = message.guild.roles.find("name", arg[1]);
+            message.channel.send(role);
             let member = arg[0];
+            message.channel.send(member);
             member.addRole(role).catch(console.error);
             message.channel.send(member+" was added to "+role);
             break;
