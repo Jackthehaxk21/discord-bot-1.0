@@ -13,6 +13,7 @@ client.on('ready', () => {
 });
 
 client.on('message', message => {
+    message.reply(message.content);
     if (!points[message.author.id]) points[message.author.id] = {
       points: 0,
       level: 0
