@@ -13,7 +13,17 @@ client.on('ready', () => {
 });
 
 client.on('message', message => {
-    message.reply(message.content);
+    const args = message.content.slice(prefix.length).trim().split(/ +/g);
+    const command = args.shift().toLowerCase();
+    switch (command) {
+        case "ping" :
+            message.channel.send('Pong!');
+            break;
+        case "test" :
+            message.channel.send(args[0]);
+            break;
+    }
+    /*message.reply(message.content);
     if (!points[message.author.id]) points[message.author.id] = {
       points: 0,
       level: 0
@@ -57,8 +67,8 @@ client.on('message', message => {
     if (message.content === "!loop") { 
       var interval = setInterval (function () {
         message.channel.send("Thank you for using me !")
-      }, 60 * 60000); 
-    }
+      }, 60 * 60000);
+    }*/
 });
 
 // THIS  MUST  BE  THIS  WAY
