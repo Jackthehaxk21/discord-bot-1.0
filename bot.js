@@ -26,11 +26,11 @@ client.on('message', message => {
         case "setrole" :
             message.channel.send("setrole");
             let role = message.guild.roles.find("name", args[1].slice("@"));
-            message.channel.send(role);
+            //message.channel.send(role);
             let member = message.mentions.members.first();
-            message.channel.send(member);
+            //message.channel.send(member);
             member.addRole(role);
-            message.channel.send(member+" was added to "+role);
+            //message.channel.send(member+" was added to "+role);
             break;
     }
     /*message.reply(message.content);
