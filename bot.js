@@ -25,7 +25,7 @@ client.on('message', message => {
             break;
         case "setrole" :
             message.channel.send("setrole");
-            let role = message.guild.roles.find("name", args[1].slice("@"));
+            let role = message.guild.roles.find("name", args[1]);
             //message.channel.send(role);
             let member = message.mentions.members.first();
             //message.channel.send(member);
