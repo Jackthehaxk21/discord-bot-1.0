@@ -6,6 +6,17 @@ const fs = require("fs");
 let points = JSON.parse(fs.readFileSync("./points.json", "utf8"));
 const prefix = "!";
 
+client.on("guildMemberAdd", (member) => {
+  const guild = member.guild;
+  const defaultChannel = guild.channels.find(c=> c.permissionsFor(guild.me).has("SEND_MESSAGES"));
+  defaultChannel.send("Welcome our new user!\n" + member.user);
+});
+
+client.on("guildMemberRemove", (member) => {
+  const guild = member.guild;
+  const defaultChannel = guild.channels.find(c=> c.permissionsFor(guild.me).has("SEND_MESSAGES"));
+  defaultChannel.send("Oh No, It looks like " + member.user + " left us !");
+});
 
 client.on('ready', () => {
     console.log('I am ready!');
