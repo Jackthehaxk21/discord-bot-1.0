@@ -41,10 +41,14 @@ client.on('message', message => {
                     message.channel.send("INVALID ROLE");
                     //console.log(e);
                 }
-                if(message.member.roles.has(role.id)) {
-                    message.channel.send("SetRole Success !");
-                    console.log("SetRole");
-                } else {
+                try {
+                    if(message.member.roles.has(role.id)) {
+                        message.channel.send("SetRole Success !");
+                        console.log("SetRole");
+                    } else {
+                        message.channel.send("SetRole Failed\nMake sure you spelt everything correct");
+                    }
+                } catch (e) {
                     message.channel.send("SetRole Failed\nMake sure you spelt everything correct");
                 }
             } else {
