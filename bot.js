@@ -39,13 +39,13 @@ client.on('message', message => {
                     member.addRole(role);
                 } catch (e) {
                     message.channel.send("INVALID ROLE");
-                    console.log(e);
+                    //console.log(e);
                 }
                 if(message.member.roles.has(role)) {
                     message.channel.send("SetRole Success !");
                     console.log("SetRole");
                 } else {
-                    message.channel.send("SetRole Failed - UNKOWN");
+                    message.channel.send("SetRole Failed\nMake sure you spelt everything correct");
                 }
             } else {
                 message.channel.send("SetRole Failed - You do not have the perm (MANAGE_ROLES)");
