@@ -36,11 +36,19 @@ client.on('message', message => {
             //message.channel.send(member);
             if (has_perm){
                 member.addRole(role).catch(console.error);
+                if(message.member.roles.has(role.id)) {
+                    message.channel.send("SetRole Success !");
+                    console.log("SetRole")
+                } else {
+                    message.channel.send("SetRole Failed - UNKOWN");
+                }
             } else {
                 message.channel.send("SetRole Failed - You do not have the perm (MANAGE_ROLES)");
             }
             //message.channel.send(member+" was added to "+role);
             break;
+        case "removerole" :
+            message.channel.send("test");
     }
     /*message.reply(message.content);
     if (!points[message.author.id]) points[message.author.id] = {
