@@ -18,7 +18,7 @@ client.on('message', message => {
     switch (command) {
         case "ping" :
             message.channel.send('Pong!');
-            console.log("Pinged.")
+            console.log("Pinged.");
             break;
         case "test" :
             message.channel.send(args[0]);
@@ -38,7 +38,7 @@ client.on('message', message => {
                 member.addRole(role).catch(console.error);
                 if(message.member.roles.has(role.id)) {
                     message.channel.send("SetRole Success !");
-                    console.log("SetRole")
+                    console.log("SetRole");
                 } else {
                     message.channel.send("SetRole Failed - UNKOWN");
                 }
@@ -49,6 +49,7 @@ client.on('message', message => {
             break;
         case "removerole" :
             message.channel.send("test");
+            break;
     }
     /*message.reply(message.content);
     if (!points[message.author.id]) points[message.author.id] = {
