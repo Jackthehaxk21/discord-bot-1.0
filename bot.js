@@ -35,7 +35,11 @@ client.on('message', message => {
             let has_perm = message.member.hasPermission("MANAGE_ROLES");
             //message.channel.send(member);
             if (has_perm){
-                member.addRole(role).catch(console.error);
+                try {
+                    member.addRole(role);
+                } catch {
+                    message.channel.send("INVALID ROLE");
+                }
                 if(message.member.roles.has(role)) {
                     message.channel.send("SetRole Success !");
                     console.log("SetRole");
