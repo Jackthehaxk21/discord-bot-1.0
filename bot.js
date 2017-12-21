@@ -34,6 +34,8 @@ client.on('message', message => {
                 if(message.member.roles.has(role.id)) {
                     message.channel.send("User already has that role,\nSetRole - Failed.");
                     break;
+                } else {
+                    continue;
                 }
             } catch (e) {
                 //console.log(e);
