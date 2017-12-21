@@ -41,7 +41,7 @@ client.on('message', message => {
                     message.channel.send("INVALID ROLE");
                     //console.log(e);
                 }
-                if(message.member.roles.has(role)) {
+                if(message.member.roles.has(role.id)) {
                     message.channel.send("SetRole Success !");
                     console.log("SetRole");
                 } else {
