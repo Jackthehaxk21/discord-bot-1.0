@@ -18,15 +18,15 @@ client.on('message', message => {
     switch (command) {
         case "ping" :
             message.channel.send('Pong!');
+            console.log("Pinged.")
             break;
         case "test" :
             message.channel.send(args[0]);
             message.channel.send(args[1]);
             break;
         case "setrole" :
-            message.channel.send("setrole");
-            let role = message.guild.roles.find("name", args[1]);
-            //let role = args[1];
+            //let role = message.guild.roles.find("name", args[1]);
+            let role = args[1];
             //message.channel.send(role);
             let member = message.mentions.members.first();
             //message.channel.send(member);
