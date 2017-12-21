@@ -25,10 +25,14 @@ client.on('message', message => {
             message.channel.send(args[1]);
             break;
         case "setrole" :
-            //let role = message.guild.roles.find("name", args[1]);
-            let role = args[1];
+            let role = message.guild.roles.find("name", args[1]);
+            //let role = args[1];
             //message.channel.send(role);
             let member = message.mentions.members.first();
+            let perms = message.member.permissions;
+
+            // Check if a member has a specific permission on the guild!
+            let has_perm = message.member.hasPermission("KICK_MEMBERS");
             //message.channel.send(member);
             member.addRole(role).catch(console.error);
             //message.channel.send(member+" was added to "+role);
