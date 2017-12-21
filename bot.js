@@ -32,9 +32,13 @@ client.on('message', message => {
             let perms = message.member.permissions;
 
             // Check if a member has a specific permission on the guild!
-            let has_perm = message.member.hasPermission("KICK_MEMBERS");
+            let has_perm = message.member.hasPermission("MANAGE_ROLES");
             //message.channel.send(member);
-            member.addRole(role).catch(console.error);
+            if (has_perm){
+                member.addRole(role).catch(console.error);
+            } else {
+                message.channel.send("SetRole Failed - You do not have the perm (MANAGE_ROLES)");
+            }
             //message.channel.send(member+" was added to "+role);
             break;
     }
