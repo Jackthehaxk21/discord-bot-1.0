@@ -80,9 +80,14 @@ client.on('message', message => {
         case "purge" :
             const user = message.mentions.users.first();
             const amount = !!parseInt(message.content.split(' ')[1]) ? parseInt(message.content.split(' ')[1]) : parseInt(message.content.split(' ')[2]);
-            if (amount < 100) {
-              message.channel.send("Please limit the amount to 100");
+            if (amount >= 100) {
+              message.channel.send("Sorry the amount must be between 3-100");
               break;
+            } else {
+              if (amount <= 2) {
+                message.channel.send("Sorry the amount must be between 3-100");
+                break;
+              }
             }
             if (!amount) return message.reply('Must specify an amount to delete!');
             if (!amount && !user) return message.reply('Must specify a user and amount, or just an amount, of messages to purge!');
