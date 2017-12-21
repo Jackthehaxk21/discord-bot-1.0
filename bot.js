@@ -30,16 +30,14 @@ client.on('message', message => {
             //message.channel.send(role);
             let member = message.mentions.members.first();
             let perms = message.member.permissions;
-            try {
+            /*try {
                 if(message.member.roles.has(role.id)) {
                     message.channel.send("User already has that role,\nSetRole - Failed.");
                     break;
-                } else {
-                    continue;
                 }
             } catch (e) {
                 //console.log(e);
-            }
+            }*/
             // Check if a member has a specific permission on the guild!
             let has_perm = message.member.hasPermission("MANAGE_ROLES");
             //message.channel.send(member);
