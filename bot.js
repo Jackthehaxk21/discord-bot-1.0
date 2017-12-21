@@ -80,7 +80,7 @@ client.on('message', message => {
         case "purge" :
             const user = message.mentions.users.first();
             const amount = !!parseInt(message.content.split(' ')[1]) ? parseInt(message.content.split(' ')[1]) : parseInt(message.content.split(' ')[2]);
-            if amount < 100 {
+            if (amount < 100) {
               message.channel.send("Please limit the amount to 100");
               break;
             }
