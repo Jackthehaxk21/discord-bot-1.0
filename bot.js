@@ -19,6 +19,7 @@ client.on("guildMemberRemove", (member) => {
 });
 
 client.on('ready', () => {
+    client.user.setGame("with my code...");
     console.log('I am ready!');
     startup = 1;
     var channel = client.channels.find("name", 'bot');
