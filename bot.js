@@ -99,7 +99,7 @@ client.on('message', message => {
                     member.addRole(role);
                 } catch (e) {
                     message.channel.send("INVALID ROLE");
-                    //console.log(e);
+                    console.log(e);
                 }
                 try {
                     if(member.roles.has(role)) {
