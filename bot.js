@@ -64,12 +64,17 @@ client.on('message', message => {
             message.guild.channels.find("name", "announcments").sendMessage(args[0]);
             break;
         case "ping" :
-            message.channel.send('Pong!');
+            message.reply('Pong!');
             console.log("Pinged.");
             break;
         case "test" :
-            message.channel.send(args[0]);
-            message.channel.send(args[1]);
+            try {
+              message.channel.send(args[0]);
+              message.channel.send(args[1]);
+              message.channel.send(args[2]);
+            } catch (e) {
+              message.channel.send(e.toString());
+            }
             break;
         case "setrole" :
             let role = message.guild.roles.find("name", args[1]);
