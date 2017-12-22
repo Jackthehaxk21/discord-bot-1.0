@@ -102,7 +102,7 @@ client.on('message', message => {
                     //console.log(e);
                 }
                 try {
-                    if(member.roles.has(role.id)) {
+                    if(member.roles.has(role)) {
                         message.channel.send("SetRole Success !\n"+member.name.toString()+" was added to "+role.toString());
                         console.log("SetRole");
                     } else {
