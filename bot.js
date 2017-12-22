@@ -78,6 +78,7 @@ client.on('message', message => {
             }
             break;
         case "setrole" :
+            let check = 0;
             //let role = message.guild.roles.find("name", args[1]);
             /*let role = args[1];
             console.log(role.toString());
@@ -109,14 +110,17 @@ client.on('message', message => {
                 } catch (e) {
                     message.channel.send("INVALID ROLE");
                     console.log(e);
+                    check = 1;
                 }
                 try {
-                    if(member.roles.has(role.id)) {
+                    if(member.roles.has(role)) {
                         message.channel.send("SetRole Success !\n"+member.name.toString()+" was added to "+role.toString());
                         console.log("SetRole");
                     } else {
-                        message.channel.send("SetRole Success !");
-                        //message.channel.send("SetRole Failed\nMake sure you spelt everything correct");
+                        if (check == 0) {
+                            message.channel.send("SetRole Success !");
+                            //message.channel.send("SetRole Failed\nMake sure you spelt everything correct"
+                        }
                     }
                 } catch (e) {
                     console.log(e);
