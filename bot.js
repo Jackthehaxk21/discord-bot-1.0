@@ -140,27 +140,35 @@ client.on('message', message => {
             // This command must be limited to mods and admins. In this example we just hardcode the role names.
             // Please read on Array.some() to understand this bit: 
             // https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/some?
-            if(!message.member.hasPermission("MANAGE_MEMBERS"))
+            if(!message.member.hasPermission("MANAGE_MEMBERS")) {
                 message.reply("Sorry, you don't have permissions to use this!");
+                console.log("no perm");
                 break;
+            }
             // Let's first check if we have a member and if we can kick them!
             // message.mentions.members is a collection of people that have been mentioned, as GuildMembers.
             let toKick = message.mentions.members.first();
-            if(!toKick)
+            if(!toKick) {
                 message.reply("Please mention a valid member of this server");
+                console.log("No user");
                 break;
+            }
             if(!toKick.kickable) 
+                console.log("Not kickable");
                 message.reply("I cannot kick this user! Do they have a higher role? Do I have kick permissions?");
                 break;
             // slice(1) removes the first part, which here should be the user mention!
             let reason = args.slice(1).join(' ');
             if(!reason)
+                console.log("no reason");
                 message.reply("Please indicate a reason for the kick!");
                 break;
             // Now, time for a swift kick in the nuts!
             try {
+                console.log("Kicking...");
                 toKick.kick(reason)
             } catch (e) {
+                console.log(e);
                 message.reply(`Sorry ${message.author} I couldn't kick because of : ${e}`);
             }
             message.reply(`${toKick.user.tag} has been kicked by ${message.author.tag} because: ${reason}`);
