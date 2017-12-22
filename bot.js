@@ -80,6 +80,7 @@ client.on('message', message => {
         case "setrole" :
             //let role = message.guild.roles.find("name", args[1]);
             let role = args[1];
+            let role = message.guild.roles.get(role);
             //message.channel.send(role);
             let member = message.mentions.members.first();
             let perms = message.member.permissions;
