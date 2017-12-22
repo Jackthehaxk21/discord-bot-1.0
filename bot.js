@@ -79,8 +79,8 @@ client.on('message', message => {
             break;
         case "setrole" :
             //let role = message.guild.roles.find("name", args[1]);
-            let role = args[1];
-            let role = message.guild.roles.get(role);
+            let role2 = args[1];
+            let role = message.guild.roles.get(role2);
             //message.channel.send(role);
             let member = message.mentions.members.first();
             let perms = message.member.permissions;
