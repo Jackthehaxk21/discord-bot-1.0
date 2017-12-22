@@ -70,7 +70,7 @@ client.on('message', message => {
                         message.channel.send("SetRole Failed\nMake sure you spelt everything correct");
                     }
                 } catch (e) {
-                    message.channel.send(e);
+                    console.log(e);
                     message.channel.send("SetRole Failed\nMake sure you spelt everything correct");
                 }
             } else {
