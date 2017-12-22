@@ -3,7 +3,7 @@ const client = new Discord.Client();
 var startup = 0;
 const fs = require("fs");
 
-let points = JSON.parse(fs.readFileSync("./points.json", "utf8"));
+let points = JSON.parse(fs.readFileSync("https://www.jasonbase.com/things/DnBo/edit#", "utf8"));
 const prefix = "!";
 
 client.on("guildMemberAdd", (member) => {
