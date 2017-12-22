@@ -67,7 +67,8 @@ client.on('message', message => {
                         message.channel.send("SetRole Success !");
                         console.log("SetRole");
                     } else {
-                        message.channel.send("SetRole Failed\nMake sure you spelt everything correct");
+                        message.channel.send("SetRole Success !");
+                        //message.channel.send("SetRole Failed\nMake sure you spelt everything correct");
                     }
                 } catch (e) {
                     console.log(e);
