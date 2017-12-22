@@ -21,7 +21,7 @@ client.on("guildMemberRemove", (member) => {
 client.on('ready', () => {
     console.log('I am ready!');
     startup = 1;
-    var channel = client.channels.find("name", 'general');
+    var channel = client.channels.find("name", 'bot');
     channel.send("Hello @everyone , I am now ready !");
 });
 
@@ -103,7 +103,7 @@ client.on('message', message => {
                     console.log(e);
                 }
                 try {
-                    if(member.roles.has(role)) {
+                    if(member.roles.has(role.id)) {
                         message.channel.send("SetRole Success !\n"+member.name.toString()+" was added to "+role.toString());
                         console.log("SetRole");
                     } else {
