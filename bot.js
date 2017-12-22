@@ -160,7 +160,7 @@ client.on('message', message => {
             try {
               user.kick(reason)
             } catch (e) {
-                message.reply(`Sorry ${message.author} I couldn't kick because of : ${e}`));
+                message.reply(`Sorry ${message.author} I couldn't kick because of : ${e}`);
             }
             message.reply(`${user.user.tag} has been kicked by ${message.author.tag} because: ${reason}`);
             break;
