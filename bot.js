@@ -118,8 +118,9 @@ client.on('message', message => {
                         console.log("SetRole");
                     } else {
                         if (check == 0) {
-                            message.channel.send("SetRole Success !");
-                            //message.channel.send("SetRole Failed\nMake sure you spelt everything correct"
+                            message.channel.send("SetRole Success !\n"+member.name.toString()+" was added to "+role.toString());
+                        } else {
+                            message.channel.send("SetRole Failed\nMake sure you spelt everything correct");
                         }
                     }
                 } catch (e) {
