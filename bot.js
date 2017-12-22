@@ -199,6 +199,9 @@ client.on('message', message => {
                 message.channel.bulkDelete(messages).catch(error => console.log(error.stack));
             });
             break;
+        case "quote" :
+            var quotes = ["Don't count the days,\nMake the days count","test1","test2"];
+            message.channel.send(quotes.random());
         
     }
     /*message.reply(message.content);
