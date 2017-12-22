@@ -201,7 +201,9 @@ client.on('message', message => {
             break;
         case "quote" :
             var quotes = ["Don't count the days,\nMake the days count","test1","test2"];
-            message.channel.send(quotes.random());
+            var randomAnswer = quotes[Math.floor(Math.random() * quotes.length)];
+
+            message.channel.send(randomAnswer);
         
     }
     /*message.reply(message.content);
