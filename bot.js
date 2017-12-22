@@ -22,7 +22,7 @@ client.on('ready', () => {
     console.log('I am ready!');
     startup = 1;
     var channel = client.channels.find("name", 'general');
-    channel.send("Hello There, I am now ready !");
+    channel.send("Hello @everyone , I am now ready !");
 });
 
 client.on('message', message => {
