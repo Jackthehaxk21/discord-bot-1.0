@@ -84,7 +84,8 @@ client.on('message', message => {
             console.log(message.guild.roles.find("name",role));
             console.log(role);
             console.log(role.id);
-            console.log(message.guild.roles.get(role));
+            console.log(message.guild.roles.get(role.toString()));
+            break;
             //let role = message.guild.roles.find("name",role2.toString());
             //console.log(role);
             //message.channel.send(role);
