@@ -114,11 +114,11 @@ client.on('message', message => {
                 }
                 try {
                     if(member.roles.has(role)) {
-                        message.channel.send("SetRole Success !\n"+member.name.toString()+" was added to "+role.toString());
+                        message.channel.send("SetRole Success !\n"+member.name().toString()+" was added to "+role.toString());
                         console.log("SetRole");
                     } else {
                         if (check == 0) {
-                            message.channel.send("SetRole Success !\n"+member.name.toString()+" was added to "+role.toString());
+                            message.channel.send("SetRole Success !\n"+member.name().toString()+" was added to "+role.toString());
                         } else {
                             message.channel.send("SetRole Failed\nMake sure you spelt everything correct");
                         }
