@@ -80,6 +80,8 @@ client.on('message', message => {
         case "setrole" :
             //let role = message.guild.roles.find("name", args[1]);
             let role = args[1];
+            console.log(role.toString());
+            console.log(message.guild.roles.find("name",role));
             console.log(role);
             console.log(role.id);
             console.log(message.guild.roles.get(role));
