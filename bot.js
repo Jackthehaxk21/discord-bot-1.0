@@ -136,6 +136,7 @@ client.on('message', message => {
             message.channel.send("test");
             break;
         case "kick" :
+            console.log("kick");
             // This command must be limited to mods and admins. In this example we just hardcode the role names.
             // Please read on Array.some() to understand this bit: 
             // https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/some?
