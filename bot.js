@@ -20,6 +20,9 @@ client.on("guildMemberRemove", (member) => {
 
 client.on('ready', () => {
     console.log('I am ready!');
+    const guild = member.guild;
+    const defaultChannel = guild.channels.find(c=> c.permissionsFor(guild.me).has("SEND_MESSAGES"));
+    defaultChannel.send("Hi there, I am now ready to take commands !");
     startup = 1;
 });
 
