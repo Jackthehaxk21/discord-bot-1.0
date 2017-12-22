@@ -27,6 +27,9 @@ client.on('message', message => {
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift();
     switch (command) {
+        case "announce" :
+            message.guild.channels.find("name", "announcments").sendMessage(args[0]);
+            break;
         case "ping" :
             message.channel.send('Pong!');
             console.log("Pinged.");
@@ -67,6 +70,7 @@ client.on('message', message => {
                         message.channel.send("SetRole Failed\nMake sure you spelt everything correct");
                     }
                 } catch (e) {
+                    message.channel.send(e);
                     message.channel.send("SetRole Failed\nMake sure you spelt everything correct");
                 }
             } else {
