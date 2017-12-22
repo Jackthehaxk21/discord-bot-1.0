@@ -157,9 +157,11 @@ client.on('message', message => {
                 message.reply("Please indicate a reason for the kick!");
                 break;
             // Now, time for a swift kick in the nuts!
-            await user.kick(reason)
-                .catch(error => message.reply(`Sorry ${message.author} I couldn't kick because of : ${error}`));
-            
+            try {
+              user.kick(reason)
+            } catch (e) {
+                message.reply(`Sorry ${message.author} I couldn't kick because of : ${e}`));
+            }
             message.reply(`${user.user.tag} has been kicked by ${message.author.tag} because: ${reason}`);
             break;
         case "purge" :
