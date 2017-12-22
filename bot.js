@@ -60,7 +60,7 @@ client.on('message', message => {
                     //console.log(e);
                 }
                 try {
-                    if(message.member.roles.has(role.id)) {
+                    if(member.roles.has(role.id)) {
                         message.channel.send("SetRole Success !");
                         console.log("SetRole");
                     } else {
