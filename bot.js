@@ -73,7 +73,8 @@ client.on('message', message => {
               message.channel.send(args[1]);
               message.channel.send(args[2]);
             } catch (e) {
-              message.channel.send(e.toString());
+              //message.channel.send(e.toString());
+              console.log("test error DW");
             }
             break;
         case "setrole" :
@@ -102,7 +103,7 @@ client.on('message', message => {
                 }
                 try {
                     if(member.roles.has(role.id)) {
-                        message.channel.send("SetRole Success !");
+                        message.channel.send("SetRole Success !\n"+member.name.toString()+" was added to "+role.toString());
                         console.log("SetRole");
                     } else {
                         message.channel.send("SetRole Success !");
