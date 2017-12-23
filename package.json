@@ -19,10 +19,16 @@
   },
   "homepage": "https://github.com/Jackthehaxk21/discord-bot-1.0",
   "dependencies": {
-    "discord.js": "^11.2.1",
+    "discord.js": "^11.0.0",
     "enmap": "^0.3.2",
     "moment": "^2.18.1",
     "moment-duration-format": "^1.3.0",
-    "express": "^4.15.5"
+    "express": "^4.15.5",
+    "uws": "^0.14.5",
+    "libsodium-wrappers": "^0.5.4",
+    "sodium": "^2.0.1",
+    "opusscript": "^0.0.3",
+    "node-opus": "^0.2.6",
+    "bufferutil": "^3.0.2"
   }
 }
