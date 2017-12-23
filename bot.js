@@ -186,6 +186,7 @@ client.on('message', message => {
             const amount = !!parseInt(message.content.split(' ')[1]) ? parseInt(message.content.split(' ')[1]) : parseInt(message.content.split(' ')[2]);
             let perms1 = message.member.permissions;
             let has_perm1 = message.member.hasPermission("MANAGE_MESSAGES");
+            message.reply(has_perm1);
             if (!has_perm1) {
               message.reply("Sorry you do not have permission to do that!");
               break;
@@ -212,7 +213,7 @@ client.on('message', message => {
             });
             break;
         case "quote" :
-            var quotes = ["Don't count the days,\nMake the days count","hard work pays off in the future. Laziness pays off now.'",
+            var quotes = ["'Don't count the days,\nMake the days count' - Jackthehack21","hard work pays off in the future. Laziness pays off now.'",
 "'3 out of 4 people make up 75% of the population.'",
 "'24 hours in a day, 24 beers in a case. Coincidence? You decide.'",
 "'A banker is a fellow who lends you his umbrella when the sun is shining and wants it back the minute it begins to rain.' - Mark Twain",
@@ -481,6 +482,7 @@ client.on('message', message => {
             var randomAnswer = quotes[Math.floor(Math.random() * quotes.length)];
 
             message.channel.send(randomAnswer);
+            break;
         default:
             message.channel.send("Unkown command use !help\nTo get a list of available commands.")
             break;
