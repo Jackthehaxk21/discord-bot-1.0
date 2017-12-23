@@ -480,7 +480,9 @@ client.on('message', message => {
             var randomAnswer = quotes[Math.floor(Math.random() * quotes.length)];
 
             message.channel.send(randomAnswer);
-        
+        default:
+            message.channel.send("Unkown command use !help\nTo get a list of available commands.")
+            break;
     }
     /*message.reply(message.content);
     if (!points[message.author.id]) points[message.author.id] = {
