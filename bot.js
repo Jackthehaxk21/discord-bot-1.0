@@ -29,6 +29,7 @@ client.on('ready', () => {
 });
 
 client.on('message', message => {
+    if (!message.content.startsWith(prefix) || message.author.bot) return;
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift();
     switch (command) {
