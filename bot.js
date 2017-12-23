@@ -156,7 +156,7 @@ client.on('message', message => {
                 console.log("No user");
                 break;
             }
-            if(!toKick.kickable) 
+            if(!toKick.kickable()) 
                 console.log("Not kickable");
                 message.reply("I cannot kick this user! Do they have a higher role? Do I have kick permissions?");
                 break;
