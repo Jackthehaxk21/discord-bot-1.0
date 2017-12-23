@@ -212,6 +212,18 @@ client.on('message', message => {
                 message.channel.bulkDelete(messages).catch(error => console.log(error.stack));
             });
             break;
+        case "help" :
+            //!help PAGENUMBER
+            console.log("help");
+            switch (args[0]) {
+                case "1":
+                    message.reply("one");
+                    break;
+                default:
+                    message.reply("def");
+                    break;
+            }
+            break;
         case "quote" :
             var quotes = ["'Don't count the days,\nMake the days count' - Jackthehack21","hard work pays off in the future. Laziness pays off now.'",
 "'3 out of 4 people make up 75% of the population.'",
