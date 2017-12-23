@@ -156,16 +156,18 @@ client.on('message', message => {
                 console.log("No user");
                 break;
             }
-            if(!toKick.kickable()) 
+            if (!toKick.kickable) {
                 console.log("Not kickable");
                 message.reply("I cannot kick this user! Do they have a higher role? Do I have kick permissions?");
                 break;
+            }
             // slice(1) removes the first part, which here should be the user mention!
             let reason = args.slice(1).join(' ');
-            if(!reason)
+            if (!reason) {
                 console.log("no reason");
                 message.reply("Please indicate a reason for the kick!");
                 break;
+            }
             // Now, time for a swift kick in the nuts!
             try {
                 console.log("Kicking...");
