@@ -43,6 +43,7 @@ client.on('ready', () => {
 client.on('message', message => {
   
     if (!message.content.startsWith(prefix) || message.author.bot) return;
+    let points = JSON.parse(fs.readFileSync("./points.json", "utf8"));
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift();
     if (!points[message.author.id]) points[message.author.id] = {
