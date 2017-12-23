@@ -224,7 +224,7 @@ client.on('message', message => {
                     //one
                     const embed = new Discord.RichEmbed()
                         .setTitle("MK-Bot | Help Page 1/2")
-                        .setAuthor("Author Name", "https://i.imgur.com/lm8s41J.png")
+                        .setAuthor("MK-Bot 1.1.2", "https://media1.britannica.com/eb-media/18/197118-131-00A7D6AF.jpg")
                 /*
                 * Alternatively, use "#00AE86", [0, 174, 134] or an integer number.
                 */
@@ -237,7 +237,7 @@ client.on('message', message => {
                 * Takes a Date object, defaults to current date.
                 */
                         .setTimestamp()
-                        .setURL("https://discord.js.org/#/docs/main/indev/class/RichEmbed")
+                        //.setURL("https://discord.js.org/#/docs/main/indev/class/RichEmbed")
                         .addField("This is a field title, it can hold 256 characters",
                             "This is a field value, it can hold 2048 characters.")
                 /*
