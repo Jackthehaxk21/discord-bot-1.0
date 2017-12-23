@@ -3,6 +3,18 @@ const client = new Discord.Client();
 var startup = 0;
 const fs = require("fs");
 
+const http = require('http');
+const express = require('express');
+const app = express();
+app.get("/", (request, response) => {
+  console.log(Date.now() + " Ping Received");
+  response.sendStatus(200);
+});
+app.listen(process.env.PORT);
+setInterval(() => {
+  http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
+}, 280000);
+
 //let points = JSON.parse(fs.readFileSync("https://www.jasonbase.com/things/DnBo.json ", "utf8"));
 const prefix = "!";
 
@@ -29,6 +41,7 @@ client.on('ready', () => {
 });
 
 client.on('message', message => {
+  
     if (!message.content.startsWith(prefix) || message.author.bot) return;
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift();
