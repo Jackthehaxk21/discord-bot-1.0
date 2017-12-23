@@ -30,5 +30,6 @@
     "opusscript": "^0.0.3",
     "node-opus": "^0.2.6",
     "bufferutil": "^3.0.2"
+    "erlpack"
   }
 }
