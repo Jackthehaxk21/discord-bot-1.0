@@ -43,7 +43,7 @@ client.on('ready', () => {
 client.on('message', message => {
   
     if (!message.content.startsWith(prefix) || message.author.bot) return;
-    let points = JSON.parse(fs.readFileSync("points.json", "utf8"));
+    let points = JSON.parse(fs.readFileSync("./points.json", "utf8"));
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift();
     if (!points[message.author.id]) points[message.author.id] = {
@@ -66,7 +66,7 @@ client.on('message', message => {
     //if (command == "level") {
     //  message.reply(`You are currently level ${userData.level}, with ${userData.points} points.`);
     //}
-    fs.writeFile("points.json", JSON.stringify(points), (err) => {
+    fs.writeFile("./points.json", JSON.stringify(points), (err) => {
       if (err) console.error(err)
     });
     
