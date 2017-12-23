@@ -179,9 +179,9 @@ client.on('message', message => {
         case "purge" :
             const user = message.mentions.users.first()
             const amount = !!parseInt(message.content.split(' ')[1]) ? parseInt(message.content.split(' ')[1]) : parseInt(message.content.split(' ')[2]);
-            let perms = message.member.permissions;
-            let has_perm = message.member.hasPermission("MANAGE_MESSAGES");
-            if (!has_perm) {
+            let perms1 = message.member.permissions;
+            let has_perm1 = message.member.hasPermission("MANAGE_MESSAGES");
+            if (!has_perm1) {
               message.reply("Sorry you do not have permission to do that!");
               break;
             if (amount >= 100) {
