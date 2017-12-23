@@ -25,7 +25,7 @@ client.on('ready', () => {
     startup = 1;
     //var channel = client.channels.find("name", 'bot');
     //channel.send("Hello @everyone , I am now ready !");
-    message.guild.channels.find("name", "bot-announcments").sendMessage("Hello @everyone , Im now online !");
+    client.channels.find("name", "bot-announcments").sendMessage("Hello @everyone , Im now online !");
 });
 
 client.on('message', message => {
@@ -178,7 +178,7 @@ client.on('message', message => {
                 message.reply(`Sorry ${message.author} I couldn't kick because of : ${e}`);
             }
             
-            message.guild.channels.find(`${toKick.user.tag} has been kicked by ${message.author.tag} because: ${reason}`);
+            message.guild.channels.find("name","bot-announcments").send(`${toKick.user.tag} has been kicked by ${message.author.tag} because: ${reason}`);
             break;
         case "purge" :
             const user = message.mentions.users.first()
