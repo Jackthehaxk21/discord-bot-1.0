@@ -50,9 +50,10 @@ client.on('message', message => {
       points: 0,
       level: 0
     };
+    
     let userData = points[message.author.id];
     userData.points++;
-
+    //message.channel.send(userData.points);
     let curLevel = Math.floor(0.3 * Math.sqrt(userData.points));
     if (curLevel > userData.level) {
       // Level up!
@@ -67,7 +68,9 @@ client.on('message', message => {
     //  message.reply(`You are currently level ${userData.level}, with ${userData.points} points.`);
     //}
     fs.writeFile("./points.json", JSON.stringify(points), (err) => {
-      if (err) console.error(err)
+      if (err) {
+        console.error(err)
+      }
     });
     
     switch (command) {
