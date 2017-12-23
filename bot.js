@@ -8,13 +8,13 @@ const prefix = "!";
 
 client.on("guildMemberAdd", (member) => {
   const guild = member.guild;
-  const defaultChannel = guild.channels.find(c=> c.permissionsFor(guild.me).has("SEND_MESSAGES"));
+  const defaultChannel = guild.channels.find("name", "bot-announcments");
   defaultChannel.send("Welcome our new user!\n" + member.user);
 });
 
 client.on("guildMemberRemove", (member) => {
   const guild = member.guild;
-  const defaultChannel = guild.channels.find(c=> c.permissionsFor(guild.me).has("SEND_MESSAGES"));
+  const defaultChannel = guild.channels.find("name", "bot-announcments");
   defaultChannel.send("Oh No, It looks like " + member.user + " left us !");
 });
 
@@ -23,8 +23,9 @@ client.on('ready', () => {
     client.user.setPresence({game: {name: "with my code...", type: 0}});
     console.log('I am ready!');
     startup = 1;
-    var channel = client.channels.find("name", 'bot');
-    channel.send("Hello @everyone , I am now ready !");
+    //var channel = client.channels.find("name", 'bot');
+    //channel.send("Hello @everyone , I am now ready !");
+    message.guild.channels.find("name", "bot-announcments").sendMessage("Hello @everyone , Im now online !");
 });
 
 client.on('message', message => {
@@ -176,7 +177,8 @@ client.on('message', message => {
                 console.log(e);
                 message.reply(`Sorry ${message.author} I couldn't kick because of : ${e}`);
             }
-            message.reply(`${toKick.user.tag} has been kicked by ${message.author.tag} because: ${reason}`);
+            
+            message.guild.channels.find(`${toKick.user.tag} has been kicked by ${message.author.tag} because: ${reason}`);
             break;
         case "purge" :
             const user = message.mentions.users.first()
