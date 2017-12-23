@@ -184,6 +184,7 @@ client.on('message', message => {
             if (!has_perm1) {
               message.reply("Sorry you do not have permission to do that!");
               break;
+            }
             if (amount >= 100) {
               message.channel.send("Sorry the amount must be between 3-100");
               break;
