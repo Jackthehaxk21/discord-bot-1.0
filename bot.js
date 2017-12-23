@@ -15,7 +15,7 @@ setInterval(() => {
   http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
 }, 280000);
 
-//let points = JSON.parse(fs.readFileSync("https://www.jasonbase.com/things/DnBo.json ", "utf8"));
+
 const prefix = "!";
 
 client.on("guildMemberAdd", (member) => {
@@ -45,7 +45,34 @@ client.on('message', message => {
     if (!message.content.startsWith(prefix) || message.author.bot) return;
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift();
+    if (!points[message.author.id]) points[message.author.id] = {
+      points: 0,
+      level: 0
+    };
+    let userData = points[message.author.id];
+    userData.points++;
+
+    let curLevel = Math.floor(0.3 * Math.sqrt(userData.points));
+    if (curLevel > userData.level) {
+      // Level up!
+      userData.level = curLevel;
+      message.reply(`You"ve leveled up to level **${curLevel}**! Ain"t that dandy?`);
+    }
+    
+    //if (!message.content.startsWith(prefix)) return;
+    //if (message.author.bot) return;
+
+    //if (command == "level") {
+    //  message.reply(`You are currently level ${userData.level}, with ${userData.points} points.`);
+    //}
+    fs.writeFile("./points.json", JSON.stringify(points), (err) => {
+      if (err) console.error(err)
+    });
+    
     switch (command) {
+        case "level" :
+            message.reply('You are currently level ${userData.level}, with ${userData.points} points.`);
+            break;
         case "embed" :
             const embed = new Discord.RichEmbed()
                 .setTitle("This is your title, it can hold 256 characters")
@@ -543,35 +570,12 @@ client.on('message', message => {
             message.channel.send("Unkown command use !help\nTo get a list of available commands.")
             break;
     }
-    /*message.reply(message.content);
-    if (!points[message.author.id]) points[message.author.id] = {
-      points: 0,
-      level: 0
-    };
-    let userData = points[message.author.id];
-    userData.points++;
-
-    let curLevel = Math.floor(0.3 * Math.sqrt(userData.points));
-    if (curLevel > userData.level) {
-      // Level up!
-      userData.level = curLevel;
-      message.reply(`You"ve leveled up to level **${curLevel}**! Ain"t that dandy?`);
-    }
-    
-    if (!message.content.startsWith(prefix)) return;
-    if (message.author.bot) return;
-
-    if (message.content.startsWith(prefix + "level")) {
-      message.reply(`You are currently level ${userData.level}, with ${userData.points} points.`);
-    }
-    fs.writeFile("./points.json", JSON.stringify(points), (err) => {
-      if (err) console.error(err)
-    });
+    //message.reply(message.content)
     
     if (startup === 1) {
         startup = 0;
     }
-    if (message.content.startsWith(prefix + 'ping')) {
+    /*if (message.content.startsWith(prefix + 'ping')) {
     	//message.reply('pong');
         message.channel.send('Pong!');
         console.log('pinged !')
