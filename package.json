@@ -29,7 +29,7 @@
     "sodium": "^2.0.1",
     "opusscript": "^0.0.3",
     "node-opus": "^0.2.6",
-    "bufferutil": "^3.0.2"
-    "erlpack"
+    "bufferutil": "^3.0.2",
+    "erlpack": "^0.0.1"
   }
 }
