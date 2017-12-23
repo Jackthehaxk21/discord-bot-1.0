@@ -95,6 +95,7 @@ client.on('message', message => {
             let member = message.mentions.members.first();
             let role = message.mentions.roles.first();
             let perms = message.member.permissions;
+            let has_perm = message.member.hasPermission("MANAGE_ROLES");
             /*try {
                 if(message.member.roles.has(role.id)) {
                     message.channel.send("User already has that role,\nSetRole - Failed.");
@@ -104,7 +105,7 @@ client.on('message', message => {
                 //console.log(e);
             }*/
             // Check if a member has a specific permission on the guild!
-            let has_perm = message.member.hasPermission("MANAGE_ROLES");
+            
             //message.channel.send(member);
             if (has_perm){
                 try {
@@ -176,8 +177,13 @@ client.on('message', message => {
             message.reply(`${toKick.user.tag} has been kicked by ${message.author.tag} because: ${reason}`);
             break;
         case "purge" :
-            const user = message.mentions.users.first();
+            const user = message.mentions.users.first()
             const amount = !!parseInt(message.content.split(' ')[1]) ? parseInt(message.content.split(' ')[1]) : parseInt(message.content.split(' ')[2]);
+            let perms = message.member.permissions;
+            let has_perm = message.member.hasPermission("MANAGE_MESSAGES");
+            if (!has_perm) {
+              message.reply("Sorry you do not have permission to do that!");
+              break;
             if (amount >= 100) {
               message.channel.send("Sorry the amount must be between 3-100");
               break;
