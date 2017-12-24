@@ -13,7 +13,7 @@ app.get("/", (request, response) => {
 app.listen(process.env.PORT);
 setInterval(() => {
   http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
-}, 280000);
+}, 250000);
 
 
 const prefix = "!";
@@ -21,18 +21,18 @@ const prefix = "!";
 client.on("guildMemberAdd", (member) => {
   const guild = member.guild;
   const defaultChannel = guild.channels.find("name", "bot-announcments");
-  defaultChannel.send("Welcome our new user!\n" + member.user);
+  //defaultChannel.send("Welcome our new user!\n" + member.user);
 });
 
 client.on("guildMemberRemove", (member) => {
   const guild = member.guild;
   const defaultChannel = guild.channels.find("name", "bot-announcments");
-  defaultChannel.send("Oh No, It looks like " + member.user + " left us !");
+  //defaultChannel.send("Oh No, It looks like " + member.user + " left us !");
 });
 
 client.on('ready', () => {
     //client.user.setGame("with my code...");
-    client.user.setPresence({game: {name: "with my code...", type: 0}});
+    client.user.setPresence({game: {name: " !help for docs", type: 0}});
     console.log('I am ready!');
     startup = 1;
     //var channel = client.channels.find("name", 'bot');
@@ -50,9 +50,10 @@ client.on('message', message => {
       points: 0,
       level: 0
     };
+    
     let userData = points[message.author.id];
     userData.points++;
-
+    //message.channel.send(userData.points);
     let curLevel = Math.floor(0.3 * Math.sqrt(userData.points));
     if (curLevel > userData.level) {
       // Level up!
@@ -67,7 +68,9 @@ client.on('message', message => {
     //  message.reply(`You are currently level ${userData.level}, with ${userData.points} points.`);
     //}
     fs.writeFile("./points.json", JSON.stringify(points), (err) => {
-      if (err) console.error(err)
+      if (err) {
+        console.error(err)
+      }
     });
     
     switch (command) {
@@ -220,7 +223,7 @@ client.on('message', message => {
                 message.reply(`Sorry ${message.author} I couldn't kick because of : ${e}`);
             }
             
-            message.guild.channels.find("name","bot-announcments").send(`${toKick.user.tag} has been kicked by ${message.author.tag} because: ${reason}`);
+            message.guild.channels.find("name","bot-announcments").send(`@${toKick.user.tag} has been kicked by @${message.author.tag} because: ${reason}`);
             break;
         case "purge" :
             const user = message.mentions.users.first()
@@ -263,6 +266,10 @@ client.on('message', message => {
                     break;
                 default:
                     //one
+                    if (args[0] > 2) {
+                      message.reply("There are only 2 pages of docs");
+                      break;
+                    }
                     const embed = new Discord.RichEmbed()
                         .setTitle("MK-Bot | Help Page 1/2")
                         .setAuthor("MK-Bot 1.1.2", "https://media1.britannica.com/eb-media/18/197118-131-00A7D6AF.jpg")
@@ -270,8 +277,8 @@ client.on('message', message => {
                 * Alternatively, use "#00AE86", [0, 174, 134] or an integer number.
                 */
                         .setColor(0x00AE86)
-                        .setDescription("This is the main body of text, it can hold 2048 characters.")
-                        .setFooter("This is the footer text, it can hold 2048 characters", "http://i.imgur.com/w1vhFSR.png")
+                        .setDescription("Help documentation for 'MK-Bot'\ntype !help <PAGE NUMBER> to access other pages.\n ")
+                        .setFooter("Latest Documentation for MK-Bot !", "http://i.imgur.com/w1vhFSR.png")
                         //.setImage("http://i.imgur.com/yVpymuV.png")
                         //.setThumbnail("http://i.imgur.com/p2qNFag.png")
                 /*
@@ -279,17 +286,21 @@ client.on('message', message => {
                 */
                         .setTimestamp()
                         //.setURL("https://discord.js.org/#/docs/main/indev/class/RichEmbed")
-                        .addField("This is a field title, it can hold 256 characters",
-                            "This is a field value, it can hold 2048 characters.")
+                        .addBlankField(true)
+                        .addField("**!ping**",
+                            "*Usage = !ping*\nUsed to ping me to check if im operational !", true)
+                        .addField("**!level**",
+                            "*Usage = !level*\nUsed to display you\'re XP and Level", true)
                 /*
                 * Inline fields may not display as inline if the thumbnail and/or image is too big.
                 */
-                        .addField("Inline Field", "They can also be inline.", true)
+                        .addField("**!help**", 
+                            "*Usage = !help <PAGE NUMBER>*\nDisplay help documentation for MK", true)
                 /*
                 * Blank field, useful to create some space.
                 */
-                        .addBlankField(true)
-                        .addField("Inline Field 3", "You can have a maximum of 25 fields.", true);
+                        .addField("**!test**", 
+                            "*Usage = !test <arg0> <arg1> <arg2>*\nONLY ADMINS CAN USE - DEBUG ONLY !", true);
 
                     message.channel.send({embed});
             
