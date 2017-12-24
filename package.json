@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node bot.js"
   },
-  "engines": { "node": "8.4.0" },
+  "engines": {
+    "node": "8.4.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Jackthehaxk21/discord-bot-1.0.git"
@@ -19,7 +21,7 @@
   },
   "homepage": "https://github.com/Jackthehaxk21/discord-bot-1.0",
   "dependencies": {
-    "discord.js": "^11.0.0",
+    "discord.js": "^11.2.1",
     "enmap": "^0.3.2",
     "moment": "^2.18.1",
     "moment-duration-format": "^1.3.0",
