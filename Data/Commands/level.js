@@ -4,15 +4,16 @@ const snek = require('snekfetch');
 Canvas.registerFont('./FiraCode-Bold.ttf', 'FiraCode');
 
 var methods = {
-  getProfile: async function(user, person, points, level) {
-      const plate = await fsn.readFile('./image_profile.png');
+  getProfile: async function(message, user, person, points, level) {
+      console.log(points, level);
+      const plate = await fsn.readFile('./Data/image_profile.png');
       const png = person.replace(/\.(gif|jpg|png|jpeg)\?size=2048/g, '.png?size=64');
       const { body } = await snek.get(png);
       const size = new Canvas(270, 90)
         .setTextFont('12pt FiraCode')
         .measureText(user);
       const newSize = size.width < 180 ? 270 : 90 + size.width + 10;
-      return new Canvas(newSize, 90)
+      var result =  new Canvas(newSize, 90)
         .setColor('#FFFFFF')
         .addRect(0, 0, newSize, 90)
         .setColor('#383838')
@@ -26,6 +27,7 @@ var methods = {
         .addText(level, 172, 51)
         .addText(points, 172, 72)
         .toBuffer();
+      message.channel.send({files: [{attachment: result, name: 'profile.png'}]});
   }
 }
 

@@ -48,7 +48,8 @@ client.on("warn", (e) => console.warn(e));
 //client.on("debug", (e) => console.info(e));
 
 async function reboot(message) {
-    await message.channel.send('**reboot **| Rebooting...');
+    await message.channel.send('**SYSTEM **| Rebooting...');
+    process.exit();
     return;
 }
 
@@ -187,11 +188,31 @@ client.on('message', message => {
         const result = await plz(person, '#000000');
         await message.channel.send({files: [{attachment: result, name: 'pls.png'}]});
     };
-    go();
+    
+    //go();
   
     //POINTS HERE
-    const updatePoints = function(message, amount=1) {
-     sql.get(`SELECT * FROM scores WHERE userId = "${message.guild.id+message.author.id}"`).then(row => {
+    const getPoints = function(message) {
+      sql.get(`SELECT * FROM scores WHERE userId = "${message.guild.id+message.author.id}"`).then(row => {
+        if (!row) {
+          sql.run("INSERT INTO scores (userId, points, level) VALUES (?, ?, ?)", [message.guild.id + message.author.id, 1, 0]);
+          return(1 + ',' + 0);
+        } else {
+          return(row.points + ',' + row.level);
+        }
+      }).catch(() => {
+        console.error;
+        //console.log('new t');
+        sql.run("CREATE TABLE IF NOT EXISTS scores (userId TEXT, points INTEGER, level INTEGER)").then(() => {
+          sql.run("INSERT INTO scores (userId, points, level) VALUES (?, ?, ?)", [message.guild.id + message.author.id, 1, 0]);
+          return(1 + ',' + 0);
+        });
+      });
+    }
+    //console.log(getPoints);
+    
+    const updatePoints = async function(message, amount=1) {
+     return await sql.get(`SELECT * FROM scores WHERE userId = "${message.guild.id+message.author.id}"`).then(row => {
         if (!row) {
           sql.run("INSERT INTO scores (userId, points, level) VALUES (?, ?, ?)", [message.guild.id+message.author.id, amount, 0]);
           return("Success");
@@ -199,9 +220,9 @@ client.on('message', message => {
         } else {
           //console.log('update');
           let curLevel = Math.floor(0.35 * Math.sqrt(row.points + 1));
-          console.log(Math.floor(0.35 * Math.sqrt(row.points + 1)));
+          //console.log(Math.floor(0.35 * Math.sqrt(row.points + 1)));
           if (curLevel > row.level) {
-            console.log('update');
+            //console.log('update');
             row.level = curLevel;
             sql.run(`UPDATE scores SET points = ${row.points + amount}, level = ${row.level} WHERE userId = "${message.guild.id+message.author.id}"`);
             message.reply(`You've leveled up to level **${curLevel}**! Ain't that dandy?`);
@@ -213,13 +234,13 @@ client.on('message', message => {
     }).catch(() => {
         console.error;
         //console.log('new t');
-        sql.run("CREATE TABLE IF NOT EXISTS scores (userId TEXT, points INTEGER, level INTEGER)").then(() => {
+        return sql.run("CREATE TABLE IF NOT EXISTS scores (userId TEXT, points INTEGER, level INTEGER)").then(() => {
             sql.run("INSERT INTO scores (userId, points, level) VALUES (?, ?, ?)", [message.guild.id+message.author.id, amount, 0]);
             return("Success");
         });
     });
     };
-
+  
   updatePoints(message);
   
   //////////////////
@@ -363,20 +384,22 @@ client.on('message', message => {
                   return;
                 }
                 
-                message.channel.send(`Your current level is ${row.level}`);
+                //message.channel.send(`Your current level is ${row.level}`);
                 //console.log('Level delay');
                 sql.get(`SELECT * FROM scores WHERE userId ="${message.guild.id+message.author.id}"`).then(row => {
                     if (!row) {
                       //return message.reply("sadly you do not have any points yet!");
                       var points = 0;
                       var level = 0;
+                      return;
                     }
                     //message.channel.send(`and ${row.points} points, good going!`);
-                    var level = row.level;
-                    var points = row.points;
+                    var  level = row.level;
+                    var  points = row.points;
                 });
             });
-            level_command.getProfile(user, person, points, level);
+            console.log(points, level);
+            level_command.getProfile(message, user, person, points, level);
             //message.reply("You are currently level " + userData.level + ", with " + userData.points + " points.");
             break;
         case "embed" :
@@ -442,11 +465,9 @@ client.on('message', message => {
             break;
         case "reboot":
             if (message.author.id != ownerID) break;
-            reboot();
+            reboot(message);
             //message.channel.send('**reboot **| Rebooting...');
             console.log('Reboot Requested');
-            //console.log('Reboot Requested');
-            process.exit();
             break;
         case "help" :
             //!help PAGENUMBER
