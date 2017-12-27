@@ -22,6 +22,7 @@ const kick_command = require('./Data/Commands/kick.js');
 const coin_command = require('./Data/Commands/coin.js');
 const help_command = require('./Data/Commands/help.js');
 const purge_command = require('./Data/Commands/purge.js');
+const level_command = require('./Data/Commands/level.js');
 
 var ownerID= "282819886198030336";
 let prof_pic = "https://d30y9cdsu7xlg0.cloudfront.net/png/927902-200.png"
@@ -343,6 +344,10 @@ client.on('message', message => {
             }
             break;
         case "level" :
+            var points;
+            var level;
+            var person = message.author.displayAvatarURL;
+            var user = message.author.username;
             if (args[0] === '-r') {
               sql.run(`UPDATE scores SET points = 1, level = 0 WHERE userId = "${message.guild.id+message.author.id}"`);
               message.reply('Level reset.');
@@ -351,18 +356,27 @@ client.on('message', message => {
             sql.get(`SELECT * FROM scores WHERE userId ="${message.guild.id+message.author.id}"`).then(row => {
                 console.log(row);
                 if (!row) {
-                  message.reply("Your current level is 0");
-                  message.channel.send(`Your current level is ${row.level}`);
+                  //message.reply("Your current level is 0");
+                  //message.channel.send(`Your current level is ${row.level}`);
+                  var level = 0;
+                  var points = 0;
                   return;
                 }
                 
                 message.channel.send(`Your current level is ${row.level}`);
                 //console.log('Level delay');
                 sql.get(`SELECT * FROM scores WHERE userId ="${message.guild.id+message.author.id}"`).then(row => {
-                    if (!row) return message.reply("sadly you do not have any points yet!");
-                    message.channel.send(`and ${row.points} points, good going!`);
+                    if (!row) {
+                      //return message.reply("sadly you do not have any points yet!");
+                      var points = 0;
+                      var level = 0;
+                    }
+                    //message.channel.send(`and ${row.points} points, good going!`);
+                    var level = row.level;
+                    var points = row.points;
                 });
             });
+            level_command.getProfile(user, person, points, level);
             //message.reply("You are currently level " + userData.level + ", with " + userData.points + " points.");
             break;
         case "embed" :
