@@ -3,6 +3,7 @@ const client = new Discord.Client();
 var startup = 0;
 const fs = require("fs");
 const quotes = require("./Data/Quotes.json");
+const jokes = require("./Data/Jokes.json");
 const http = require('http');
 const express = require('express');
 const app =  express();
@@ -23,8 +24,10 @@ const coin_command = require('./Data/Commands/coin.js');
 const help_command = require('./Data/Commands/help.js');
 const purge_command = require('./Data/Commands/purge.js');
 const level_command = require('./Data/Commands/level.js');
+const support_command = require('./Data/Commands/support.js');
+const stats_command = require('./Data/Commands/stats.js')
 
-var ownerID= "282819886198030336";
+var ownerID= process.env.ownerID;
 let prof_pic = "https://d30y9cdsu7xlg0.cloudfront.net/png/927902-200.png"
 var eight_ball = require("./Data/8Ball.json");
 //const search = require('youtube-search');
@@ -48,7 +51,8 @@ client.on("warn", (e) => console.warn(e));
 //client.on("debug", (e) => console.info(e));
 
 async function reboot(message) {
-    await message.channel.send('**SYSTEM **| Rebooting...');
+    await message.channel.send('**SYSTEM **| Offline', {file: 'https://solidgeargroup.com/wp-content/uploads/2017/01/avoff-e1486020280161.jpg'});
+    await console.log('**SYSTEM **| Rebooting...');
     process.exit();
     return;
 }
@@ -64,15 +68,28 @@ function clean(text) {
 const prefix = "!";
 
 client.on("guildMemberAdd", (member) => {
-  const guild = member.guild;
-  const defaultChannel = guild.channels.find("name", "bot-log");
-  defaultChannel.send("Welcome our new user!\n" + member.user);
+  if (member.guild.id == "395657844982022145") {
+     console.log(member.user.username+'#'+member.user.discriminator);
+     member.addRole(member.guild.roles.find("name", "Member"));
+     let chan = (member.user.username+'#'+member.user.discriminator).replace(/ +/g,'-').replace('#', '_').toLowerCase();
+     chan = member.guild.channels.find('name', chan);
+     console.log(chan.overwritePermissions(member, {'SEND_MESSAGES': true, 'READ_MESSAGE_HISTORY': true, 'ATTACH_FILES': true, 'READ_MESSAGES': true}, 'JOIN-PERMS'));
+  } else {
+    const guild = member.guild;
+    const defaultChannel = guild.channels.find("name", "bot-log");
+    defaultChannel.send("Welcome our new user!\n" + member.user);
+  }
 });
 
 client.on("guildMemberRemove", (member) => {
-  const guild = member.guild;
-  const defaultChannel = guild.channels.find("name", "bot-log");
-  defaultChannel.send("Oh No, It looks like " + member.user + " left us !");
+  if (member.guild.id == "395657844982022145") {
+    let chan = (member.user.username+'#'+member.user.discriminator).replace(/ +/g,'-').replace('#', '_').toLowerCase();
+    chan.delete();
+  } else {
+    const guild = member.guild;
+    const defaultChannel = guild.channels.find("name", "bot-log");
+    defaultChannel.send("Oh No, It looks like " + member.user + " left us !");
+  }
 });
 
 client.on('ready', () => {
@@ -84,14 +101,19 @@ client.on('ready', () => {
     startup = 1;
     var channel = client.channels.find("name", 'general');
     //channel.send(guild.id);
-    client.channels.find("name", "bot-log").send("Im now online !");
+    client.channels.find("name", "bot-log").send("**SYSTEM** | Online");
+    //client.channels.find("name", "bot-log").send("**SYSTEM** | Online", {file: 'https://images6.alphacoders.com/813/813100.png'});
 });
 
 client.on('message', message => {
+    //console.log(message.channel);
     //console.log(message.guild.id + ' ' + message.guild.name);
     client.user.setPresence({game: {name: " !help | Servers: " + client.guilds.size, type: 0}});
-    let voiceChannel = message.member.voiceChannel;
-
+    let voiceChannel;
+    if (message.channel.type == 'text') {
+      voiceChannel = message.member.voiceChannel;
+    }
+    
     function search(text) {
         global.searched = text;
         yss( {key: key, query: text, maxResults: 5}, callback );
@@ -120,36 +142,37 @@ client.on('message', message => {
             .setURL("\nhttps://www.youtube.com/watch?v=" + YT_DATA[0].id.videoId)
             .addBlankField(true)
             .addField('1) ' + YT_DATA[0].snippet.title,
-                    YT_DATA[0].snippet.description + "\nhttps://www.youtube.com/watch?v=" + YT_DATA[0].id.videoId)
+                    YT_DATA[0].snippet.description+"https://www.youtube.com/watch?v=" + YT_DATA[0].id.videoId)
             .addBlankField(true)
                 /*
                 * Inline fields may not display as inline if the thumbnail and/or image is too big.
                 */
             .addField("2) " + YT_DATA[1].snippet.title, 
-                    YT_DATA[1].snippet.description + "\nhttps://www.youtube.com/watch?v=" + YT_DATA[1].id.videoId)
+                    YT_DATA[1].snippet.description+"https://www.youtube.com/watch?v=" + YT_DATA[1].id.videoId)
                 /*
                 * Blank field, useful to create some space.
                 */
             .addBlankField(true)
             .addField("3) " + YT_DATA[2].snippet.title, 
-                    YT_DATA[2].snippet.description + "\nhttps://www.youtube.com/watch?v=" + YT_DATA[2].id.videoId)
+                    YT_DATA[2].snippet.description+"https://www.youtube.com/watch?v=" + YT_DATA[2].id.videoId)
         
             .addBlankField(true)
             .addField("4) " + YT_DATA[3].snippet.title, 
-                    YT_DATA[3].snippet.description + "\nhttps://www.youtube.com/watch?v=" + YT_DATA[3].id.videoId)
+                    YT_DATA[3].snippet.description+"https://www.youtube.com/watch?v=" + YT_DATA[3].id.videoId)
         
             .addBlankField(true)
             .addField("5) " + YT_DATA[4].snippet.title, 
-                    YT_DATA[2].snippet.description + "\nhttps://www.youtube.com/watch?v=" + YT_DATA[4].id.videoId);
+                    YT_DATA[2].snippet.description+"https://www.youtube.com/watch?v=" + YT_DATA[4].id.videoId);
       
         message.channel.send({embed});
-        var yt_link = ["https://www.youtube.com/watch?v=" + YT_DATA[0].id.videoId,
-                        "https://www.youtube.com/watch?v=" + YT_DATA[1].id.videoId,
-                        "https://www.youtube.com/watch?v=" + YT_DATA[2].id.videoId,
-                        "https://www.youtube.com/watch?v=" + YT_DATA[3].id.videoId,
-                        "https://www.youtube.com/watch?v=" + YT_DATA[4].id.videoId];
-        console.log(yt_link);
-        message.channel.send("**Now use !yt-add <NUMBER> to add it to playlist. NOTE - You must be in a voice channel**");
+        var yt_link = "1) https://www.youtube.com/watch?v=" + YT_DATA[0].id.videoId
+                      "\n2) https://www.youtube.com/watch?v=" + YT_DATA[1].id.videoId
+                      "\n3) https://www.youtube.com/watch?v=" + YT_DATA[2].id.videoId
+                      "\n4) https://www.youtube.com/watch?v=" + YT_DATA[3].id.videoId
+                      "\n5) https://www.youtube.com/watch?v=" + YT_DATA[4].id.videoId;
+        //console.log(yt_link);
+        //message.channel.send(yt_link);
+        message.channel.send("`**Now use !yt-play URLHERE to add it to playlist. NOTE - You must be in a voice channel**`");
         //console.log(YT_DATA);
     }
   
@@ -192,24 +215,6 @@ client.on('message', message => {
     //go();
   
     //POINTS HERE
-    const getPoints = function(message) {
-      sql.get(`SELECT * FROM scores WHERE userId = "${message.guild.id+message.author.id}"`).then(row => {
-        if (!row) {
-          sql.run("INSERT INTO scores (userId, points, level) VALUES (?, ?, ?)", [message.guild.id + message.author.id, 1, 0]);
-          return(1 + ',' + 0);
-        } else {
-          return(row.points + ',' + row.level);
-        }
-      }).catch(() => {
-        console.error;
-        //console.log('new t');
-        sql.run("CREATE TABLE IF NOT EXISTS scores (userId TEXT, points INTEGER, level INTEGER)").then(() => {
-          sql.run("INSERT INTO scores (userId, points, level) VALUES (?, ?, ?)", [message.guild.id + message.author.id, 1, 0]);
-          return(1 + ',' + 0);
-        });
-      });
-    }
-    //console.log(getPoints);
     
     const updatePoints = async function(message, amount=1) {
      return await sql.get(`SELECT * FROM scores WHERE userId = "${message.guild.id+message.author.id}"`).then(row => {
@@ -241,7 +246,7 @@ client.on('message', message => {
     });
     };
   
-  updatePoints(message);
+  if (message.channel.type != 'dm') updatePoints(message);
   
   //////////////////
   //COMMANDS BELOW//
@@ -350,9 +355,10 @@ client.on('message', message => {
             //var video = JSON.parse(fs.readFileSync("./yt.json"));
             //message.channel.send(TEST);
             search(args.join(' '));
+            message.channel.send("Now use !yt-play URLHERE to play music");
             break;
         case "respect" :
-            
+            break;
         case "follow" :
             var role = message.guild.roles.find("name","Follower");
             if (message.member.roles.has(role.id)) {
@@ -365,41 +371,14 @@ client.on('message', message => {
             }
             break;
         case "level" :
-            var points;
-            var level;
             var person = message.author.displayAvatarURL;
-            var user = message.author.username;
-            if (args[0] === '-r') {
-              sql.run(`UPDATE scores SET points = 1, level = 0 WHERE userId = "${message.guild.id+message.author.id}"`);
-              message.reply('Level reset.');
-              break;
-            }
-            sql.get(`SELECT * FROM scores WHERE userId ="${message.guild.id+message.author.id}"`).then(row => {
-                console.log(row);
-                if (!row) {
-                  //message.reply("Your current level is 0");
-                  //message.channel.send(`Your current level is ${row.level}`);
-                  var level = 0;
-                  var points = 0;
-                  return;
-                }
-                
-                //message.channel.send(`Your current level is ${row.level}`);
-                //console.log('Level delay');
-                sql.get(`SELECT * FROM scores WHERE userId ="${message.guild.id+message.author.id}"`).then(row => {
-                    if (!row) {
-                      //return message.reply("sadly you do not have any points yet!");
-                      var points = 0;
-                      var level = 0;
-                      return;
-                    }
-                    //message.channel.send(`and ${row.points} points, good going!`);
-                    var  level = row.level;
-                    var  points = row.points;
-                });
-            });
-            console.log(points, level);
-            level_command.getProfile(message, user, person, points, level);
+            var user = (message.author.tag)
+            /*if (args[0] === '-r') {
+              sql.run('DELETE from scores WHERE userId = "${message.guild.id+message.author.id}"');
+              message.reply('Level-DB reset.');
+              break;  NOT WORKING
+            }*/
+            level_command.getProfile(message, user, person);
             //message.reply("You are currently level " + userData.level + ", with " + userData.points + " points.");
             break;
         case "embed" :
@@ -451,6 +430,9 @@ client.on('message', message => {
               console.log("test error DW");
             }
             break;
+        case "stats" :
+            stats_command.getStats(client, message);
+            break;
         case "setrole" :
             role_command.set(args, message);
             break;
@@ -466,12 +448,13 @@ client.on('message', message => {
         case "reboot":
             if (message.author.id != ownerID) break;
             reboot(message);
-            //message.channel.send('**reboot **| Rebooting...');
-            console.log('Reboot Requested');
             break;
         case "help" :
             //!help PAGENUMBER
             help_command.help(Discord, prof_pic, args, message);
+            break;
+        case 'support' :
+            support_command.support(message, client);
             break;
         case "quote" :
             //quotes now stored in quotes.json
@@ -479,6 +462,11 @@ client.on('message', message => {
             var randomAnswer = quotes[Math.floor(Math.random() * quotes.length)];
 
             message.channel.send('`' + randomAnswer + '`');
+            break;
+        case "joke":
+            var random = jokes[Math.floor(Math.random() * jokes.length)];
+            message.channel.send("```"+random.body+"```");
+            message.channel.send("`Category: "+random.category+"`");
             break;
         case "eval" :
             if(message.author.id !== ownerID) {
