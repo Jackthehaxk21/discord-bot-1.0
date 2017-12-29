@@ -1,9 +1,18 @@
+/*
+HIDDEN FILES:
+./Roboto.ttf
+./FiraCode-Bold.ttf
+./Data/Jokes.json
+./Data/score.sqlite
+./Data/offline.jpg
+./Data/online.png
+*/
+
 const Discord = require('discord.js');
 const client = new Discord.Client();
 var startup = 0;
 const fs = require("fs");
 const quotes = require("./Data/Quotes.json");
-const jokes = require("./Data/Jokes.json");
 const http = require('http');
 const express = require('express');
 const app =  express();
@@ -22,10 +31,11 @@ const role_command = require('./Data/Commands/role.js');
 const kick_command = require('./Data/Commands/kick.js');
 const coin_command = require('./Data/Commands/coin.js');
 const help_command = require('./Data/Commands/help.js');
+const joke_command = require('./Data/Commands/joke.js');
 const purge_command = require('./Data/Commands/purge.js');
 const level_command = require('./Data/Commands/level.js');
-const support_command = require('./Data/Commands/support.js');
 const stats_command = require('./Data/Commands/stats.js')
+const support_command = require('./Data/Commands/support.js');
 
 var ownerID= process.env.ownerID;
 let prof_pic = "https://d30y9cdsu7xlg0.cloudfront.net/png/927902-200.png"
@@ -361,6 +371,10 @@ client.on('message', message => {
             break;
         case "follow" :
             var role = message.guild.roles.find("name","Follower");
+            if (!role) {
+              message.channel.send('*follow* | Server does not support this command');
+              break;
+            }
             if (message.member.roles.has(role.id)) {
                 message.reply("**follow** | You're already a official Follower !");
                 break;
@@ -464,9 +478,7 @@ client.on('message', message => {
             message.channel.send('`' + randomAnswer + '`');
             break;
         case "joke":
-            var random = jokes[Math.floor(Math.random() * jokes.length)];
-            message.channel.send("```"+random.body+"```");
-            message.channel.send("`Category: "+random.category+"`");
+            joke_command.joke(client, message);
             break;
         case "eval" :
             if(message.author.id !== ownerID) {
