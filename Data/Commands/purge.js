@@ -10,11 +10,11 @@ var methods = {
           return;
       }
       if (amount >= 100) {
-          message.channel.send("Sorry the amount must be between 3-100");
+          message.channel.send("Sorry the amount must be between 2-99");
           return;
       } else {
-          if (amount <= 2) {
-              message.channel.send("Sorry the amount must be between 3-100");
+          if (amount < 2) {
+              message.channel.send("Sorry the amount must be between 2-99");
               return;
           }
       }

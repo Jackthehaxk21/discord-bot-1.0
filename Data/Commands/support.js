@@ -26,11 +26,12 @@ We hope to see you soon ::
         var SUPPORT = client.guilds.get("395657844982022145");
         console.log(message.author.tag.replace(/ +/g,'-').replace('#', '_').toLowerCase());
         SUPPORT.createChannel(message.author.tag.replace(/ +/g,'-').replace('#', '_').toLowerCase(), 'text').then(c => {
-          SUPPORT.channels.find("name", message.author.tag.replace(/ +/g,'-').replace('#', '_').toLowerCase()).createInvite().then(invite =>
+          c.send('Welcome to MK-Support !\nPlease send a question regarding me and a support member will reply shortly !');
+          c.createInvite().then(invite =>
             message.channel.send(invite.url)
           );
         });
-    } else {
+       } else {
         message.channel.send("**support** | This command can only be used in DM with me !");
     }
   }

@@ -8,25 +8,27 @@ HIDDEN FILES:
 ./Data/online.png
 */
 
-const Discord = require('discord.js');
-const client = new Discord.Client();
 var startup = 0;
 const fs = require("fs");
-const quotes = require("./Data/Quotes.json");
 const http = require('http');
-const express = require('express');
-const app =  express();
-const ytdl = require('ytdl-core');
-const yss = require('youtube-simple-search');
 const sql = require("sqlite");
-const { Canvas } = require('canvas-constructor');
 const fsn = require('fs-nextra');
 const snek = require('snekfetch');
-sql.open("./Data/score.sqlite");
+const ytdl = require('ytdl-core');
+const express = require('express');
+const Discord = require('discord.js');
 const { resolve, join} = require('path');
+const quotes = require("./Data/Quotes.json");
+const yss = require('youtube-simple-search');
+const { Canvas } = require('canvas-constructor');
+
+const app =  express();
+const client = new Discord.Client();
+
 Canvas.registerFont(resolve(join(__dirname, './Roboto.ttf')), 'Roboto');
 
 //commands
+const ban_command = require('./Data/Commands/ban.js');
 const role_command = require('./Data/Commands/role.js');
 const kick_command = require('./Data/Commands/kick.js');
 const coin_command = require('./Data/Commands/coin.js');
@@ -34,7 +36,9 @@ const help_command = require('./Data/Commands/help.js');
 const joke_command = require('./Data/Commands/joke.js');
 const purge_command = require('./Data/Commands/purge.js');
 const level_command = require('./Data/Commands/level.js');
-const stats_command = require('./Data/Commands/stats.js')
+const stats_command = require('./Data/Commands/stats.js');
+const money_command = require('./Data/Commands/money.js');
+const follow_command = require('./Data/Commands/follow.js');
 const support_command = require('./Data/Commands/support.js');
 
 var ownerID= process.env.ownerID;
@@ -42,7 +46,7 @@ let prof_pic = "https://d30y9cdsu7xlg0.cloudfront.net/png/927902-200.png"
 var eight_ball = require("./Data/8Ball.json");
 //const search = require('youtube-search');
 const key = process.env.YT_KEY; 
-var yt_link = [];
+sql.open("./Data/Data.sqlite");
 
 
 //KEEP BOT ONLINE BY PINGING WEBSITE EVERY 4-5 MINUTES
@@ -58,7 +62,7 @@ setInterval(() => {
 
 client.on("error", (e) => console.error(e));
 client.on("warn", (e) => console.warn(e));
-//client.on("debug", (e) => console.info(e));
+client.on("debug", (e) => console.info(e));
 
 async function reboot(message) {
     await message.channel.send('**SYSTEM **| Offline', {file: 'https://solidgeargroup.com/wp-content/uploads/2017/01/avoff-e1486020280161.jpg'});
@@ -94,12 +98,19 @@ client.on("guildMemberAdd", (member) => {
 client.on("guildMemberRemove", (member) => {
   if (member.guild.id == "395657844982022145") {
     let chan = (member.user.username+'#'+member.user.discriminator).replace(/ +/g,'-').replace('#', '_').toLowerCase();
-    chan.delete();
+    chan = member.guild.channels.find('name',chan);
+    chan.send('------- CASE CLOSED --------');
   } else {
     const guild = member.guild;
     const defaultChannel = guild.channels.find("name", "bot-log");
     defaultChannel.send("Oh No, It looks like " + member.user + " left us !");
   }
+});
+
+client.on("guildCreate", guild => {
+  // This event triggers when the bot joins a guild.
+  console.log(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
+  
 });
 
 client.on('ready', () => {
@@ -111,7 +122,7 @@ client.on('ready', () => {
     startup = 1;
     var channel = client.channels.find("name", 'general');
     //channel.send(guild.id);
-    client.channels.find("name", "bot-log").send("**SYSTEM** | Online");
+    //client.channels.find("name", "bot-log").send("**SYSTEM** | Online");
     //client.channels.find("name", "bot-log").send("**SYSTEM** | Online", {file: 'https://images6.alphacoders.com/813/813100.png'});
 });
 
@@ -126,7 +137,7 @@ client.on('message', message => {
     
     function search(text) {
         global.searched = text;
-        yss( {key: key, query: text, maxResults: 5}, callback );
+        //yss( {key: key, query: text, maxResults: 5}, callback );
         //console.log('Search');
     }
     function callback(result) {
@@ -225,9 +236,32 @@ client.on('message', message => {
     //go();
   
     //POINTS HERE
+    var money;
+    
+    const updateMoney = async function(message, amount = 0) {
+      let newTime = Date.now()+86400000; //24 Hours
+      console.log(newTime);
+      await sql.get(`SELECT * FROM money WHERE ID = "${message.guild.id+message.author.id}"`).then (row => {
+        //message.channel.send(row.money);
+        if (!row) {
+          sql.run("INSERT INTO money (ID, money, daily) VALUES (?, ?, ?)", [message.guild.id + message.author.id, amount, newTime]);
+          //message.channel.send('new');
+        } else {
+          sql.run(`UPDATE money SET money = ${row.money + amount}, daily = ${row.daily} WHERE ID = "${message.guild.id+message.author.id}"`);
+          //message.channel.send('Update');
+        }
+      }).catch(() => {
+        console.error;
+        sql.run("CREATE TABLE IF NOT EXISTS money (ID TEXT, money INTEGER, daily INTEGER)").then(() => {
+          sql.run("INSERT INTO money (ID, money, daily) VALUES (?, ?, ?)", [message.guild.id + message.author.id, amount, newTime]);
+        });
+      });
+    }
+    if (Math.floor(Math.random() * 5) == 2) updateMoney(message, 5);
+    //getMoney(message);
     
     const updatePoints = async function(message, amount=1) {
-     return await sql.get(`SELECT * FROM scores WHERE userId = "${message.guild.id+message.author.id}"`).then(row => {
+      await sql.get(`SELECT * FROM scores WHERE userId = "${message.guild.id+message.author.id}"`).then(row => {
         if (!row) {
           sql.run("INSERT INTO scores (userId, points, level) VALUES (?, ?, ?)", [message.guild.id+message.author.id, amount, 0]);
           return("Success");
@@ -241,10 +275,8 @@ client.on('message', message => {
             row.level = curLevel;
             sql.run(`UPDATE scores SET points = ${row.points + amount}, level = ${row.level} WHERE userId = "${message.guild.id+message.author.id}"`);
             message.reply(`You've leveled up to level **${curLevel}**! Ain't that dandy?`);
-            return("Success");
           }
           sql.run(`UPDATE scores SET points = ${row.points + amount}, level = ${row.level} WHERE userId = "${message.guild.id+message.author.id}"`);
-          return("Success");
         }
     }).catch(() => {
         console.error;
@@ -273,11 +305,6 @@ client.on('message', message => {
             }
             var random = Math.floor(Math.random() * eight_ball.length);
             message.channel.send("**8Ball** | "+eight_ball[random]);
-            break;
-        case "yt-add" :
-            console.log(yt_link);
-            var yt_que = yt_que + yt_link[args[0]];
-            console.log(yt_que);
             break;
         case "yt-stop" :
             try {
@@ -370,88 +397,36 @@ client.on('message', message => {
         case "respect" :
             break;
         case "follow" :
-            var role = message.guild.roles.find("name","Follower");
-            if (!role) {
-              message.channel.send('*follow* | Server does not support this command');
-              break;
-            }
-            if (message.member.roles.has(role.id)) {
-                message.reply("**follow** | You're already a official Follower !");
-                break;
-            } else {
-                message.member.addRole(role);
-                message.reply("**follow** | You are now a official Follower !");
-                break;
-            }
+            follow_command.follow(message);
             break;
         case "level" :
             var person = message.author.displayAvatarURL;
             var user = (message.author.tag)
-            /*if (args[0] === '-r') {
-              sql.run('DELETE from scores WHERE userId = "${message.guild.id+message.author.id}"');
-              message.reply('Level-DB reset.');
-              break;  NOT WORKING
-            }*/
-            level_command.getProfile(message, user, person);
-            //message.reply("You are currently level " + userData.level + ", with " + userData.points + " points.");
+            level_command.getProfile(message, user, person, sql);
             break;
-        case "embed" :
-            if (message.author.id != ownerID) break;
-            const embed = new Discord.RichEmbed()
-                .setTitle("This is your title, it can hold 256 characters")
-                .setAuthor("Author Name", "https://i.imgur.com/lm8s41J.png")
-                /*
-                * Alternatively, use "#00AE86", [0, 174, 134] or an integer number.
-                */
-                .setColor(0x00AE86)
-                .setDescription("This is the main body of text, it can hold 2048 characters.")
-                .setFooter("This is the footer text, it can hold 2048 characters", "http://i.imgur.com/w1vhFSR.png")
-                .setImage("http://i.imgur.com/yVpymuV.png")
-                .setThumbnail("http://i.imgur.com/p2qNFag.png")
-                /*
-                * Takes a Date object, defaults to current date.
-                */
-                .setTimestamp()
-                .setURL("https://discord.js.org/#/docs/main/indev/class/RichEmbed")
-                .addField("This is a field title, it can hold 256 characters",
-                    "This is a field value, it can hold 2048 characters.")
-                /*
-                * Inline fields may not display as inline if the thumbnail and/or image is too big.
-                */
-                .addField("Inline Field", "They can also be inline.", true)
-                /*
-                * Blank field, useful to create some space.
-                */
-                .addBlankField(true)
-                .addField("Inline Field 3", "You can have a maximum of 25 fields.", true);
-
-            message.channel.send({embed});
+        case "announce" :
+            message.guild.channels.find("name", "announcments").sendMessage(args.join(' '));
             break;
-        /*case "announce" :
-            message.guild.channels.find("name", "announcments").sendMessage(args[0]);
-            break;*/
+        case "daily" :
+            money_command.daily(message, sql);
+            break;
+        case "money" :
+            money_command.getMoney(message, sql);
+            break;
         case "ping" :
             message.channel.send('Pong!');
-            //console.log("Pinged.");
-            break;
-        case "test" :
-            try {
-              message.channel.send(args[0]);
-              message.channel.send(args[1]);
-              message.channel.send(args[2]);
-            } catch (e) {
-              //message.channel.send(e.toString());
-              console.log("test error DW");
-            }
             break;
         case "stats" :
             stats_command.getStats(client, message);
             break;
         case "setrole" :
-            role_command.set(args, message);
+            role_command.set(message);
             break;
-        case "removerole" :
-            message.channel.send("test");
+        case "remrole" :
+            role_command.rem(message);
+            break;
+        case "ban" :
+            ban_command.ban(args, message);
             break;
         case "kick" :
             kick_command.kick(args, message);
@@ -460,12 +435,17 @@ client.on('message', message => {
             purge_command.purge(client, args, message);
             break;
         case "reboot":
-            if (message.author.id != ownerID) break;
+            if (message.author.id != ownerID) {
+              message.channel.send('**reboot **| You cannot reboot me, HA HA HA');
+              break;
+            }
             reboot(message);
             break;
+        case "credits" :
+            help_command.credits(message);
+            break;
         case "help" :
-            //!help PAGENUMBER
-            help_command.help(Discord, prof_pic, args, message);
+            help_command.help(message);
             break;
         case 'support' :
             support_command.support(message, client);
@@ -474,8 +454,7 @@ client.on('message', message => {
             //quotes now stored in quotes.json
             //267 quotes
             var randomAnswer = quotes[Math.floor(Math.random() * quotes.length)];
-
-            message.channel.send('`' + randomAnswer + '`');
+            message.channel.send('```' + randomAnswer + '```');
             break;
         case "joke":
             joke_command.joke(client, message);
@@ -497,7 +476,7 @@ client.on('message', message => {
                    try{
                      message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
                    } catch(err) {
-                     message.channel.send('**eval** | MAJOR ERROR ln-466 in bot.js'); 
+                     message.channel.send('**eval** | MAJOR ERROR'); 
                    }
               } 
            }
@@ -507,17 +486,9 @@ client.on('message', message => {
             message.channel.send("**MK** | Unkown command use !help\nTo get a list of available commands.")
             break;
     }
-    //message.reply(message.content)
-    
     if (startup === 1) {
         startup = 0;
     }
-    /*
-    if (message.content === "!loop") { 
-      var interval = setInterval (function () {
-        message.channel.send("Thank you for using me !")
-      }, 60 * 60000);
-    }*/
 });
 
 // THIS  MUST  BE  THIS  WAY
