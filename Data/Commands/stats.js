@@ -6,11 +6,11 @@ var methods = {
        uptime = Math.floor(uptime/60);  //In minutes now
        check = 'Minutes';
        if (uptime > 60) {
-         uptime = uptime/60;  //In hours now
+         uptime = Math.floor(uptime/60);  //In hours now
          check = 'Hours';
          if (uptime > 24) {
            days = Math.floor(uptime/24);
-           uptime = uptime-(days*24);
+           uptime = Math.floor(uptime-(days*24));
          }
        }
        days = days + ' Days';
@@ -24,7 +24,7 @@ Up-Time  :: ${days} and ${uptime}
 Servers  :: ${guilds}
 Users    :: ${clients}
 Process  :: ${proces}
-=================
+===== STATS =====
 `;
        message.channel.send('```asciidoc'+txt+'```');
    }

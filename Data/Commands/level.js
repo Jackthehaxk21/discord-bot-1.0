@@ -1,11 +1,9 @@
 const { Canvas } = require('canvas-constructor');
 const fsn = require('fs-nextra');
 const snek = require('snekfetch');
-const sql = require('sqlite');
 Canvas.registerFont('./FiraCode-Bold.ttf', 'FiraCode');
-sql.open("./Data/score.sqlite");
 var methods = {
-  getProfile: async function(message, user, person) {
+  getProfile: async function(message, user, person, sql) {
       const getPic = async function(person, user, message, level, points) {
           const plate = await fsn.readFile('./Data/image_profile.png');
           const png = await person.replace(/\.(gif|jpg|png|jpeg)\?size=2048/g, '.png?size=64');

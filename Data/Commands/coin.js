@@ -4,7 +4,7 @@ var methods = {
             if (args[0] != undefined) {
               message.channel.send("**Coin** | No arguments are needed.\n ");
             }
-            var random = Math.floor(Math.random() * 2);
+            var random = Math.floor(Math.random()*2);
             message.channel.send("**Coin** | "+coin[random]);
     }
 }
