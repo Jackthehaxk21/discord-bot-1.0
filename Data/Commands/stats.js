@@ -1,5 +1,5 @@
 var methods = {
-   getStats: function(client, message) {
+   get: function(client, args, message) {
        let check = '';
        let uptime = Math.floor(process.uptime());
        let days = '0';
@@ -18,12 +18,15 @@ var methods = {
        let guilds = client.guilds.size;
        let clients = client.users.size;
        let proces = process.title +'-'+ process.version;
+       let mem = Math.round((process.memoryUsage().heapUsed / 1024 / 1024)*100)/100;
+       let ava_mem = Math.floor((process.memoryUsage().heapTotal/1024/1024 *100) /100);
        let txt = `
 ===== STATS =====
 Up-Time  :: ${days} and ${uptime}
 Servers  :: ${guilds}
 Users    :: ${clients}
 Process  :: ${proces}
+Mem Used :: ${mem} MB / ${ava_mem} MB
 ===== STATS =====
 `;
        message.channel.send('```asciidoc'+txt+'```');

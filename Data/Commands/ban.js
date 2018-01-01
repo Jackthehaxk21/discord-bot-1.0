@@ -1,31 +1,34 @@
 var methods = {
-    ban: function(args, message) {
+    ban: async function(client, args, message) {
             if(!message.member.hasPermission("BAN_MEMBERS")) {
-                message.reply("Sorry, you don't have permissions to use this!");
+                message.reply("**ban **| ⚠️ | You don't have permissions to use this.");
                 return;
             }
       
             var toBan = message.mentions.members.first();
-            var name = toBan.username;
             if(!toBan) {
-                message.reply("Please mention a valid member of this server");
+                message.reply("**ban **| ⚠️ | Please mention a valid member of this server.");
                 return;
             }
-            if (!toBan.kickable) {
-                message.reply("I cannot ban this user! Do they have a higher role? Do I have ban permissions?");
+            if (!toBan.bannable) {
+                //console.log("Not kickable");
+                message.reply("⚠️ | I cannot Ban this user! Do they have a higher role? Do I have ban permissions?");
                 return;
             }
-            var reason = args[1];
+            var name = toBan.user.username;
+            var reason = args.join(' ').replace(args[0], '');
             if (!reason) {
-                message.reply("Please indicate a reason for the ban!");
+                message.reply("**ban **| ⚠️ | Please indicate a reason for the ban!");
                 return;
             }
             try {
-                toBan.ban(reason)
+                await toBan.ban(reason);
+                message.channel.send('✅ | '+name+" has been banned by "+message.author+" because: "+reason);
             } catch (e) {
-                message.reply(`Sorry ${message.author} I couldn't ban because of : ${e}`);
+                message.reply('⚠️ | Sorry '+message.author+' I couldn\'t ban because : '+e);
+                return;
             }
-            message.channel.send(name+" has been banned by "+message.author+" because: "+reason);
+            //message.channel.send('BAN ERROR');
   }
 }
 

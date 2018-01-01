@@ -1,5 +1,6 @@
 let methods = {
-    joke : function(client, message) {
+    get : function(client, args, message) {
+        //message.channel.send('```asciidoc\n⚠️ | SOME OF THESE CAN BE CONSIDERED NSFW BY SOME, WE HOLD NO RESPONSIBILITY FOR THE JOKES SHOWN | ⚠️```');
         const jokes = require("../Jokes.json");
         var random = jokes[Math.floor(Math.random() * jokes.length)];
         //message.reply(random.body.replace('\n','').replace('\r','').length);
@@ -19,7 +20,7 @@ let methods = {
               message.channel.send('**'+random.title+'**');
               message.channel.send("```"+random.body+"```");
             } else {
-              message.channel.send('Unable to get joke at this time');
+              message.channel.send('**joke** | ⚠️ | Unable to get joke at this time');
             }
           }
         }
