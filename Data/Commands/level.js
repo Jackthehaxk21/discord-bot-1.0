@@ -1,47 +1,50 @@
 const { Canvas } = require('canvas-constructor');
 const fsn = require('fs-nextra');
 const snek = require('snekfetch');
-Canvas.registerFont('./FiraCode-Bold.ttf', 'FiraCode');
+Canvas.registerFont('./FiraCode-Bold.ttf', 'font');
 var methods = {
-  getProfile: async function(message, user, person, sql) {
-      const getPic = async function(person, user, message, level, points) {
-          const plate = await fsn.readFile('./Data/image_profile.png');
-          const png = await person.replace(/\.(gif|jpg|png|jpeg)\?size=2048/g, '.png?size=64');
-          const { body } = await snek.get(png);
-          const size = new Canvas(270, 90)
-            .setTextFont('12pt FiraCode')
-            .measureText(user);
-          const newSize = size.width < 180 ? 270 : 90 + size.width + 10;
-          var result =  new Canvas(newSize, 90)
+  get: async function(message, sql) {
+      const FullName = message.author.tag;
+      const user = message.author.avatarURL;
+      const Pic = async function(message, level, points) {
+          const picture = await user.replace(/\.(gif|jpg|png|jpeg)\?size=2048/g, '.png?size=64');
+          const {AvatarPerson} = await snek.get(picture);
+          var result =  new Canvas(325, 90)
             .setColor('#FFFFFF')
-            .addRect(0, 0, newSize, 90)
-            .setColor('#383838')
-            .addRect(12, 15, 64, 64)
+            .addRect(0, 0, 325, 90)  //white back//
+          
+            .setColor('#660066')
+            .addRect(10, 21, 59, 65) //purple shadow//
+          
+            .addImage(AvatarPerson, 14, 17, 62, 62)
+          
             .setColor('#'+Math.floor(Math.random() * 999999))
-            .setTextFont('12pt FiraCode')
-            .addImage(body, 14, 17, 62, 62)
-            .restore()
-            .addImage(plate, 0, 0, 270, 90)
-            .addText(user, 90, 29)
+            .setTextFont('14pt font')
+            .addText(FullName, 90, 29)
+          
             .setColor('#'+Math.floor(Math.random() * 999999))
-            .addText(level, 172, 51)
-            .addText(points, 172, 72)
+            .addText('Level  | '+level, 90, 51)
+            .addText('Points | '+points, 90, 71)
             .toBuffer();
-          message.channel.send({files: [{attachment: result, name: 'profile.png'}]}); 
+          try {
+            message.channel.send({files: [{attachment: result, name: 'user.png'}]}); 
+          } catch(err){
+            message.reply('Sorry we couldn\'t get your profile right now.');
+          }
       }
       sql.get(`SELECT * FROM scores WHERE userId = "${message.guild.id+message.author.id}"`).then(row => {
         if (!row) {
           sql.run("INSERT INTO scores (userId, points, level) VALUES (?, ?, ?)", [message.guild.id + message.author.id, 1, 0]);
-          getPic(person, user, message, 0, 1);
+          Pic(message, 0, 1);
         } else {
-          getPic(person, user, message, row.level, row.points);
+          Pic(message, row.level, row.points);
         }
       }).catch(() => {
         console.error;
         //console.log('new t');
         sql.run("CREATE TABLE IF NOT EXISTS scores (userId TEXT, points INTEGER, level INTEGER)").then(() => {
           sql.run("INSERT INTO scores (userId, points, level) VALUES (?, ?, ?)", [message.guild.id + message.author.id, 1, 0]);
-          getPic(person, user, message, 0, 1);
+          Pic(message, 0, 1);
         });
       });
   }

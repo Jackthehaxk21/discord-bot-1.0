@@ -1,0 +1,107 @@
+{
+  "ban": {
+    "title": "Ban A User",
+    "usage": "ban @mentionUser REASON",
+    "notes": "You must have `BAN_MEMBERS` permission !"
+  },
+  "kick": {
+    "title": "Kick a User",
+    "usage": "kick @mentionUser REASON",
+    "notes": "You must have `KICK_MEMBERS` permission !"
+  },
+  "coin": {
+    "title": "Flip a coin",
+    "usage": "coin or flip",
+    "notes": ""
+  },
+  "flip": {
+    "title": "Flip a coin",
+    "usage": "flip or coin",
+    "notes": ""
+  },
+  "help": {
+    "title": "Display help",
+    "usage": "help",
+    "notes": ""
+  },
+  "joke": {
+    "title": "Get a Joke",
+    "usage": "joke",
+    "notes": "Theres over 18'000 jokes !"
+  },
+  "level": {
+    "title": "Get your level",
+    "usage": "level",
+    "notes": ""
+  },
+  "money": {
+    "title": "Get your money",
+    "usage": "money",
+    "notes": ""
+  },
+  "daily": {
+    "title": "get daily reward",
+    "usage": "daily",
+    "notes": ""
+  },
+  "neko": {
+    "title": "Get a neko",
+    "usage": "neko",
+    "notes": "It will only show NSFW content if your in a NSFW channel !!"
+  },
+  "ping": {
+    "title": "Ping | Pong",
+    "usage": "ping",
+    "notes": ""
+  },
+  "purge": {
+    "title": "Purge messages",
+    "usage": "purge Amount or !purge @mentionUser Amount",
+    "notes": "You must have `MANAGE_MESSAGES` permission"
+  },
+  "reboot": {
+    "title": "Reboot Server",
+    "usage": "reboot",
+    "notes": "[ OWNER ONLY COMMAND ]"
+  },
+  "setrole": {
+    "title": "Give a role to a user",
+    "usage": "setrole @mentionUser @mentionRole",
+    "notes": "You must have `MANAGE_ROLES` permission"
+  },
+  "remrole": {
+    "title": "Remove role from a user",
+    "usage": "remrole @mentionUser @mentionRole",
+    "notes": "You must have `MANAGE_ROLES` permission"
+  },
+  "stats": {
+    "title": "Get server Stats",
+    "usage": "stats",
+    "notes": ""
+  },
+  "support": {
+    "title": "MK - Support",
+    "usage": "support",
+    "notes": "!! Can only be used in DM with me !!"
+  },
+  "usage": {
+    "title": "Get usage details",
+    "usage": "usage Command-Name",
+    "notes": "Do not include your prefix\nfor the CommandName."
+  },
+  "8ball": {
+    "title": "Magic 8Ball",
+    "usage": "8ball Question",
+    "notes": ""
+  },
+  "dice": {
+    "title": "Roll a Dice.",
+    "usage": "dice Number-To-Roll",
+    "notes": "Between ^^ 4-1000 ^^"
+  },
+  "quote": {
+    "title": "Get a quote.",
+    "usage": "quote",
+    "notes": ""
+  }
+}

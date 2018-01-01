@@ -1,5 +1,5 @@
 var methods = {
-    help: function(message) {
+    help: function(client, args, message) {
         var help = `
 == Help Documents ==
 
@@ -7,24 +7,17 @@ Note : Use !usage <command> to get usage information.
 
 == Fun ==
 !coin      ::   Flip a coin.
+!dice      ::   Roll a dice.
 !8ball     ::   Ask 8ball a question.
-!rip       ::   R.I.P someone. <Not functional yet>
+!quote     ::   Get one of 267 quotes.
+!joke      ::   Get one of 18'000 jokes.
+!neko      ::   Get a neko picture 
+[^^^^ varies if your in a NSFW channel or not]
 
 == Social ==
 !level     ::   Display your XP and Lvl.
 !money     ::   Display your $ balance.
 !daily     ::   Get daily money ($100).
-!donate    ::   Give money to another user.
-
-== General ==
-!quote     ::   Get one of 267 quotes.
-!joke      ::   Get one of 500 jokes.
-!follow    ::   Get the role 'Follower'.
-
-== YouTube ==
-!yt-search ::   Search youtube for a clip.
-!yt-play   ::   Play a youtube clip (supply URL).
-!yt-stop   ::   Stop playing the clip.
 
 == Moderation ==
 !kick      ::   Kick user with valid reason (most of the time).
@@ -45,18 +38,22 @@ Note : Use !usage <command> to get usage information.
 
 `;
         message.channel.send(help, {code:'asciidoc'});
+  /*
+  == YouTube ==
+!yt-search ::   Search youtube for a clip.
+!yt-play   ::   Play a youtube clip (supply URL).
+!yt-stop   ::   Stop playing the clip.
+*/
         return;
     },
     
-    credits : function(message) {
+    credits : function(client, args, message) {
         var help = `
 ==== All Credits ====
 
 Bot-Owner   :: Jackthehaxk21#8860
 
-Inspiration :: York#2400
-               goat#9119
-               GuideBot#3986 [BOT]
+Inspiration :: goat#9119
 
 QA Testers  :: ThatBirdGuyMees#4196
                Jackthehaxk21#8860

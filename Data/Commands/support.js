@@ -1,6 +1,6 @@
 var methods = {
   
-  support: function(message, client) {
+  run: function(client, args, message) {
     if (message.channel.type == 'dm') {
         let mes = (`
 
@@ -32,7 +32,7 @@ We hope to see you soon ::
           );
         });
        } else {
-        message.channel.send("**support** | This command can only be used in DM with me !");
+        message.channel.send("**support** | ⚠️ | This command can only be used in DM with me !");
     }
   }
   
