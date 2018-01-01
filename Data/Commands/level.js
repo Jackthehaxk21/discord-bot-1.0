@@ -1,7 +1,7 @@
 const { Canvas } = require('canvas-constructor');
 const fsn = require('fs-nextra');
 const snek = require('snekfetch');
-Canvas.registerFont('./FiraCode-Bold.ttf', 'font'); //<-- see evidence.png i am free to use this font.
+Canvas.registerFont('./FiraCode-Bold.ttf', 'font'); //<-- see https://github.com/Jackthehaxk21/discord-bot-1.0/blob/master/A840D869-B59B-42E5-BFA3-FA372B21407F.jpeg i am free to use this font.
 var methods = {
   get: async function(message, sql) {
       const FullName = message.author.tag;
