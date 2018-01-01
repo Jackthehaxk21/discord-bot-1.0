@@ -1,7 +1,7 @@
 const { Canvas } = require('canvas-constructor');
 const fsn = require('fs-nextra');
 const snek = require('snekfetch');
-Canvas.registerFont('./FiraCode-Bold.ttf', 'font');
+Canvas.registerFont('./FiraCode-Bold.ttf', 'font'); //<-- see evidence.png i am free to use this font.
 var methods = {
   get: async function(message, sql) {
       const FullName = message.author.tag;
