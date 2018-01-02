@@ -14,7 +14,6 @@ const methods = {
     const help_command = require('./help.js');
     const joke_command = require('./joke.js');
     const ping_command = require('./ping.js');
-    const neko_command = require('./neko.js');
     const eval_command = require('./eval.js');
     const dice_command = require('./dice.js');
     const quote_command = require('./quote.js');
@@ -32,12 +31,7 @@ const methods = {
     const sql_command = require('../Functions/sql.js');
     
     const log = async function(client, args, command) {
-      var MK = client.guilds.get("393114138135625749")
-      //console.log(MK);
-      var MK = MK.channels.find("name", "bot-log");
-      let msg = await MK.send('[**'+message.author.tag+'**] | Command: **'+command+'**');
-      msg.edit('[**'+(msg.createdAt).toString().replace(' GMT+0000 (UTC)','')+'**] [**'+message.author.tag+'**] | Command: **'+command+'**');
-      //console.log('['+message.author.tag+'] | Command: '+command);
+      console.log('['+message.author.tag+'] | Command: '+command);
       return;
     }
     
@@ -81,10 +75,6 @@ const methods = {
       case "credits":
         log(client, args, 'Credits');
         help_command.credits(client, args, message);
-        break;
-      case "neko":
-        log(client, args, `Neko ${message.channel.nsfw === true ? "[NSFW] 🔞" : ""}`);
-        neko_command.run(client, args, message);
         break;
       case "joke":
         log(client, args, 'Joke');
