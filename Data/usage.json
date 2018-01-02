@@ -44,11 +44,6 @@
     "usage": "daily",
     "notes": ""
   },
-  "neko": {
-    "title": "Get a neko",
-    "usage": "neko",
-    "notes": "It will only show NSFW content if your in a NSFW channel !!"
-  },
   "ping": {
     "title": "Ping | Pong",
     "usage": "ping",
