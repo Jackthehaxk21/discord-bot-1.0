@@ -130,18 +130,18 @@ const methods = {
         log(client, args, "Reboot");
         reboot_command.reboot(client, args, message);
         break;
-      case "yt-play":
+      /*case "yt-play":
         log(client, args, "YouTube-Play");
         ytplay_command.run(client, args, message);
         break;
       case "yt-stop":
         log(client, args, "YouTube-Stop");
-        ytstop_command.run(client, args, message);
+        ytstop_command.run(client, args, message);     <== BETA DO NOT ALLOW PUBLIC
         break;
       case "yt-search":
         log(client, args, "YouTube-Search");
         ytsearch_command.run(client, args, message, Discord);
-        break;
+        break;*/
     }
     
   }
