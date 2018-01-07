@@ -1,32 +1,34 @@
 let methods = {
-  run : async function(client, message, prefix, Discord) {
-    const sql = require('sqlite');
-    await sql.open("./Data/Data.sqlite");
-    
+  run : async function(client, message, prefix, Discord, sql) {
+    if(!message.content.toLowerCase().startsWith('mkb!')) return;
     if(message.author.bot && message.author.id != 395520567815569409) return;
     client.user.setPresence({game: {name: " "+prefix+"help | Servers: " + client.guilds.size, type: 0}});
     const moneys = require('../../../Data/Commands/money.js');
     const levels = require('../../../Data/Commands/level.js');
     const commandHandler = require('../../../Data/Commands/handler.js');
-    const log = function(client, command) {
-      var MK = client.guilds.get("393114138135625749")
-      //console.log(MK);
-      var MK = MK.channels.find("name", "bot-log");
-      MK.send('[**'+message.author.tag+'**] | Command: **'+command+'**');
-      //console.log('['+message.author.tag+'] | Command: '+command);
+    const log = async function(client, command) {
+      if (message.author.id != process.env.ownerID) {
+        var MK = client.guilds.get("393114138135625749")
+        //console.log(MK);
+        var MK = MK.channels.find("name", "bot-log");
+        let msg = await MK.send('[**'+message.author.tag+'**] | Command: **'+command+'**');
+        msg.edit('[**'+(msg.createdAt).toString().replace(' GMT+0000 (UTC)','')+'**] [**'+message.author.tag+'**] | Command: **'+command+'**');
+        console.log('['+message.author.tag+'] | Command: '+command);
+        return;
+      }
       return;
     }
-    if (message.content.startsWith('!money') ) {
+    if (message.content.toLowerCase().startsWith('mkb!money') ) {
       log(client, 'Money');
       moneys.get(message, sql);
       return;
     }
-    if (message.content.startsWith('!daily') ) {
+    if (message.content.toLowerCase().startsWith('mkb!daily') ) {
       log(client, 'Daily');
       moneys.daily(message, sql);
       return;
     }
-    if (message.content.startsWith('!level') ) {
+    if (message.content.toLowerCase().startsWith('mkb!level') ) {
       log(client, 'Level');
       levels.get(message, sql);
       return;
@@ -40,7 +42,8 @@ let methods = {
         } else {
           sql.run(`UPDATE money SET money = ${row.money + amount}, daily = ${row.daily} WHERE ID = "${message.guild.id+message.author.id}"`);
         }
-      }).catch(() => {
+      }).catch((e) => {
+        //console.log(e);
         sql.run("CREATE TABLE IF NOT EXISTS money (ID TEXT, money INTEGER, daily INTEGER)").then(() => {
           sql.run("INSERT INTO money (ID, money, daily) VALUES (?, ?, ?)", [message.guild.id + message.author.id, amount, newTime]);
         });
@@ -58,13 +61,13 @@ let methods = {
           if (curLevel > row.level) {
             row.level = curLevel;
             sql.run(`UPDATE scores SET points = ${row.points + amount}, level = ${row.level} WHERE userId = "${message.guild.id+message.author.id}"`);
-            message.reply(`You've leveled up to level **${curLevel}**! Ain't that dandy?`);
+            //message.reply(`You've leveled up to level **${curLevel}**! Ain't that dandy?`);
             return;
           }
           sql.run(`UPDATE scores SET points = ${row.points + amount}, level = ${row.level} WHERE userId = "${message.guild.id+message.author.id}"`);
         }
     }).catch((e) => {
-        console.log(e);
+        //console.log(e);
         //console.log('new t');
         return sql.run("CREATE TABLE IF NOT EXISTS scores (userId TEXT, points INTEGER, level INTEGER)").then(() => {
             sql.run("INSERT INTO scores (userId, points, level) VALUES (?, ?, ?)", [message.guild.id+message.author.id, amount, 0]);

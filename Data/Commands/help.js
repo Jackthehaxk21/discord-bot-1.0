@@ -3,38 +3,37 @@ var methods = {
         var help = `
 == Help Documents ==
 
-Note : Use !usage <command> to get usage information.
+Note : Use mk!usage <command> to get usage information.
 
 == Fun ==
-!coin      ::   Flip a coin.
-!dice      ::   Roll a dice.
-!8ball     ::   Ask 8ball a question.
-!quote     ::   Get one of 267 quotes.
-!joke      ::   Get one of 18'000 jokes.
-!neko      ::   Get a neko picture 
-[^^^^ varies if your in a NSFW channel or not]
+mkb!coin      ::   Flip a coin.
+mkb!dice      ::   Roll a dice.
+mkb!8ball     ::   Ask 8ball a question.
+mkb!quote     ::   Get one of 267 quotes.
+mkb!joke      ::   Get one of 18'000 jokes.
+mkb!slots     ::   Spin your luck. (cost $50)
 
 == Social ==
-!level     ::   Display your XP and Lvl.
-!money     ::   Display your $ balance.
-!daily     ::   Get daily money ($100).
+mkb!level     ::   Display your Level & XP
+mkb!money     ::   Display your Balance
+mkb!daily     ::   Get your daily wage !
 
 == Moderation ==
-!kick      ::   Kick user with valid reason (most of the time).
-!ban       ::   Ban a user
-!purge     ::   Purge messages.
-!setrole   ::   Set a role to a user.
-!remrole   ::   Remove a role from a user.
+mkb!kick      ::   Kick user with a reason
+mkb!ban       ::   Ban a user
+mkb!purge     ::   Purge messages.
+mkb!setrole   ::   Set a role to a user.
+mkb!remrole   ::   Remove a role from a user.
 
 == Stats & Help ==
-!help      ::   Shows this again.
-!stats     ::   Stats for me.
-!support   ::   Get support from the people that made me.
-!credits   ::   Learn who helped build me from scrap code.
+mkb!help      ::   Shows this again.
+mkb!stats     ::   Stats for me.
+mkb!support   ::   Get support from the people that made me.
+mkb!credits   ::   Learn who helped build me from scrap code.
 
 == Bot-Owner ==
-!reboot    ::   PRIVATE
-!eval      ::   PRIVATE
+mkb!reboot    ::   PRIVATE
+mkb!eval      ::   PRIVATE
 
 `;
         message.channel.send(help, {code:'asciidoc'});
@@ -51,13 +50,14 @@ Note : Use !usage <command> to get usage information.
         var help = `
 ==== All Credits ====
 
-Bot-Owner   :: Jackthehaxk21#8860
+Bot-Owner    :: Jackthehaxk21#8860
 
-Inspiration :: goat#9119
+QA Testers   :: ThatBirdGuyMees#4196
+                Jackthehaxk21#8860
+                UserBot#1670 [BOT]
 
-QA Testers  :: ThatBirdGuyMees#4196
-               Jackthehaxk21#8860
-               UserBot#1670 [BOT]
+Joke Assets  :: taivo@pungas.ee
+Quote Assets :: https://gist.github.com/JanGross
 
 ==== All Credits ====
 `;
