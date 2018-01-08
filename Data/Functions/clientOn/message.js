@@ -77,7 +77,7 @@ let methods = {
     };
   
   if (message.channel.type != 'dm') updatePoints(message);
-  commandHandler.handle(client, message, prefix, Discord);
+  commandHandler.handle(client, message, prefix, Discord, sql);
   return;
   }
 }

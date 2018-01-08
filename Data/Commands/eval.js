@@ -1,4 +1,4 @@
-let methods = {
+ let methods = {
   run : async function(client, args, message) {
     function clean(text) {
       if (typeof(text) === "string") {

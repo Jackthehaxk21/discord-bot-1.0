@@ -1,12 +1,11 @@
 let methods = {
-  get : function(client, args, message) {
+  get : function(client, args, message, prefix) {
     let command = args[0];
     const data = require('../usage.json');
     if (command == undefined || command == null) {
       message.channel.send('**Usage **| ⚠️ | Invalid usage e.g. !usage kick');
       return;
     } else {
-      const prefix = '!';
       try {
         var txt = `
 Title   :: ${data[command].title}
