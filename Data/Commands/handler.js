@@ -1,6 +1,6 @@
 const methods = {
-  handle : function(client, message, prefix, Discord) {
-    if (!message.content.startsWith(prefix)) return;
+  handle : function(client, message, prefix, Discord, sql) {
+    if (!message.content.toLowerCase().startsWith(prefix)) return;
     
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift();
@@ -14,8 +14,10 @@ const methods = {
     const help_command = require('./help.js');
     const joke_command = require('./joke.js');
     const ping_command = require('./ping.js');
+    const neko_command = require('./neko.js');
     const eval_command = require('./eval.js');
     const dice_command = require('./dice.js');
+    const slots_command = require('./slots.js');
     const quote_command = require('./quote.js');
     const stats_command = require('./stats.js');
     const purge_command = require('./purge.js');
@@ -31,11 +33,27 @@ const methods = {
     const sql_command = require('../Functions/sql.js');
     
     const log = async function(client, args, command) {
-      console.log('['+message.author.tag+'] | Command: '+command);
+      if (message.author.id != process.env.ownerID) {
+        var MK = client.guilds.get("393114138135625749")
+        //console.log(MK);
+        var MK = MK.channels.find("name", "bot-log");
+        let msg = await MK.send('[**'+message.author.tag+'**] | Command: **'+command+'**');
+        msg.edit('[**'+(msg.createdAt).toString().replace(' GMT+0000 (UTC)','')+'**] [**'+message.author.tag+'**] | Command: **'+command+'**');
+        console.log('['+message.author.tag+'] | Command: '+command);
+        return;
+      }
       return;
     }
     
     switch (command.toLowerCase()) {
+      case "add":
+        log(client, args, "OWNER-MONEY-OVERIDE");
+        money_command.owner(client, args, message, sql);
+        break;
+      case "slots":
+        log(client, args, "Slots");
+        slots_command.run(client, args, message, sql);
+        break;
       case "dice":
         log(client, args, 'Dice');
         dice_command.run(client, args, message);
@@ -76,6 +94,10 @@ const methods = {
         log(client, args, 'Credits');
         help_command.credits(client, args, message);
         break;
+      /*case "neko":
+        log(client, args, `Neko ${message.channel.nsfw === true ? "[NSFW] 🔞" : ""}`);
+        neko_command.run(client, args, message);
+        break;*/
       case "joke":
         log(client, args, 'Joke');
         joke_command.get(client, args, message);
@@ -102,7 +124,7 @@ const methods = {
         break;
       case "usage":
         log(client, args, "Usage");
-        usage_command.get(client, args, message);
+        usage_command.get(client, args, message, prefix);
         break;
       case "8ball":
         log(client, args, '8-Ball');

@@ -98,5 +98,10 @@
     "title": "Get a quote.",
     "usage": "quote",
     "notes": ""
+  },
+  "slots": {
+    "title": "Slots Machine",
+    "usage": "slots",
+    "notes": "Spin cost $50"
   }
 }

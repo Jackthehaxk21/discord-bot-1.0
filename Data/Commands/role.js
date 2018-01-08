@@ -13,11 +13,20 @@ var methods = {
             //let role = message.guild.roles.find("name",role2.toString());
             //console.log(role);
             //message.channel.send(role);
-            var member = message.mentions.members.first();
-            var role = message.mentions.roles.first();
-            var perms = message.member.permissions;
-            var has_perm = message.member.hasPermission("MANAGE_ROLES");
-            /*try {
+            if (args.length != 2) {
+              message.channel.send("Invalid usage try **!usage setrole**");
+              return;
+            }
+            try {
+              var member = message.mentions.members.first();
+              var role = message.mentions.roles.first();
+              var perms = message.member.permissions;
+              var has_perm = message.member.hasPermission("MANAGE_ROLES");
+            } catch (err) {
+              message.channel.send("Invalid usage try **!usage setrole**");
+              return;
+            }
+              /*try {
                 if(message.member.roles.has(role.id)) {
                     message.channel.send("User already has that role,\nSetRole - Failed.");
                     break;
@@ -42,8 +51,8 @@ var methods = {
                         message.channel.send("⚠️ | SetRole Failed\n"+member.toString()+" already has the role "+role.toString());
                     } else {
                         if (check == 0) {
-                            message.channel.send("✅ | SetRole Success !\n"+member.toString()+" was added to "+role.toString());
-                            //console.log("SetRole");
+                          message.channel.send("✅ | SetRole Success !\n"+member.toString()+" was added to "+role.toString());
+                          //console.log("SetRole");
                         } else {
                             message.channel.send("⚠️ | SetRole Failed\nMake sure you spelt everything correct");
                         }
@@ -72,10 +81,20 @@ var methods = {
             //let role = message.guild.roles.find("name",role2.toString());
             //console.log(role);
             //message.channel.send(role);
-            var member = message.mentions.members.first();
-            var role = message.mentions.roles.first();
-            var perms = message.member.permissions;
-            var has_perm = message.member.hasPermission("MANAGE_ROLES");
+        
+            if (args.length != 2) {
+              message.channel.send("Invalid usage try **!usage remrole**");
+              return;
+            }
+            try {
+              var member = message.mentions.members.first();
+              var role = message.mentions.roles.first();
+              var perms = message.member.permissions;
+              var has_perm = message.member.hasPermission("MANAGE_ROLES");
+            } catch (err) {
+              message.channel.send("**remrole **| Have you provided all arguments ? try !usage remrole");
+              return;
+            }
             /*try {
                 if(message.member.roles.has(role.id)) {
                     message.channel.send("User already has that role,\nSetRole - Failed.");

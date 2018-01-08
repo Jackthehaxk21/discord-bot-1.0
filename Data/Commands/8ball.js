@@ -1,4 +1,4 @@
-let methods = {
+ let methods = {
   
   run : function(client, args, message) {
       const eight_ball = require('../8Ball.json');
