@@ -63,7 +63,7 @@ let methods = {
       }
       message.channel.send({embed: {
           color: 3447003,
-          title: "Slot-Machine",
+          title: "🎰 Slot-Machine 🎰",
             fields: [{
               name: "**Jackpot - $"+total*3+"**",
               value: s+"\n"+t
@@ -83,7 +83,7 @@ let methods = {
            
           if (!row) {
             sql.run("INSERT INTO money (ID, money, daily) VALUES (?, ?, ?)", [message.guild.id+message.author.id, 0, newTime]);
-            message.channel.send('**slots ** | You have $0, You need $50 to spin. ');
+            message.channel.send('🎰 | You have $0, You need $50 to spin. ');
             return;
             
           } else {
@@ -110,7 +110,7 @@ let methods = {
                   }
                 }
               } else {
-                message.channel.send('**slots ** | You have $'+row.money+', You need $50 to spin.');
+                message.channel.send('🎰 | You have $'+row.money+', You need $50 to spin.');
                 return;
               }
               return;
@@ -119,7 +119,7 @@ let methods = {
           console.log(e);
           return sql.run("CREATE TABLE IF NOT EXISTS money (ID TEXT, money INTEGER, daily INTEGER)").then(() => {
             sql.run("INSERT INTO money (ID, money, daily) VALUES (?, ?, ?)", [message.guild.id+message.author.id, 0, newTime]);
-            message.channel.send('**slots **| You have $0, You need $50 to spin. ');
+            message.channel.send('🎰 | You have $0, You need $50 to spin. ');
             return;
           });
        });
