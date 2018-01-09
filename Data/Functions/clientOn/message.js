@@ -1,6 +1,6 @@
 let methods = {
   run : async function(client, message, prefix, Discord, sql) {
-    if(!message.content.toLowerCase().startsWith('mkb!')) return;
+    if(!message.content.toLowerCase().startsWith(prefix)) return;
     if(message.author.bot && message.author.id != 395520567815569409) return;
     client.user.setPresence({game: {name: " "+prefix+"help | Servers: " + client.guilds.size, type: 0}});
     const moneys = require('../../../Data/Commands/money.js');
@@ -18,17 +18,17 @@ let methods = {
       }
       return;
     }
-    if (message.content.toLowerCase().startsWith('mkb!money') ) {
+    if (message.content.toLowerCase().startsWith(prefix+'money') ) {
       log(client, 'Money');
       moneys.get(message, sql);
       return;
     }
-    if (message.content.toLowerCase().startsWith('mkb!daily') ) {
+    if (message.content.toLowerCase().startsWith(prefix+'daily') ) {
       log(client, 'Daily');
       moneys.daily(message, sql);
-      return;
+      return
     }
-    if (message.content.toLowerCase().startsWith('mkb!level') ) {
+    if (message.content.toLowerCase().startsWith(prefix+'level') ) {
       log(client, 'Level');
       levels.get(message, sql);
       return;
