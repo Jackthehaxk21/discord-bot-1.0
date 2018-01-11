@@ -1,7 +1,7 @@
 var methods = {
    get: function(client, args, message) {
        let check = '';
-       let uptime = Math.floor(process.uptime());
+       let uptime = process.uptime();
        let days = '0';
        uptime = Math.floor(uptime/60);  //In minutes now
        check = 'Minutes';

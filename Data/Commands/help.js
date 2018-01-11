@@ -1,40 +1,45 @@
 var methods = {
-    help: function(client, args, message) {
+    help: function(client, args, message, prefix) {
         var help = `
 == Help Documents ==
 
-Note : Use mk!usage <command> to get usage information.
+Note : Use ${prefix}usage <command> to get usage information.
 
 == Fun ==
-mk!coin      ::   Flip a coin.
-mk!dice      ::   Roll a dice.
-mk!8ball     ::   Ask 8ball a question.
-mk!quote     ::   Get one of 267 quotes.
-mk!joke      ::   Get one of 18'000 jokes.
-mk!slots     ::   Spin your luck. (cost $50)
+${prefix}coin      ::   Flip a coin.
+${prefix}dice      ::   Roll a dice.
+${prefix}8ball     ::   Ask 8ball a question.
+${prefix}quote     ::   Get one of 267 quotes.
+${prefix}joke      ::   Get one of 18'000 jokes.
+${prefix}slots     ::   Spin your luck. (cost $50)
+
+== Pictures ==
+${prefix}cat       ::   Get a Cat
+${prefix}dog       ::   Get a Dog
+${prefix}neko      ::   Get a Neko
 
 == Social ==
-mk!level     ::   Display your Level & XP
-mk!money     ::   Display your Balance
-mk!daily     ::   Get your daily wage !
+${prefix}level     ::   Display your Level & XP
+${prefix}money     ::   Display your Balance
+${prefix}daily     ::   Get your daily wage !
 
 == Moderation ==
-mk!kick      ::   Kick user with a reason
-mk!ban       ::   Ban a user
-mk!purge     ::   Purge messages.
-mk!setrole   ::   Set a role to a user.
-mk!remrole   ::   Remove a role from a user.
+${prefix}kick      ::   Kick user with a reason
+${prefix}ban       ::   Ban a user
+${prefix}purge     ::   Purge messages.
+${prefix}setrole   ::   Set a role to a user.
+${prefix}remrole   ::   Remove a role from a user.
 
 == Stats & Help ==
-mk!help      ::   Shows this again.
-mk!stats     ::   Stats for me.
-mk!support   ::   Get support from the people that made me.
-mk!credits   ::   Learn who helped build me from scrap code.
+${prefix}help      ::   Shows this again.
+${prefix}stats     ::   Stats for me.
+${prefix}support   ::   Get support from the people that made me.
+${prefix}credits   ::   Learn who helped build me from scrap code.
 
 == Bot-Owner ==
-mk!reboot    ::   PRIVATE
-mk!eval      ::   PRIVATE
-mk!add       ::   PRIVATE
+${prefix}reboot    ::   PRIVATE
+${prefix}eval      ::   PRIVATE
+${prefix}add       ::   PRIVATE
 
 `;
         message.channel.send(help, {code:'asciidoc'});

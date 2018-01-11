@@ -6,6 +6,7 @@ let methods = {
       message.channel.send('**Usage **| ⚠️ | Invalid usage e.g. !usage kick');
       return;
     } else {
+      command = command.toLowerCase();
       try {
         var txt = `
 Title   :: ${data[command].title}

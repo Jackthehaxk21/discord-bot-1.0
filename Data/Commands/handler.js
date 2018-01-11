@@ -6,6 +6,8 @@ const methods = {
     const command = args.shift();
     
     //functions
+    const dog_command = require('./dog.js');
+    const cat_command = require('./cat.js');
     const ban_command = require('./ban.js');
     const say_command = require('./say.js');
     const kick_command = require('./kick.js');
@@ -46,6 +48,14 @@ const methods = {
     }
     
     switch (command.toLowerCase()) {
+      case "dog":
+        log(client, args, "Dog");
+        dog_command.run(client, args, message);
+        break;
+      case "cat":
+        log(client, args, "Cat");
+        cat_command.run(client, args, message);
+        break;
       case "add":
         log(client, args, "OWNER-MONEY-OVERIDE");
         money_command.owner(client, args, message, sql);
@@ -88,16 +98,16 @@ const methods = {
         break;
       case "help":
         log(client, args, 'Help');
-        help_command.help(client, args, message);
+        help_command.help(client, args, message, prefix);
         break;
       case "credits":
         log(client, args, 'Credits');
         help_command.credits(client, args, message);
         break;
-      /*case "neko":
+      case "neko":
         log(client, args, `Neko ${message.channel.nsfw === true ? "[NSFW] 🔞" : ""}`);
         neko_command.run(client, args, message);
-        break;*/
+        break;
       case "joke":
         log(client, args, 'Joke');
         joke_command.get(client, args, message);
