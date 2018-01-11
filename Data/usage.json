@@ -103,5 +103,20 @@
     "title": "Slots Machine",
     "usage": "slots",
     "notes": "Spin cost $50"
+  },
+  "cat": {
+    "title": "Cat picture",
+    "usage": "cat",
+    "notes": ""
+  },
+  "dog": {
+    "title": "Dog picture",
+    "usage": "dog",
+    "notes": ""
+  },
+  "neko": {
+    "title": "Neko Picture",
+    "usage": "neko",
+    "notes": "NSFW shown if in a nsfw channel."
   }
 }

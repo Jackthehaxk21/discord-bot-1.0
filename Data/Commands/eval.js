@@ -14,7 +14,7 @@
       try {
         const code = args.join(" ");
         let evaled = eval(code);
-
+        //message.channel.send(code);
         if (typeof evaled !== "string")
           evaled = require("util").inspect(evaled);
           message.channel.send(clean(evaled), {code:"xl"});

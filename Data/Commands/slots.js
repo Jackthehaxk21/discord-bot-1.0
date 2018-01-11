@@ -11,14 +11,14 @@ let methods = {
       });*/
       const diamond = new SlotSymbol('diamond', {
           display: '💎',
-          points: Math.floor(total/3),
-          weight: 15
+          points: Math.round(total/3),
+          weight: 20
       });
 
       const box = new SlotSymbol('box', {
           display: '🎁',
-          points: Math.floor(Math.random()*200),
-          weight: 100
+          points: Math.round(Math.random()*200),
+          weight: 80
       });
     
       const grape = new SlotSymbol('grape', {
@@ -71,6 +71,7 @@ let methods = {
           timestamp: new Date()
         }
       });
+      if(parseInt(results.totalPoints) >= total*3) message.channel.send({ embed: { color: 3447003, title: "!!! JACKPOT !!!", image: { url: "https://cdn.dribbble.com/users/423543/screenshots/2104999/win_jackpot.png" }, timestamp: new Date() }});
       if(results.winCount != 0) {
         return results.totalPoints;
       } else {
