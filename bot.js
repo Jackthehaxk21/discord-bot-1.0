@@ -34,7 +34,7 @@ client.on("guildMemberAdd", (member) => {onGuildMemberAdd.run(member);});
 
 client.on("guildMemberRemove", (member) => {onGuildMemberRemove.run(member);});
 
-client.on("guildCreate", guild => {onGuildCreate.run(guild, client);});
+client.on("guildCreate", guild => {onGuildCreate.run(guild, client, prefix);});
 
 client.on('ready', () => {onReady.run(client, prefix);});
 

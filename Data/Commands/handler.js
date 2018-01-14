@@ -19,6 +19,7 @@ const methods = {
     const neko_command = require('./neko.js');
     const eval_command = require('./eval.js');
     const dice_command = require('./dice.js');
+    const four_k_command = require('./4k.js');
     const slots_command = require('./slots.js');
     const quote_command = require('./quote.js');
     const stats_command = require('./stats.js');
@@ -51,6 +52,10 @@ const methods = {
     }
     
     switch (command.toLowerCase()) {
+      case "4k":
+        log(client, args, '4k');
+        four_k_command.run(client, args, message);
+        break;
       case "pussy":
         log(client, args, "Pussy");
         pussy_command.run(client, args, message);
