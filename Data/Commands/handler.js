@@ -26,6 +26,7 @@ const methods = {
     const level_command = require('./level.js');
     const money_command = require('./money.js');
     const usage_command = require('./usage.js');
+    const invite_command = require('./invite.js');
     const reboot_command = require('./reboot.js');
     const ytplay_command = require('./yt-play.js');
     const ytstop_command = require('./yt-stop.js');
@@ -40,7 +41,7 @@ const methods = {
         //console.log(MK);
         var MK = MK.channels.find("name", "bot-log");
         let msg = await MK.send('[**'+message.author.tag+'**] | Command: **'+command+'**');
-        msg.edit('[**'+(msg.createdAt).toString().replace(' GMT+0000 (UTC)','')+'**] [**'+message.author.tag+'**] | Command: **'+command+'**');
+        msg.edit('[**'+(msg.createdAt).toString().replace(' GMT+0000 (UTC)','')+'**] [**'+message.guild.name+'**] [**'+message.author.tag+'**] | Command: **'+command+'**');
         console.log('['+message.author.tag+'] | Command: '+command);
         return;
       }
@@ -48,6 +49,10 @@ const methods = {
     }
     
     switch (command.toLowerCase()) {
+      case "invite":
+        log(client, args, "INVITE");
+        invite_command.run(client, args, message);
+        break;
       case "dog":
         log(client, args, "Dog");
         dog_command.run(client, args, message);
