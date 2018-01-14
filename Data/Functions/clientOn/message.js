@@ -12,7 +12,7 @@ let methods = {
         //console.log(MK);
         var MK = MK.channels.find("name", "bot-log");
         let msg = await MK.send('[**'+message.author.tag+'**] | Command: **'+command+'**');
-        msg.edit('[**'+(msg.createdAt).toString().replace(' GMT+0000 (UTC)','')+'**] [**'+message.author.tag+'**] | Command: **'+command+'**');
+        msg.edit('[**'+(msg.createdAt).toString().replace(' GMT+0000 (UTC)','')+'**] [**'+message.guild.name+'**] [**'+message.author.tag+'**] | Command: **'+command+'**');
         console.log('['+message.author.tag+'] | Command: '+command);
         return;
       }
