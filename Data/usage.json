@@ -118,5 +118,15 @@
     "title": "Neko Picture",
     "usage": "neko",
     "notes": "NSFW shown if in a nsfw channel."
+  },
+  "boobs": {
+    "title": "Boobs !",
+    "usage": "boobs",
+    "notes": "Only works in NSFW channels."
+  },
+  "pussy": {
+    "title": "Pussy !",
+    "usage": "pussy",
+    "notes": "Only works in NSFW channels."
   }
 }
