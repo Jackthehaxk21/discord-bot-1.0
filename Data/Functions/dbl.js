@@ -8,7 +8,7 @@ const methods = {
         id: process.env.botID
     })
     
-    Bot.postStats(client.guilds.size+10, (err, res) => {
+    Bot.postStats(client.guilds.size, (err, res) => {
       if(err) {
           console.error(err)
       } else {
