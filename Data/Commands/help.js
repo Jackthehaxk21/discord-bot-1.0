@@ -16,7 +16,11 @@ ${prefix}slots     ::   Spin your luck. (cost $50)
 == Pictures ==
 ${prefix}cat       ::   Get a Cat
 ${prefix}dog       ::   Get a Dog
+
+== NSFW ==
 ${prefix}neko      ::   Get a Neko
+${prefix}pussy     ::   Get a Pussy
+${prefix}boobs     ::   Get some Boobs
 
 == Social ==
 ${prefix}level     ::   Display your Level & XP

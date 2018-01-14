@@ -26,6 +26,8 @@ const methods = {
     const level_command = require('./level.js');
     const money_command = require('./money.js');
     const usage_command = require('./usage.js');
+    const boobs_command = require('./boobs.js');
+    const pussy_command = require('./pussy.js');
     const invite_command = require('./invite.js');
     const reboot_command = require('./reboot.js');
     const ytplay_command = require('./yt-play.js');
@@ -49,6 +51,14 @@ const methods = {
     }
     
     switch (command.toLowerCase()) {
+      case "pussy":
+        log(client, args, "Pussy");
+        pussy_command.run(client, args, message);
+        break;
+      case "boobs":
+        log(client, args, "Boobs");
+        boobs_command.run(client, args, message);
+        break;
       case "invite":
         log(client, args, "INVITE");
         invite_command.run(client, args, message);
