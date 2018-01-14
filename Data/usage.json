@@ -128,5 +128,10 @@
     "title": "Pussy !",
     "usage": "pussy",
     "notes": "Only works in NSFW channels."
+  },
+  "4k": {
+    "title": "4k",
+    "usage": "4k",
+    "notes": "Only works in NSFW channels."
   }
 }

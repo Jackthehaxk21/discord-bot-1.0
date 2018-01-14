@@ -21,6 +21,7 @@ ${prefix}dog       ::   Get a Dog
 ${prefix}neko      ::   Get a Neko
 ${prefix}pussy     ::   Get a Pussy
 ${prefix}boobs     ::   Get some Boobs
+${prefix}4k        ::   Get a 4k pic
 
 == Social ==
 ${prefix}level     ::   Display your Level & XP
