@@ -5,7 +5,7 @@ let methods = {
     const app =  express();
     
     app.get("/", (request, response) => {
-      console.log('[SYS] | 💻 | '+Date.now() + " | Ping Received");
+      //console.log('[SYS] | 💻 | '+Date.now() + " | Ping Received");
       response.sendStatus(200);
     });
     app.listen(process.env.PORT);

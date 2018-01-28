@@ -1,7 +1,7 @@
 let methods = {
   run: async function(client, args, message, sql) {
     const start = function(client, args, message) {
-      let total = Math.floor(Date.now()/86400000);
+      let total = Math.floor((Date.now()/86400000)/500);
       const { SlotMachine, SlotSymbol } = require('slot-machine');
       //🍎🍒🍇💰🎁❔💎♠️♣️♥️♦️
       /*const heart = new SlotSymbol('heart', {
@@ -84,11 +84,11 @@ let methods = {
            
           if (!row) {
             sql.run("INSERT INTO money (ID, money, daily) VALUES (?, ?, ?)", [message.guild.id+message.author.id, 0, newTime]);
-            message.channel.send('🎰 | You have $0, You need $50 to spin. ');
+            message.channel.send('🎰 | You have $0, You need $100 to spin. ');
             return;
             
           } else {
-            if (parseInt(row.money) >= 50) {
+            if (parseInt(row.money) >= 100) {
               /*try {
                 sql.run(`UPDATE money SET money = ${parseInt(row.money) - 50}, daily = ${row.daily} WHERE ID = "${message.guild.id+message.author.id}"`);
               } catch(e) {
@@ -98,20 +98,20 @@ let methods = {
               /*message.channel.send(toSet)
               message.channel.send(toSet-50);
               message.channel.send(500+(toSet-50));*/
-                if (toSet >= 50) {
-                  sql.run(`UPDATE money SET money = ${parseInt(row.money) + (toSet-50)}, daily = ${row.daily} WHERE ID = "${message.guild.id+message.author.id}"`);
+                if (toSet >= 100) {
+                  sql.run(`UPDATE money SET money = ${parseInt(row.money) + (toSet-100)}, daily = ${row.daily} WHERE ID = "${message.guild.id+message.author.id}"`);
                   return;
                 } else {
                   if (toSet == 0) {
-                    sql.run(`UPDATE money SET money = ${parseInt(row.money) - 50}, daily = ${row.daily} WHERE ID = "${message.guild.id+message.author.id}"`);
+                    sql.run(`UPDATE money SET money = ${parseInt(row.money) - 100}, daily = ${row.daily} WHERE ID = "${message.guild.id+message.author.id}"`);
                     return;
                   } else {
-                    sql.run(`UPDATE money SET money = ${parseInt(row.money) + (toSet-50)}, daily = ${row.daily} WHERE ID = "${message.guild.id+message.author.id}"`);
+                    sql.run(`UPDATE money SET money = ${parseInt(row.money) + (toSet-100)}, daily = ${row.daily} WHERE ID = "${message.guild.id+message.author.id}"`);
                     return;
                   }
                 }
               } else {
-                message.channel.send('🎰 | You have $'+row.money+', You need $50 to spin.');
+                message.channel.send('🎰 | You have $'+row.money+', You need $100 to spin.');
                 return;
               }
               return;
@@ -120,7 +120,7 @@ let methods = {
           console.log(e);
           return sql.run("CREATE TABLE IF NOT EXISTS money (ID TEXT, money INTEGER, daily INTEGER)").then(() => {
             sql.run("INSERT INTO money (ID, money, daily) VALUES (?, ?, ?)", [message.guild.id+message.author.id, 0, newTime]);
-            message.channel.send('🎰 | You have $0, You need $50 to spin. ');
+            message.channel.send('🎰 | You have $0, You need $100 to spin. ');
             return;
           });
        });

@@ -96,13 +96,13 @@
   },
   "quote": {
     "title": "Get a quote.",
-    "usage": "quote",
-    "notes": ""
+    "usage": "quote ID",
+    "notes": "ID is optional !"
   },
   "slots": {
     "title": "Slots Machine",
     "usage": "slots",
-    "notes": "Spin cost $50"
+    "notes": "Spin cost $100"
   },
   "cat": {
     "title": "Cat picture",
@@ -133,5 +133,10 @@
     "title": "4k",
     "usage": "4k",
     "notes": "Only works in NSFW channels."
+  },
+  "suggest": {
+    "title": "Suggestions",
+    "usage": "suggest COMMAND SMALL_DESC",
+    "notes": "This will send your tag to a server"
   }
 }

@@ -22,19 +22,23 @@ let methods = {
                 } else {
                   //PLAY MUSIC
                   if (!ytdl.validateURL(link)) {
+                    message.repy('check ');
                     message.channel.send("**YouTube** | invalid Youtube videoID");
                     return;
                   }
                   
-                  var id = ytdl.getURLVideoID(link);
+                  //var id = ytdl.getURLVideoID(link);
+                  let id = link.replace('https://www.youtube.com/watch?v=','').replace('https://youtu.be/','');
+                  message.reply(id);
                   var broken;
                   ytdl.getInfo(id,  (err, info) => {
                     if (err) {
-                      //console.log(err);
+                      console.log(err);
+                      message.reply('check 2');
                       message.channel.send("**YouTube** | invalid Youtube video");
-                      var broken = true;
+                      broken = true;
                     } else {
-                      var broken = false;
+                      broken = false;
                     }
                     if (!broken) {
                       //console.log(info.title);
@@ -56,7 +60,7 @@ let methods = {
                   });
                   if (broken) {
                     message.channel.send("**YouTube** | Broken link - "+link);
-                    return;
+                    //return;
                   }
                   try {
                     voiceChannel.join()

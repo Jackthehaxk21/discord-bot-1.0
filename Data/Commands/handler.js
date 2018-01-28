@@ -1,6 +1,6 @@
 const methods = {
   handle : function(client, message, prefix, Discord, sql) {
-    if (!message.content.toLowerCase().startsWith(prefix)) return;
+    //if (!message.content.toLowerCase().startsWith(prefix)) return;
     
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift();
@@ -33,6 +33,7 @@ const methods = {
     const reboot_command = require('./reboot.js');
     const ytplay_command = require('./yt-play.js');
     const ytstop_command = require('./yt-stop.js');
+    const suggest_command = require('./suggest.js');
     const support_command = require('./support.js');
     const eight_ball_command = require('./8ball.js');
     const ytsearch_command = require('./yt-search.js');
@@ -52,6 +53,10 @@ const methods = {
     }
     
     switch (command.toLowerCase()) {
+      case "suggest":
+        log(client, args, "Suggest");
+        suggest_command.run(client, args, message, prefix);
+        break;
       case "4k":
         log(client, args, '4k');
         four_k_command.run(client, args, message);
@@ -178,7 +183,7 @@ const methods = {
         break;
       case "yt-stop":
         log(client, args, "YouTube-Stop");
-        ytstop_command.run(client, args, message);     <== BETA DO NOT ALLOW PUBLIC
+        ytstop_command.run(client, args, message);     //<== BETA DO NOT ALLOW PUBLIC
         break;
       case "yt-search":
         log(client, args, "YouTube-Search");
