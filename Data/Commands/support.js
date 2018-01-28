@@ -24,7 +24,7 @@ We hope to see you soon ::
 `);
         message.channel.send("```asciidoc"+mes+"```");
         var SUPPORT = client.guilds.get("395657844982022145");
-        console.log(message.author.tag.replace(/ +/g,'-').replace('#', '_').toLowerCase());
+        console.log('Support Case created for : '+message.author.tag.replace(/ +/g,'-').replace('#', '_').toLowerCase());
         SUPPORT.createChannel(message.author.tag.replace(/ +/g,'-').replace('#', '_').toLowerCase(), 'text').then(c => {
           c.send('Welcome to MK-Support !\nPlease send a question regarding me and a support member will reply shortly !');
           c.createInvite().then(invite =>

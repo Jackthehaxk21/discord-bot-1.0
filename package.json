@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/Jackthehaxk21/discord-bot-1.0",
   "dependencies": {
+    "idiotic-api": "^0.0.4",
     "discord-bot-list": "^1.0.1",
     "bufferutil": "^3.0.2",
     "canvas": "github:Automattic/node-canvas",

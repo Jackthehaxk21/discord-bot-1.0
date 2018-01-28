@@ -4,13 +4,11 @@ let methods = {
     //console.log("DISCORD ^^^^");
     var MK = await client.guilds.get("393114138135625749")
     const MK2 = await MK.channels.find("name", "bot-log");
-    //console.log(MK);
-    //console.log(MK2);
-    MK2.send(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
+    MK2.send(`Left a guild: ${guild.name} (id: ${guild.id}). This guild had ${guild.memberCount} members!`);
     
     const dbl = require('../../../Data/Functions/dbl.js');
     dbl.run(client, prefix);
-    console.log(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
+    console.log(`Left a guild: ${guild.name} (id: ${guild.id}). This guild had ${guild.memberCount} members!`);
     
   }
 }

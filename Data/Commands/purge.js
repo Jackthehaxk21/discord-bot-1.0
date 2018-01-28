@@ -6,7 +6,7 @@ var methods = {
       var has_perm1 = message.member.hasPermission("MANAGE_MESSAGES");
       //message.reply(has_perm1);
       if (!has_perm1) {
-          message.reply("🔐 | Sorry you do not have permission to do that.");
+         message.reply("🔐 | Sorry you do not have permission to do that.");
           return;
       }
       if (amount >= 100 || amount <= 2) {

@@ -10,9 +10,9 @@ const methods = {
     
     Bot.postStats(client.guilds.size, (err, res) => {
       if(err) {
-          console.error(err)
+          console.log("API Server Error");
       } else {
-          console.log('Updated API size to '+client.guilds.size)
+          console.log('Updated API Server size to '+client.guilds.size)
       }
     })
   }

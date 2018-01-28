@@ -1,8 +1,14 @@
 let methods = {
   run : async function(client, message, prefix, Discord, sql) {
+    const prefixMention = new RegExp(`^<@!?${client.user.id}>`);
+    prefix = prefixMention.test(message.content) ? message.content.match(prefixMention)[0] + " " : prefix;
+    //message.channel.send(prefix)
+   // if(prefix);
+    //console.log(prefix);
     if(!message.content.toLowerCase().startsWith(prefix)) return;
+    //console.log("after");
     if(message.author.bot && message.author.id != 395520567815569409) return;
-    client.user.setPresence({game: {name: " "+prefix+"help | Servers: " + client.guilds.size, type: 0}});
+    client.user.setPresence({game: {name: " @Jackthehack help | Guilds: " + client.guilds.size, type: 0}});
     const moneys = require('../../../Data/Commands/money.js');
     const levels = require('../../../Data/Commands/level.js');
     const commandHandler = require('../../../Data/Commands/handler.js');
