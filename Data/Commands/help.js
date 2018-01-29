@@ -1,5 +1,10 @@
 var methods = {
     help: function(client, args, message, prefix) {
+        const prefixMention = new RegExp(`^<@!?${client.user.id}>`);
+        if(prefixMention.test(message.content)) {
+          prefix = "mk!";
+          //CHANGE TO client.settings.prefix
+        }
         var help = `
 == Help Documents ==
 
@@ -11,6 +16,7 @@ ${prefix}dice      ::   Roll a dice.
 ${prefix}8ball     ::   Ask 8ball a question.
 ${prefix}quote     ::   Get one of 267 quotes.
 ${prefix}joke      ::   Get one of 18'000 jokes.
+${prefix}wanted    ::   A wanted photo of you !
 
 == Pictures ==
 ${prefix}cat       ::   Get a Cat

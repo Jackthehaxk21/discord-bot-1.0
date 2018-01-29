@@ -31,6 +31,7 @@ const methods = {
     const pussy_command = require('./pussy.js');
     const invite_command = require('./invite.js');
     const reboot_command = require('./reboot.js');
+    const wanted_command = require('./wanted.js');
     const ytplay_command = require('./yt-play.js');
     const ytstop_command = require('./yt-stop.js');
     const suggest_command = require('./suggest.js');
@@ -53,6 +54,10 @@ const methods = {
     }
     
     switch (command.toLowerCase()) {
+      case "wanted":
+        log(client, args, "Wanted");
+        wanted_command.run(client, args, message);
+        break;
       case "suggest":
         log(client, args, "Suggest");
         suggest_command.run(client, args, message, prefix);
