@@ -5,34 +5,38 @@ let methods = {
     const dbl = require('../../../Data/Functions/dbl.js');
     dbl.run(client, prefix);
     
-    // Load Enmap
-/*const Enmap = require('enmap');
- 
-// Load EnmapLevel
+const Enmap = require('enmap');
 const EnmapLevel = require('enmap-level');
+// Oh look a shortcut to initializing ;)
+const myColl = new Enmap({ provider: new EnmapLevel({ name: 'Test1' }) });
  
-// Initialize the leveldb with the name "test" (this is the folder name in ./data)
-const level = new EnmapLevel({ name: 'test' });
- 
-// Initialize the Enmap with the provider instance.
-const myColl = new Enmap({ provider: level });
- 
-// Persistent providers load in an **async** fashion and provide a handy defer property:
-myColl.defer.then(() => {
-    // all data is loaded now.
-    //myColl.set('test','test-key');
-    console.log(myColl.size + "keys loaded");
-});
- 
-// You can also await it if your function is async: 
 (async function() {
     await myColl.defer;
-    console.log(myColl.size + "keys loaded");
-    // Do stuff here!
-}());
+    console.log(myColl.size + 'keys loaded');
  
-// Persistent collections should be **closed** before shutdown: 
-await myColl.db.close(); // or level.close() works too!*/
+    // Setting data is done with a key and value.
+    myColl.set('simplevalue', 'this is a string');
+    
+    // enmap supports any **primitive** type.
+    myColl.set('boolean', true);
+    myColl.set('integer', 42);
+    myColl.set('null', null);
+ 
+    // enmap can retrieve items at any time
+    const simplevalue = myColl.get('simplevalue'); // 'this is a string'
+    const myboolean = myColl.get('boolean'); // true
+    if(myColl.get('boolean')) console.log('yay!') // prints 'yay!' to the console.
+ 
+    // You can **change** the value of a key by loading it, editing it,
+    // then setting it **back** into enmap. There's no "update" function
+    // it just overrides the data through the same set method: 
+    myColl.set('someobject', {blah: "foo", thing: "amajig"});
+    console.log(myColl.get('someobject')) // prints the object to console.
+ 
+    const myObject = myColl.get('someobject'); // value is now the object with 2 properties.
+    myObject.thing = "amabob"; // value of temporary object is now {blah: "foo", thing: "amabob"}
+    myColl.set('someobject', myObject); // only now is it actually written correctly.
+}());
   }
 }
 
