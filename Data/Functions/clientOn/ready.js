@@ -6,7 +6,7 @@ let methods = {
     dbl.run(client, prefix);
     
     // Load Enmap
-const Enmap = require('enmap');
+/*const Enmap = require('enmap');
  
 // Load EnmapLevel
 const EnmapLevel = require('enmap-level');
@@ -18,9 +18,9 @@ const level = new EnmapLevel({ name: 'test' });
 const myColl = new Enmap({ provider: level });
  
 // Persistent providers load in an **async** fashion and provide a handy defer property:
- 
 myColl.defer.then(() => {
     // all data is loaded now.
+    //myColl.set('test','test-key');
     console.log(myColl.size + "keys loaded");
 });
  
@@ -32,7 +32,7 @@ myColl.defer.then(() => {
 }());
  
 // Persistent collections should be **closed** before shutdown: 
-await myColl.db.close(); // or level.close() works too!
+await myColl.db.close(); // or level.close() works too!*/
   }
 }
 
