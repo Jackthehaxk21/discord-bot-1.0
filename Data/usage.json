@@ -138,5 +138,10 @@
     "title": "Suggestions",
     "usage": "suggest COMMAND SMALL_DESC",
     "notes": "This will send your tag to a server"
+  },
+  "wanted": {
+    "title": "Wanted Poster",
+    "usage": "wanted",
+    "notes": "May take up to 7sec to load"
   }
 }

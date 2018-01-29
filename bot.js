@@ -13,7 +13,7 @@ const glitchHandler = require('./Data/Functions/glitch.js');
 const commandHandler = require('./Data/Commands/handler.js');
 
 const Idiot = require("idiotic-api");
-client.API = new Idiot.Client("your-token-here");
+client.API = new Idiot.Client("KlLhI6u1B3eJZ/ZhGChi");
 
 const onReady = require('./Data/Functions/clientOn/ready.js');
 const onMessage = require('./Data/Functions/clientOn/message.js');
