@@ -1,11 +1,27 @@
 let methods = {
   run : async function(client, message, prefix, Discord, sql) {
+    
+    /*const settings = require('../../../settings.json');
+    
+    //INSERT NEW PREFIX HERE
+    const prefix = client.settings.get(message.guild.id).prefix;
+    if(prefix == 'Undefined' || prefix == undefined) {
+      client.settings.set(message.guil.id, settings);
+      const prefix = client.settings.get(message.guild.id).prefix
+    }
+    */
+    
+    
     const prefixMention = new RegExp(`^<@!?${client.user.id}>`);
     prefix = prefixMention.test(message.content) ? message.content.match(prefixMention)[0] + " " : prefix;
+    if(!message.content.toLowerCase().startsWith(prefix)) return;
+    
+    
+    
+    
     //message.channel.send(prefix)
    // if(prefix);
     //console.log(prefix);
-    if(!message.content.toLowerCase().startsWith(prefix)) return;
     //console.log("after");
     if(message.author.bot && message.author.id != 395520567815569409) return;
     client.user.setPresence({game: {name: " @Jackthehack help | Guilds: " + client.guilds.size, type: 0}});
