@@ -1,12 +1,12 @@
 {
-  prefix: "mk!",
+  "prefix": "mk!",
   
-  welcomeMessageOn: "false",
-  welcomeMessageChannel: "bot-log",
-  leaveMessageOn: "false",
-  leaveMessageChannel: "bot-log",
+  "welcomeMessageOn": "false",
+  "welcomeMessageChannel": "bot-log",
+  "leaveMessageOn": "false",
+  "leaveMessageChannel": "bot-log",
   
-  levelUpMessageOn: "true",
+  "levelUpMessageOn": "true",
   
-  systemNoticeChannel: "bot-log",
+  "systemNoticeChannel": "bot-log",
 }
