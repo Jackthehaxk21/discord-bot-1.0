@@ -1,21 +1,42 @@
 let methods = {
-  run : async function(client, message, prefix, Discord, sql) {
-    
-    /*const settings = require('../../../settings.json');
-    
-    //INSERT NEW PREFIX HERE
-    const prefix = client.settings.get(message.guild.id).prefix;
-    if(prefix == 'Undefined' || prefix == undefined) {
-      client.settings.set(message.guil.id, settings);
-      const prefix = client.settings.get(message.guild.id).prefix
+  run : async function(client, message, Discord, sql) {
+    //if(message.content != message.author.id) message.channel.send(message.author.id);
+    let settings = require('../../../settings.json');
+    var i = await client.announcments.indexOf(message.guild.id);
+      
+    if(message.guild.id == client.announcments[i]) {
+      //message.channel.send("ready")
+      //delete client.announcments[message.guild.id]
+      if(i != -1) {
+        //message.channel.send("test");
+	      await client.announcments.splice(i, 1);
+      }
+      
+      try {
+        await message.guild.channels.find("name", client.settings.get(message.guild.id).systemNoticeChannel).send(client.announcment);
+      } catch (err) {
+        message.channel.send("**Oh No !**\nYou missed a bot **Announcement** change the `systemNoticeChannel` setting to get the next Announcement !\nP.S use `@Jackthehack settings edit systemNoticeChannel CHANNEL-NAME`");
+      }
     }
-    */
+    //INSERT NEW PREFIX HERE
+    let prefix;
+    try {
+      prefix = client.settings.get(message.guild.id).prefix;
+    } catch (err) {
+      client.settings.set(message.guild.id, settings);
+      prefix = client.settings.get(message.guild.id).prefix
+    }
+    
+    if(prefix == 'Undefined' || prefix == undefined) {
+      client.settings.set(message.guild.id, settings);
+      prefix = client.settings.get(message.guild.id).prefix
+    }
+    
     
     
     const prefixMention = new RegExp(`^<@!?${client.user.id}>`);
     prefix = prefixMention.test(message.content) ? message.content.match(prefixMention)[0] + " " : prefix;
     if(!message.content.toLowerCase().startsWith(prefix)) return;
-    
     
     
     
@@ -56,7 +77,7 @@ let methods = {
       return;
     }
     
-    const updateMoney = async function(message, amount = 0) {
+    const updateMoney = async function(message, amount = 0, sql) {
       let newTime = Date.now()+86400000; //24 Hours
       await sql.get(`SELECT * FROM money WHERE ID = "${message.guild.id+message.author.id}"`).then (row => {
         if (!row) {
@@ -71,7 +92,7 @@ let methods = {
         });
       });
     }
-    if (Math.floor(Math.random() * 5) == 2) updateMoney(message, 5);
+    if (Math.floor(Math.random() * 5) == 2) updateMoney(message, 5, sql);
   
     const updatePoints = async function(message, amount=1) {
       await sql.get(`SELECT * FROM scores WHERE userId = "${message.guild.id+message.author.id}"`).then(row => {
@@ -83,7 +104,9 @@ let methods = {
           if (curLevel > row.level) {
             row.level = curLevel;
             sql.run(`UPDATE scores SET points = ${row.points + amount}, level = ${row.level} WHERE userId = "${message.guild.id+message.author.id}"`);
-            //message.reply(`You've leveled up to level **${curLevel}**! Ain't that dandy?`);
+            if (client.settings.get(message.guild.id) == "true" || client.settings.get(message.guild.id) == "True") {
+              message.reply(`You've leveled up to level **${curLevel}**! Ain't that dandy?`);
+            }
             return;
           }
           sql.run(`UPDATE scores SET points = ${row.points + amount}, level = ${row.level} WHERE userId = "${message.guild.id+message.author.id}"`);
@@ -97,7 +120,7 @@ let methods = {
         });
     });
     };
-  
+  //prefix = client.settings.get(message.guild.id).prefix;
   if (message.channel.type != 'dm') updatePoints(message);
   commandHandler.handle(client, message, prefix, Discord, sql);
   return;

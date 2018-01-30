@@ -5,6 +5,9 @@ let methods = {
     const dbl = require('../../../Data/Functions/dbl.js');
     dbl.run(client, prefix);
     
+    client.announcment = "Major update, new commands involvd per-guild settings !";
+    client.announcments = await client.guilds.map(g => g.id)
+    
 const Enmap = require('enmap');
 const EnmapLevel = require('enmap-level');
 // Oh look a shortcut to initializing ;)
