@@ -1,5 +1,5 @@
 let methods = {
-  run : async function(client, message, Discord, sql) {
+  run : async function(client, message, Discord) {
     //if(message.content != message.author.id) message.channel.send(message.author.id);
     let settings = require('../../../settings.json');
     var i = await client.announcments.indexOf(message.guild.id);
@@ -63,66 +63,73 @@ let methods = {
     }
     if (message.content.toLowerCase().startsWith(prefix+'money') ) {
       log(client, 'Money');
-      moneys.get(message, sql);
+      moneys.get(client, message);
       return;
     }
     if (message.content.toLowerCase().startsWith(prefix+'daily') ) {
       log(client, 'Daily');
-      moneys.daily(message, sql);
+      moneys.daily(client, message);
       return
     }
     if (message.content.toLowerCase().startsWith(prefix+'level') ) {
       log(client, 'Level');
-      levels.get(message, sql);
+      levels.get(client, message);
       return;
     }
     
-    const updateMoney = async function(message, amount = 0, sql) {
-      let newTime = Date.now()+86400000; //24 Hours
-      await sql.get(`SELECT * FROM money WHERE ID = "${message.guild.id+message.author.id}"`).then (row => {
-        if (!row) {
-          sql.run("INSERT INTO money (ID, money, daily) VALUES (?, ?, ?)", [message.guild.id + message.author.id, amount, newTime]);
-        } else {
-          sql.run(`UPDATE money SET money = ${row.money + amount}, daily = ${row.daily} WHERE ID = "${message.guild.id+message.author.id}"`);
-        }
-      }).catch((e) => {
-        //console.log(e);
-        sql.run("CREATE TABLE IF NOT EXISTS money (ID TEXT, money INTEGER, daily INTEGER)").then(() => {
-          sql.run("INSERT INTO money (ID, money, daily) VALUES (?, ?, ?)", [message.guild.id + message.author.id, amount, newTime]);
-        });
-      });
+    let newTime = Date.now()+86400000
+    
+    const updateMoney = async function(message, amount = 0) {
+    try {
+      let data = client.points.get(message.author.id)
+      data.money += amount;
+      data.daily = newTime;
+      client.points.set(message.author.id, data);
+      return;
+    } catch (err) {
+      const set = require('../../../points.json');
+      let data = set;
+      data.money += amount;
+      data.daily = newTime;
+      client.points.set(message.author.id, data);
+      return;
     }
-    if (Math.floor(Math.random() * 5) == 2) updateMoney(message, 5, sql);
-  
+    }
+    if (Math.floor(Math.random() * 5) == 2) updateMoney(message, 5);
+    
     const updatePoints = async function(message, amount=1) {
-      await sql.get(`SELECT * FROM scores WHERE userId = "${message.guild.id+message.author.id}"`).then(row => {
-        if (!row) {
-          sql.run("INSERT INTO scores (userId, points, level) VALUES (?, ?, ?)", [message.guild.id+message.author.id, amount, 0]);
-          return("Success");
-        } else {
-          let curLevel = Math.floor(0.35 * Math.sqrt(row.points + 1));
-          if (curLevel > row.level) {
-            row.level = curLevel;
-            sql.run(`UPDATE scores SET points = ${row.points + amount}, level = ${row.level} WHERE userId = "${message.guild.id+message.author.id}"`);
-            if (client.settings.get(message.guild.id) == "true" || client.settings.get(message.guild.id) == "True") {
-              message.reply(`You've leveled up to level **${curLevel}**! Ain't that dandy?`);
-            }
-            return;
-          }
-          sql.run(`UPDATE scores SET points = ${row.points + amount}, level = ${row.level} WHERE userId = "${message.guild.id+message.author.id}"`);
+    try {
+      let data = client.points.get(message.author.id);
+      data.points += amount;
+      let curLevel = Math.floor(0.35 * Math.sqrt(data.points + 1));
+      if (curLevel > data.level) {
+        //level up
+        data.level += 1;
+        if (client.settings.get(message.guild.id).levelUpMessageOn == "true" || client.settings.get(message.guild.id).levelUpMessageOn == "True") {
+            message.reply(`You've leveled up to level **${curLevel}**! Ain't that dandy?`);
         }
-    }).catch((e) => {
-        //console.log(e);
-        //console.log('new t');
-        return sql.run("CREATE TABLE IF NOT EXISTS scores (userId TEXT, points INTEGER, level INTEGER)").then(() => {
-            sql.run("INSERT INTO scores (userId, points, level) VALUES (?, ?, ?)", [message.guild.id+message.author.id, amount, 0]);
-            return("Success");
-        });
-    });
-    };
+      }
+      client.points.set(message.author.id, data);
+    } catch(e) {
+      let newTime = Date.now();
+      let data = require('../../../points.json');
+      data.points += amount;
+      data.daily = newTime;
+      let curLevel = Math.floor(0.35 * Math.sqrt(data.points + 1));
+      /*if (curLevel > data.level) {
+        //level up
+        data.level += 1;
+        if (client.settings.get(message.guild.id) == "true" || client.settings.get(message.guild.id) == "True") {
+            message.reply(`You've leveled up to level **${curLevel}**! Ain't that dandy?`);
+        }
+      }*/
+      client.points.set(message.author.id, data);
+    
+    }
+    }
   //prefix = client.settings.get(message.guild.id).prefix;
   if (message.channel.type != 'dm') updatePoints(message);
-  commandHandler.handle(client, message, prefix, Discord, sql);
+  commandHandler.handle(client, message, prefix, Discord);
   return;
   }
 }

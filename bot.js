@@ -5,7 +5,7 @@ const Discord = require('discord.js');
 
 const { resolve, join} = require('path');
 const { Canvas } = require('canvas-constructor');
-const sql = require('sqlite');
+//const sql = require('sqlite');
 
 const client = new Discord.Client();
 
@@ -22,7 +22,7 @@ const onGuildDelete = require('./Data/Functions/clientOn/guildDelete.js');
 const onGuildMemberAdd = require('./Data/Functions/clientOn/guildMemberAdd.js');
 const onGuildMemberRemove = require('./Data/Functions/clientOn/guildMemberRemove.js');
 
-sql.open("./Data/Data.sqlite");
+//sql.open("./Data/Data.sqlite");
 
 //KEEP BOT ONLINE BY PINGING WEBSITE EVERY 4-5 MINUTES
 /////////////////////////////
@@ -62,7 +62,7 @@ client.on("guildDelete", guild => {onGuildDelete.run(guild, client, prefix);});
 
 client.on('ready', () => {onReady.run(client, prefix);});
 
-client.on('message', message => {onMessage.run(client, message, prefix, Discord, sql);});
+client.on('message', message => {onMessage.run(client, message, prefix, Discord);});
 
 // THIS  MUST  BE  THIS  WAY
 client.login(process.env.BOT_TOKEN);

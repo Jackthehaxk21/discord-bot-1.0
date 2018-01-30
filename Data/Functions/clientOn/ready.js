@@ -38,8 +38,17 @@ client.settings = new Enmap({ provider: new EnmapLevel({ name: 'settings' }) });
  
     //const myObject = client.myColl.get('someobject'); // value is now the object with 2 properties.
     //myObject.thing = "amabob"; // value of temporary object is now {blah: "foo", thing: "amabob"}
-    client.settings.set('TEST', 'TEST-REPLT'); // only now is it actually written correctly.
+    //client.settings.set('TEST', 'TEST-REPLT'); // only now is it actually written correctly.
 }());
+    
+// Oh look a shortcut to initializing;)
+client.points = new Enmap({ provider: new EnmapLevel({ name: 'points' }) });
+ 
+(async function() {
+    await client.points.defer;
+    console.log(client.points.size + ' keys loaded');
+}());
+    
   }
 }
 

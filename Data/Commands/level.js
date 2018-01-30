@@ -1,6 +1,6 @@
 var methods = {
-  get: async function(message, sql) { 
-    const run = async function(message, points, level) { // eslint-disable-line no-unused-vars
+  get: async function(client, message) { 
+    const run = async function(message, level, points) { // eslint-disable-line no-unused-vars
       const getProfile = async function(user, person, points, level, rank) {
         const { Canvas } = require('canvas-constructor');
         const snek = require('snekfetch');
@@ -45,22 +45,17 @@ var methods = {
     }
       //message.channel.send("Sorry but the social commands are down for repair\nVery sorry for any inconvienve caused.");
       //return;
-      sql.get(`SELECT * FROM scores WHERE userId = "${message.guild.id+message.author.id}"`).then(row => {
-        if (!row) {
-          sql.run("INSERT INTO scores (userId, points, level) VALUES (?, ?, ?)", [message.guild.id + message.author.id, 1, 0]);
-          run(message, 1, 0);
-        } else {
-          run(message, row.points, row.level); 
-        }
-      }).catch((e) => {
-        console.log(e);
-        //console.log('new t');
-        sql.run("CREATE TABLE IF NOT EXISTS scores (userId TEXT, points INTEGER, level INTEGER)").then(() => {
-          sql.run("INSERT INTO scores (userId, points, level) VALUES (?, ?, ?)", [message.guild.id + message.author.id, 1, 0]);
-          run(message, 1, 0);
-        });
-      });
-    }
+      try {
+        let data = client.points.get(message.author.id);
+        run(message, data.level, data.points);
+        return;
+      } catch(e) {
+        const data = require('../../points.json');
+        client.points.set(message.author.id, data);
+        run(message, 1, 0)
+        return;
+      }
+  }
 }
 
 module.exports = methods;

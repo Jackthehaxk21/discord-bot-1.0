@@ -1,5 +1,7 @@
 let methods = {
   run: async function(client, args, message, sql) {
+    message.channel.send("UNDER-GOING A MAJOR FIX")
+    return;
     const start = function(client, args, message) {
       let total = Math.floor((Date.now()/86400000)/500);
       const { SlotMachine, SlotSymbol } = require('slot-machine');

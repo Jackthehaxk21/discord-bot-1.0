@@ -1,5 +1,5 @@
 const methods = {
-  handle : function(client, message, prefix, Discord, sql) {
+  handle : function(client, message, prefix, Discord) {
     //if (!message.content.toLowerCase().startsWith(prefix)) return;
     
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
@@ -95,11 +95,11 @@ const methods = {
         break;
       case "add":
         log(client, args, "OWNER-MONEY-OVERIDE");
-        money_command.owner(client, args, message, sql);
+        money_command.owner(client, args, message);
         break;
       case "slots":
         log(client, args, "Slots");
-        slots_command.run(client, args, message, sql);
+        slots_command.run(client, args, message);
         break;
       case "dice":
         log(client, args, 'Dice');
