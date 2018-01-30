@@ -47,6 +47,7 @@ ${prefix}stats     ::   Stats for me.
 ${prefix}support   ::   Get support from the people that made me.
 ${prefix}suggest   ::   Suggest a command see '${prefix}usage suggest' for usage.
 ${prefix}credits   ::   Learn who helped build me from scrap code.
+${prefix}settings  ::   Change your server settings !
 
 == Bot-Owner ==
 ${prefix}reboot    ::   PRIVATE

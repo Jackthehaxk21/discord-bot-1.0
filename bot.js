@@ -48,13 +48,13 @@ client.on("warn", (e) => {
 });
 //client.on("debug", (e) => console.info(e));
 
-const prefix = "mk!";
+const prefix = "mkb!";
 
 client.on("test", message => message.reply("test reply"));
 
-client.on("guildMemberAdd", (member) => {onGuildMemberAdd.run(member);});
+client.on("guildMemberAdd", (member) => {onGuildMemberAdd.run(client, member);});
 
-client.on("guildMemberRemove", (member) => {onGuildMemberRemove.run(member);});
+client.on("guildMemberRemove", (member) => {onGuildMemberRemove.run(client, member);});
 
 client.on("guildCreate", guild => {onGuildCreate.run(guild, client, prefix);});
 

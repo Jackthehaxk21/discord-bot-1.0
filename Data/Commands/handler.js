@@ -5,6 +5,8 @@ const methods = {
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift();
     
+    prefix = client.settings.get(message.guild.id).prefix
+    
     //functions
     const dog_command = require('./dog.js');
     const cat_command = require('./cat.js');
@@ -36,6 +38,7 @@ const methods = {
     const ytstop_command = require('./yt-stop.js');
     const suggest_command = require('./suggest.js');
     const support_command = require('./support.js');
+    const settings_command = require('./settings.js');
     const eight_ball_command = require('./8ball.js');
     const ytsearch_command = require('./yt-search.js');
     const sql_command = require('../Functions/sql.js');
@@ -54,6 +57,10 @@ const methods = {
     }
     
     switch (command.toLowerCase()) {
+      case "settings":
+        log(client, args, "Settings");
+        settings_command.run(client, args, message);
+        break;
       case "wanted":
         log(client, args, "Wanted");
         wanted_command.run(client, args, message);

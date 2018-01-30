@@ -143,5 +143,10 @@
     "title": "Wanted Poster",
     "usage": "wanted",
     "notes": "May take up to 7sec to load"
+  },
+  "settings": {
+    "title": "Settings",
+    "usage": "settings view or edit KEY VALUE",
+    "notes": "You must be server owner to change settings"
   }
 }
