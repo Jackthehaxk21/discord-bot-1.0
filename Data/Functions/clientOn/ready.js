@@ -1,44 +1,80 @@
 let methods = {
   run : async function(client, prefix) {
-    client.user.setPresence({game: {name: " "+prefix+"help | Servers: " + client.guilds.size, type: 0}});
+    client.getAPI = function(req) {
+      var ip;
+      if (req.headers['x-forwarded-for']) {
+        ip = req.headers['x-forwarded-for'].split(",")[0];
+      } else if (req.connection && req.connection.remoteAddress) {
+        ip = req.connection.remoteAddress;
+      } else {
+        ip = req.ip;
+      }
+      return ip;
+    }
+    client.sendAPISPAM = async function(txt){
+      var MK = client.guilds.get("393114138135625749")
+      //console.log(MK);
+      var MK2 = MK.channels.find("name", "api-spam");
+      MK2.send('LOG | '+txt);
+    }
+    client.getQuote = async function(){
+      const data = require('../../Quotes.json');
+      let random = await Math.floor(Math.random()*266);
+      let respond = await data[random]
+      var MK = client.guilds.get("393114138135625749")
+      //console.log(MK);
+      var MK2 = MK.channels.find("name", "api-spam");
+      MK2.send('API/quote - '+random);
+      let dat = respond
+      return dat;
+    }
+    client.getJoke = async function(){
+      const data = require('../../Jokes.json');
+      let num = await Math.floor(Math.random()*data.length)
+      let random = await data[num]
+      var MK = client.guilds.get("393114138135625749")
+      //console.log(MK);
+      var MK2 = MK.channels.find("name", "api-spam");
+      MK2.send('API/joke - '+ num);
+      return random;
+      
+    }
+    client.getFortune = async function(){
+      const data = require('../../fortune-cookie.json');
+      let num = await Math.floor(Math.random()*data.length)
+      let random = await data[num]
+      var MK = client.guilds.get("393114138135625749")
+      //console.log(MK);
+      var MK2 = MK.channels.find("name", "api-spam");
+      MK2.send('API/fortune - '+ num);
+      return random;
+    }
+    
+    client.commands = ['4k','8ball','ban','boobs','cat','coin','dice','dog','eval','fortune-cookie','help','credits',
+                       'invite','joke','kick','level','money','add','daily','neko','ping','purge','pussy','quote',
+                       'reboot','setrole','remrole','say','serverinfo','settings','slots','stats','suggest','support',
+                       'test','usage','userinfo','serverinfo','wanted','remind'];
+    client.user.setPresence({game: {name: " @Jackthehack help | Servers: " + client.guilds.size, type: 0}});
     console.log('[SYS] | 💻 | I am ready!');
     const dbl = require('../../../Data/Functions/dbl.js');
-    dbl.run(client, prefix);
-    
-    client.announcment = "Major update, new commands involvd per-guild settings !";
-    client.announcments = await client.guilds.map(g => g.id)
+    dbl.run(client);
+    client.dreams = ['Test #1','Test #2']
     
 const Enmap = require('enmap');
 const EnmapLevel = require('enmap-level');
 // Oh look a shortcut to initializing ;)
+/*client.dreams = new Enmap({ provider: new EnmapLevel({ name: 'test'}) });
+
+(async function() {
+    await client.dreams.defer;
+    console.log(client.dreams.size + ' keys loaded (test)');
+}());
+    */
 client.settings = new Enmap({ provider: new EnmapLevel({ name: 'settings' }) });
  
 (async function() {
     await client.settings.defer;
-    console.log(client.settings.size + ' keys loaded');
- 
-    // Setting data is done with a key and value.
-    //client.myColl.set('simplevalue', 'this is a string');
-    
-    // enmap supports any **primitive** type.
-    //client.myColl.set('boolean', true);
-    //client.myColl.set('integer', 42);
-    //client.myColl.set('null', null);
- 
-    // enmap can retrieve items at any time
-    //const simplevalue = client.myColl.get('simplevalue'); // 'this is a string'
-    //const myboolean = client.myColl.get('boolean'); // true
-    //if(client.myColl.get('boolean')) console.log('yay!') // prints 'yay!' to the console.
- 
-    // You can **change** the value of a key by loading it, editing it,
-    // then setting it **back** into enmap. There's no "update" function
-    // it just overrides the data through the same set method: 
-    //client.myColl.set('someobject', {blah: "foo", thing: "amajig"});
-    //console.log(client.myColl.get('someobject').blah) // prints the object to console.
- 
-    //const myObject = client.myColl.get('someobject'); // value is now the object with 2 properties.
-    //myObject.thing = "amabob"; // value of temporary object is now {blah: "foo", thing: "amabob"}
-    //client.settings.set('TEST', 'TEST-REPLT'); // only now is it actually written correctly.
+    console.log(client.settings.size + ' keys loaded (settings)');
 }());
     
 // Oh look a shortcut to initializing;)
@@ -46,9 +82,47 @@ client.points = new Enmap({ provider: new EnmapLevel({ name: 'points' }) });
  
 (async function() {
     await client.points.defer;
-    console.log(client.points.size + ' keys loaded');
+    console.log(client.points.size + ' keys loaded (points)');
 }());
     
+    client.reminders = new Enmap({ provider: new EnmapLevel({ name: 'reminders' }) });
+ 
+(async function() {
+    await client.reminders.defer;
+    console.log(client.reminders.size + ' keys loaded (reminders)');
+}());
+    
+    
+    client.coolDown = new Enmap({ provider: new EnmapLevel({ name: 'coolDown' }) });
+ 
+(async function() {
+    await client.coolDown.defer;
+    console.log(client.coolDown.size + ' keys loaded (coolDown)');
+}());
+    
+    client.blacklist = new Enmap({ provider: new EnmapLevel({ name: 'blacklist' }) });
+ 
+(async function() {
+    await client.blacklist.defer;
+    console.log(client.blacklist.size + ' keys loaded (blacklist)');
+}());
+    
+    const http = require('http')
+    setInterval(() => {
+      http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
+    }, 250000);
+    
+    setInterval(() => {
+      const toRemind = client.reminders.filter(r => r.reminderTimestamp <= Date.now());
+      toRemind.forEach(reminder => {
+        client.users.get(reminder.id).send(`You asked me to remind you to: \`${reminder.reminder}\``);
+        client.reminders.delete(`${reminder.id}-${reminder.reminderTimestamp}`);
+      }); 
+    }, 30000); 
+    
+    
+    
+    client.ready = true;    
   }
 }
 

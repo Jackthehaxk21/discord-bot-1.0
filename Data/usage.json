@@ -148,5 +148,25 @@
     "title": "Settings",
     "usage": "settings view or edit KEY VALUE",
     "notes": "You must be server owner to change settings"
+  },
+  "fortune": {
+    "title": "Fortune Cookie",
+    "usage": "fortune",
+    "notes": ""
+  },
+  "serverinfo": {
+    "title": "Server Info",
+    "usage": "serverinfo",
+    "notes": ""
+  },
+  "userinfo": {
+    "title": "User Info",
+    "usage": "userinfo",
+    "notes": ""
+  },
+  "remind": {
+    "title": "Reminders !",
+    "usage": "remind me to pick up laundry in 10 minutes [EXAMPLE]",
+    "notes": "Allow DM's from bot"
   }
 }

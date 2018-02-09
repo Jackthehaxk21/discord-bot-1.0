@@ -8,12 +8,13 @@ const { Canvas } = require('canvas-constructor');
 //const sql = require('sqlite');
 
 const client = new Discord.Client();
+client.ready = false;
 
-const glitchHandler = require('./Data/Functions/glitch.js');
+const webHandler = require('./web.js');
 const commandHandler = require('./Data/Commands/handler.js');
 
 const Idiot = require("idiotic-api");
-client.API = new Idiot.Client("KlLhI6u1B3eJZ/ZhGChi");
+client.API = new Idiot.Client(process.env.idiotAPI);
 
 const onReady = require('./Data/Functions/clientOn/ready.js');
 const onMessage = require('./Data/Functions/clientOn/message.js');
@@ -22,11 +23,9 @@ const onGuildDelete = require('./Data/Functions/clientOn/guildDelete.js');
 const onGuildMemberAdd = require('./Data/Functions/clientOn/guildMemberAdd.js');
 const onGuildMemberRemove = require('./Data/Functions/clientOn/guildMemberRemove.js');
 
-//sql.open("./Data/Data.sqlite");
-
-//KEEP BOT ONLINE BY PINGING WEBSITE EVERY 4-5 MINUTES
+//KEEP BOT WEBSITE RUNNING
 /////////////////////////////
-glitchHandler.run(); ////////  BUG of glitch server resetting i added uptimebot to check every 5in also
+webHandler.run(client); ////////  
 /////////////////////////////
 
 const send = async function(e,type) {

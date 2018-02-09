@@ -8,7 +8,7 @@
       }
     }
     if(message.author.id !== process.env.ownerID) {
-      message.channel.send('**eval ** | ⚠️ | You are not <@282819886198030336>, You cannot use eval');
+      message.channel.send('**eval ** | ⚠️ | You are not my creator, You cannot use eval');
       return;
     } else {
       try {
@@ -19,6 +19,7 @@
           evaled = require("util").inspect(evaled);
           message.channel.send(clean(evaled), {code:"xl"});
         } catch (err) {
+          //console.error(err)
           try{
             message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
           } catch(err) {

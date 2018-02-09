@@ -1,8 +1,26 @@
 let methods = {
   run : async function(client, message, Discord) {
-    //if(message.content != message.author.id) message.channel.send(message.author.id);
+    if(message.channel.type == 'dm' && !message.author.bot) {
+      if(message.content != 'support') {
+        message.channel.send('Only the support command works here type support to activate the command.')
+        return;
+      } else {
+        const support_command = require('../../Commands/support.js')
+        support_command.run(client, message)
+        return;
+      }
+    }
+    if(message.channel.type == 'dm') return;
+    if(client.ready != true) return;
     let settings = require('../../../settings.json');
-    var i = await client.announcments.indexOf(message.guild.id);
+    /*let data = client.settings.get(message.guild.id);
+    if(data.coolDownTime == undefined || data.coolDownTime == null) {
+      client.settings.delete(message.guild.id)
+      client.settings.set(message.guild.id, settings);
+    }*/
+    //if(message.content != message.author.id) message.channel.send(message.author.id);
+    
+    /*var i = await client.announcments.indexOf(message.guild.id);
       
     if(message.guild.id == client.announcments[i]) {
       //message.channel.send("ready")
@@ -13,11 +31,14 @@ let methods = {
       }
       
       try {
-        await message.guild.channels.find("name", client.settings.get(message.guild.id).systemNoticeChannel).send(client.announcment);
+        //await message.guild.channels.find("name", client.settings.get(message.guild.id).systemNoticeChannel).send(client.announcment);
       } catch (err) {
-        message.channel.send("**Oh No !**\nYou missed a bot **Announcement** change the `systemNoticeChannel` setting to get the next Announcement !\nP.S use `@Jackthehack settings edit systemNoticeChannel CHANNEL-NAME`");
+        //message.channel.send("**Oh No !**\nYou missed a bot **Announcement** change the `systemNoticeChannel` setting to get the next Announcement !\nP.S use `@Jackthehack settings edit systemNoticeChannel CHANNEL-NAME`");
       }
     }
+    */
+    
+    
     //INSERT NEW PREFIX HERE
     let prefix;
     try {
@@ -50,16 +71,14 @@ let methods = {
     const levels = require('../../../Data/Commands/level.js');
     const commandHandler = require('../../../Data/Commands/handler.js');
     const log = async function(client, command) {
-      if (message.author.id != process.env.ownerID) {
+      if(message.author.id == process.env.ownerID) return;
         var MK = client.guilds.get("393114138135625749")
         //console.log(MK);
         var MK = MK.channels.find("name", "bot-log");
         let msg = await MK.send('[**'+message.author.tag+'**] | Command: **'+command+'**');
-        msg.edit('[**'+(msg.createdAt).toString().replace(' GMT+0000 (UTC)','')+'**] [**'+message.guild.name+'**] [**'+message.author.tag+'**] | Command: **'+command+'**');
+        msg.edit('[**'+(msg.createdAt).toString().replace(' GMT+0000 (UTC)','')+'**] [**'+message.guild.name+'**] [**'+message.author.tag+'**] | Command: **'+command+'** | Full Msg: **'+message.content+'**');
         console.log('['+message.author.tag+'] | Command: '+command);
         return;
-      }
-      return;
     }
     if (message.content.toLowerCase().startsWith(prefix+'money') ) {
       log(client, 'Money');
@@ -77,7 +96,7 @@ let methods = {
       return;
     }
     
-    let newTime = Date.now()+86400000
+    let newTime = Date.now();
     
     const updateMoney = async function(message, amount = 0) {
     try {

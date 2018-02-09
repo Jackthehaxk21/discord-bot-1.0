@@ -47,32 +47,22 @@ var methods = {
        let guyID = await message.mentions.members.first();
        //console.log(guyID);
        let newTime = Date.now();
-       await sql.get(`SELECT * FROM money WHERE ID = "${message.guild.id+guyID.id}"`).then(row => {
-          if (!row) {
-            sql.run("INSERT INTO money (ID, money, daily) VALUES (?, ?, ?)", [message.guild.id+guyID.id, m, newTime]);
-            message.channel.send('**OVERIDE **| 🏦 | You\'ve given '+guyID.user.username+' $'+m);
-            message.channel.send('**OVERIDE **| 🏦 | '+guyID.user.username+' now has $'+(parseInt(row.money)+m));
-            
-            return;
-          } else {
-            sql.run(`UPDATE money SET money = ${row.money + parseInt(m)}, daily = ${row.daily} WHERE ID = "${message.guild.id+guyID.id}"`);
-            message.channel.send('**OVERIDE **| 🏦 | You\'ve given '+guyID.user.username+' $'+m);
-            message.channel.send('**OVERIDE **| 🏦 | '+guyID.user.username+' now has $'+(parseInt(row.money)+m));
-            
-            return;
-            //message.reply(row.daily);
-            //message.reply(Date.now());
-            //message.channel.send('**daily **|  💳 | Please wait '+(Math.floor((((Date.now()-row.daily)/1000)/60)/60))+'- Hours.');
-          }
-       }).catch((e) => {
-          console.log(e);
-          sql.run("CREATE TABLE IF NOT EXISTS money (ID TEXT, money INTEGER, daily INTEGER)").then(() => {
-            sql.run("INSERT INTO money (ID, money, daily) VALUES (?, ?, ?)", [message.guild.id+guyID.id, m, newTime]);
-            message.channel.send('**OVERIDE **| 🏦 | You\'ve given '+guyID.user.username+' $'+m);
-            message.channel.send('**OVERIDE **| 🏦 | '+guyID.user.username+' now has $'+m);
-            return;
-          });
-       });
+       try {
+         let data = client.points.get(guyID.id);
+         data.money += m;
+         client.points.set(guyID.id, data);
+         message.channel.send('**OVERIDE **| 🏦 | You\'ve given '+guyID.user.username+' $'+m);
+         message.channel.send('**OVERIDE **| 🏦 | '+guyID.user.username+' now has $'+(parseInt(data.money)+m));
+         return;
+       } catch (err) {
+         let data = require('../../points.json');
+         data.money += m;
+         data.daily = newTime;
+         client.points.set(guyID.id, data);
+         message.channel.send('**OVERIDE **| 🏦 | You\'ve given '+guyID.user.username+' $'+m);
+         message.channel.send('**OVERIDE **| 🏦 | '+guyID.user.username+' now has $'+m);
+         return;
+       }
   }
 }
 

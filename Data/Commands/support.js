@@ -1,6 +1,6 @@
 var methods = {
   
-  run: function(client, args, message) {
+  run: function(client, message) {
     if (message.channel.type == 'dm') {
         let mes = (`
 

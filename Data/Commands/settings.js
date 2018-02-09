@@ -31,13 +31,19 @@ ${data.prefix}settings edit prefix NEW-PREFIX-HERE
           }
           if(args[1] != undefined && args[2] != undefined) {
             const data = client.settings.get(message.guild.id);
-            
+            let key;
             if(args[1] in data) {
-              data[args[1]] = args[2];
+              if(args[1] == 'prefix') key = args[2].toLowerCase();
+              else key = args[2];
+              
+              if(args[1] == 'welcomeMessageOn' || args[1] == 'leaveMessageOn' || args[1] == 'levelUpMessageOn') {
+                if(args[2] != 'true' && args[2] != 'false') return message.channel.send('The value for `'+args[1]+'` must be either true or false');
+              }
+              data[args[1]] = key;
               //console.log("2");
               client.settings.set(message.guild.id, data);
               //console.log("3")
-              message.channel.send("Changed `"+args[1]+"` to `"+args[2]+"`");
+              message.channel.send("Changed `"+args[1]+"` to `"+key+"`");
             } else {
               message.channel.send("`"+args[1]+"` Is not a valid KEY");
               return;

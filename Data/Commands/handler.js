@@ -1,17 +1,32 @@
 const methods = {
   handle : function(client, message, prefix, Discord) {
-    //if (!message.content.toLowerCase().startsWith(prefix)) return;
-    
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift();
+    //must be after trim because of the @ prefix !!
+    let data = client.settings.get(message.guild.id);
+    prefix = data.prefix;
+    if(client.coolDown.has(message.author.id+'-'+message.guild.id)) {
+      if(client.coolDown.get(message.author.id+'-'+message.guild.id) <= Date.now()) {
+        client.coolDown.delete(message.author.id+'-'+message.guild.id)
+        return;
+      }
+      var time = client.coolDown.get(message.author.id+'-'+message.guild.id);
+      message.channel.send(message.author.username+' please dont use me too fast !\nTry again in '+Math.round((time-Date.now())/1000)+' Seconds')
+      return;
+    }
+    if(message.author.id != process.env.ownerID) {
+      client.coolDown.set(message.author.id+'-'+message.guild.id, Date.now()+(10000));
+      setTimeout(() => {
+        //try { msg.delete() } catch(err){console.log(err)}
+        client.coolDown.delete(message.author.id+'-'+message.guild.id);
+      }, 10000);
+    }
     
-    prefix = client.settings.get(message.guild.id).prefix
-    
-    //functions
     const dog_command = require('./dog.js');
     const cat_command = require('./cat.js');
     const ban_command = require('./ban.js');
     const say_command = require('./say.js');
+    const test_command = require('./test.js');
     const kick_command = require('./kick.js');
     const role_command = require('./role.js');
     const coin_command = require('./coin.js');
@@ -31,6 +46,7 @@ const methods = {
     const usage_command = require('./usage.js');
     const boobs_command = require('./boobs.js');
     const pussy_command = require('./pussy.js');
+    const remind_command = require('./remind.js');
     const invite_command = require('./invite.js');
     const reboot_command = require('./reboot.js');
     const wanted_command = require('./wanted.js');
@@ -38,25 +54,52 @@ const methods = {
     const ytstop_command = require('./yt-stop.js');
     const suggest_command = require('./suggest.js');
     const support_command = require('./support.js');
-    const settings_command = require('./settings.js');
     const eight_ball_command = require('./8ball.js');
+    const settings_command = require('./settings.js');
     const ytsearch_command = require('./yt-search.js');
-    const sql_command = require('../Functions/sql.js');
+    const user_info_command = require('./user-info.js');
+    const server_info_command = require('./server-info.js');
+    const fortune_cookie_command = require('./fortune-cookie.js');
     
     const log = async function(client, args, command) {
-      if (message.author.id != process.env.ownerID) {
+      if(message.author.id == process.env.ownerID) return;
         var MK = client.guilds.get("393114138135625749")
         //console.log(MK);
         var MK = MK.channels.find("name", "bot-log");
         let msg = await MK.send('[**'+message.author.tag+'**] | Command: **'+command+'**');
-        msg.edit('[**'+(msg.createdAt).toString().replace(' GMT+0000 (UTC)','')+'**] [**'+message.guild.name+'**] [**'+message.author.tag+'**] | Command: **'+command+'**');
+        msg.edit('[**'+(msg.createdAt).toString().replace(' GMT+0000 (UTC)','')+'**] [**'+message.guild.name+'**] [**'+message.author.tag+'**] | Command: **'+command+'** | Full Msg: **'+message.content+'**');
         console.log('['+message.author.tag+'] | Command: '+command);
         return;
-      }
-      return;
     }
     
     switch (command.toLowerCase()) {
+      case "remind":
+        log(client, args, "Reminder")
+        remind_command.run(client, args, message);
+        break;
+      case "reminder":
+        log(client, args, "Reminder")
+        remind_command.run(client, args, message);
+        break;
+      case "reminders":
+        log(client, args, "Reminder")
+        remind_command.run(client, args, message);
+        break;
+      case "userinfo":
+        log(client, args, "User Info")
+        user_info_command.run(client, args, message);
+        break;
+      case "serverinfo":
+        log(client, args, 'Server Info')
+        server_info_command.run(client, args, message);
+        break;
+      case 'test':
+        test_command.run(client, args, message);
+        break;
+      case "fortune":
+        log(client, args, "Fortune Cookie");
+        fortune_cookie_command.get(client, args, message);
+        break;
       case "settings":
         log(client, args, "Settings");
         settings_command.run(client, args, message);
@@ -94,7 +137,7 @@ const methods = {
         cat_command.run(client, args, message);
         break;
       case "add":
-        log(client, args, "OWNER-MONEY-OVERIDE");
+        log(client, args, "MONEY-OVERIDE");
         money_command.owner(client, args, message);
         break;
       case "slots":
@@ -167,7 +210,7 @@ const methods = {
         break;
       case "support":
         log(client, args, 'Support');
-        support_command.run(client, args, message);
+        support_command.run(client, message);
         break;
       case "usage":
         log(client, args, "Usage");

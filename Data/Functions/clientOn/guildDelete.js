@@ -1,5 +1,6 @@
 let methods = {
   run : async function(guild, client, prefix) {
+    if(client.ready == false) return;
     //console.log(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
     //console.log("DISCORD ^^^^");
     var MK = await client.guilds.get("393114138135625749")

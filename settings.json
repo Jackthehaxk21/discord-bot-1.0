@@ -4,6 +4,6 @@
   "welcomeMessageChannel": "bot-log",
   "leaveMessageOn": "false",
   "leaveMessageChannel": "bot-log",
-  "levelUpMessageOn": "true",
+  "levelUpMessageOn": "false",
   "systemNoticeChannel": "bot-log"
 }
