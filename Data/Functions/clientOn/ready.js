@@ -100,13 +100,6 @@ client.points = new Enmap({ provider: new EnmapLevel({ name: 'points' }) });
     console.log(client.coolDown.size + ' keys loaded (coolDown)');
 }());
     
-    client.blacklist = new Enmap({ provider: new EnmapLevel({ name: 'blacklist' }) });
- 
-(async function() {
-    await client.blacklist.defer;
-    console.log(client.blacklist.size + ' keys loaded (blacklist)');
-}());
-    
     const http = require('http')
     setInterval(() => {
       http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
