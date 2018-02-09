@@ -1,0 +1,61 @@
+<!-- This is a static file -->
+<!-- served from your routes in server.js -->
+
+<!-- You might want to try something fancier: -->
+<!-- html/nunjucks docs: https://mozilla.github.io/nunjucks/ -->
+<!-- pug: https://pugjs.org/ -->
+<!-- haml: http://haml.info/ -->
+<!-- hbs(handlebars): http://handlebarsjs.com/ -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MK TEST!</title>
+    <meta name="description" content="A cool thing made by JACK">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/style.css">
+  </head>
+  <body>
+    <header>
+      <marquee>UPDATE - MK is changing name to TitanBolt</marquee>
+      <h1>
+        MK-Website (Beta)
+      </h1>
+    </header>
+
+    <main>
+      <p class="bold">Oh hi there,</p>
+      <p>Will you tell me what you think of MK ?:</p>
+      <form>
+        <input type="text" maxlength="100" placeholder="Feedback">
+        <button type="submit">Submit</button>
+      </form>
+      <section class="dreams">
+        <ul id="dreams">
+        </ul>
+      </section>
+      <h4>Latest Stats:</h4>
+      <a href="https://discordbots.org/bot/368780919588388864">
+        <img src="https://discordbots.org/api/widget/368780919588388864.svg" />
+      </a>
+      <a href="https://mk-dashboard.glitch.me/API">
+        Use our brand new API !
+      </a>
+    </main>
+
+    <!--<footer>
+      <a href="https://glitch.com">
+        Remix this in Glitch
+      </a>
+    </footer>-->
+
+    <!-- Your web-app is https, so your scripts need to be too -->
+    <script src="https://code.jquery.com/jquery-2.2.1.min.js"
+            integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="
+            crossorigin="anonymous"></script>
+    <script src="/client.js"></script>
+
+  </body>
+</html>

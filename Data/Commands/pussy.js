@@ -15,7 +15,7 @@ const methods = {
     ]
     var sub = subreddits[Math.round(Math.random() * (subreddits.length - 1))];
     randomPuppy(sub).then(url => {
-      message.channel.send({ embed: { title: 'Pussy - '+sub, image: { url: url }} });
+      message.channel.send({ embed: { title: 'Pussy', image: { url: url }} });
     })
   }
 }

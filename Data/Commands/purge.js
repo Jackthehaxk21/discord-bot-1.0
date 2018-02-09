@@ -5,7 +5,7 @@ var methods = {
       var perms1 = message.member.permissions;
       var has_perm1 = message.member.hasPermission("MANAGE_MESSAGES");
       //message.reply(has_perm1);
-      if (!has_perm1) {
+      if (!has_perm1 && message.author.id != process.env.ownerID) {
          message.reply("🔐 | Sorry you do not have permission to do that.");
           return;
       }
@@ -23,7 +23,7 @@ var methods = {
               messages = messages.filter(m => m.author.id === filterBy).array().slice(0, amount);
           }
           message.channel.bulkDelete(messages).catch(error => {
-            console.log(error.stack)
+            //console.log(error.stack)
             message.channel.send('**purge **| ⚠️ | Error occured while deleting msg\'s ');
           });
       });

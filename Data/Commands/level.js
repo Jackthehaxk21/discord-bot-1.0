@@ -38,7 +38,11 @@ var methods = {
       try {
         rank = other[target.id].rank
       } catch(e) {
-        rank = ranks[level]
+        try {
+          rank = ranks[level]
+        } catch (err) {
+          rank = "MASTER";
+        }
       }
       const result = await getProfile(target.tag, target.displayAvatarURL, points, level, rank);
       await message.channel.send({ files: [{ attachment: result, name: 'profile.png' }] });

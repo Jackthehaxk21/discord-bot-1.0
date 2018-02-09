@@ -13,7 +13,7 @@ const methods = {
     ]
     var sub = subreddits[Math.round(Math.random() * (subreddits.length - 1))];
     randomPuppy(sub).then(url => {
-      message.channel.send({ embed: { title: '4K - '+sub, image: { url: url }} });
+      message.channel.send({ embed: { title: '4K', image: { url: url }} });
     })
   }
 }
