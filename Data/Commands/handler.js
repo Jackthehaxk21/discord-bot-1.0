@@ -73,6 +73,15 @@ const methods = {
     }
     
     switch (command.toLowerCase()) {
+      case "github":
+        if(message.author.id != process.env.ownerID) return;
+        message.channel.createWebhook("GitHub", "https://i.imgur.com/p2qNFag.png")
+// This will actually set the webhooks avatar, as mentioned at the start of the guide.
+.then(webhook => webhook.edit("GitHub", "https://i.imgur.com/p2qNFag.png")
+// This will get the bot to DM you the webhook, if you use this in a selfbot,
+// change it to a console.log as you cannot DM yourself
+.then(wb => message.author.send(`Here is your webhook https://canary.discordapp.com/api/webhooks/${wb.id}/${wb.token}`)).catch(console.error))
+        break;
       case "remind":
         log(client, args, "Reminder")
         remind_command.run(client, args, message);
