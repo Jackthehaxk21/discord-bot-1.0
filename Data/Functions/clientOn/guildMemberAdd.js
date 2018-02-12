@@ -16,7 +16,7 @@ let methods = {
       //if (!defaultChannel) defaultChannel = guild.channels.find(c=> c.permissionsFor(guild.me).has("SEND_MESSAGES"));
       if (client.settings.get(member.guild.id).welcomeMessageOn != "true" && client.settings.get(member.guild.id).welcomeMessageOn != "True") return;
       try {
-        defaultChannel.send("Everyone look like your doing something as\n" + member.user+" Has arrived");
+        defaultChannel.send("Everyone look like your doing something as\n**" + member.user.username+"** Has arrived");
       } catch (err) {
         console.log("error");
       }

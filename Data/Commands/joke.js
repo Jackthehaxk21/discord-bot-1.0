@@ -20,6 +20,7 @@ let methods = {
               message.channel.send('**'+random.title+'**');
               message.channel.send("```"+random.body+"```");
             } else {
+              console.log('finish')
               message.channel.send('**joke** | ⚠️ | Unable to get joke at this time');
             }
           }

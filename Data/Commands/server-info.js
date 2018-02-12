@@ -1,7 +1,15 @@
 var methods = {
     run: async function(client, args, message) {
       try {
+      let roles;
       const guild = message.guild;
+      if(guild.roles.size < 101) {
+        roles = guild.roles.map(r => r.name).join(", ")
+      } else {
+        roles = guild.roles.map(r => r.name).slice(0,101).join(", ")
+        roles += ' ----AND MORE...----'
+        //roles = 'Too many to show';
+      }
       const bans = await guild.fetchBans()
       const online = await guild.members.filter(m => m.presence.status === 'online' || m.presence.status === 'idle' || m.presence.status === 'dnd').size;
       const offline = guild.memberCount - online;
@@ -26,7 +34,7 @@ Other
 ------------------------------
 Channel Count  :: ${guild.channels.size}
 Roles          :: ${guild.roles.size} roles:
-${guild.roles.map(r => r.name).join(", ")}
+${roles}
 
 `;
       message.channel.send('```asciidoc'+prefab+'```');

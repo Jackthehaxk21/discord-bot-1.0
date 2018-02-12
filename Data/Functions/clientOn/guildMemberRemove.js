@@ -11,7 +11,7 @@ let methods = {
       //if (!defaultChannel) defaultChannel = guild.channels.find(c=> c.permissionsFor(guild.me).has("SEND_MESSAGES"));
       if (client.settings.get(guild.id).leaveMessageOn != "true" && client.settings.get(guild.id).leaveMessageOn != "true") return;
       try {
-        defaultChannel.send("Oh no " + member.user+ " decided to leave... \nProbably the bad smell going round.");
+        defaultChannel.send("Oh no **" + member.user.username+ "** decided to leave... \nProbably the bad smell going round.");
       } catch (err) {
         console.log("error");
       }

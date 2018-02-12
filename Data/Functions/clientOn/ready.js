@@ -1,5 +1,6 @@
 let methods = {
   run : async function(client, prefix) {
+    //console.log(process.memoryUsage())
     client.getAPI = function(req) {
       var ip;
       if (req.headers['x-forwarded-for']) {
