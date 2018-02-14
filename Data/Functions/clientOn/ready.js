@@ -1,6 +1,9 @@
 let methods = {
   run : async function(client, prefix) {
     //console.log(process.memoryUsage())
+    const fs = require('fs')
+    client.afk = await JSON.parse(fs.readFileSync("./Data/afk.json", "utf8"));
+
     client.getAPI = function(req) {
       var ip;
       if (req.headers['x-forwarded-for']) {
@@ -113,6 +116,13 @@ client.points = new Enmap({ provider: new EnmapLevel({ name: 'points' }) });
         client.reminders.delete(`${reminder.id}-${reminder.reminderTimestamp}`);
       }); 
     }, 30000); 
+    
+    setInterval(() => {
+      //console.log('ping');
+      fs.writeFile("./Data/afk.json", JSON.stringify(client.afk), (err) => {
+        if (err) console.error(err)
+      });
+  }, 15000);
     
     
     

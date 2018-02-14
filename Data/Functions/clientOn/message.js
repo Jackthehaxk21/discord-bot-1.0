@@ -26,7 +26,7 @@ let methods = {
       //message.channel.send("ready")
       //delete client.announcments[message.guild.id]
       if(i != -1) {
-        //message.channel.send("test");
+        //message.channel.send("test");v
 	      await client.announcments.splice(i, 1);
       }
       
@@ -37,8 +37,11 @@ let methods = {
       }
     }
     */
-    
-    
+    //console.log(message.mentions.users.first().id)
+    try {
+    if(message.mentions.users.first().id != undefined && message.mentions.users.first().id != null && !message.author.bot) {
+      if(message.mentions.users.first().id in client.afk) message.reply(client.afk[message.mentions.users.first().id].replace('{USER}',message.mentions.users.first().username))
+    } } catch (err) {}
     //INSERT NEW PREFIX HERE
     let prefix;
     try {

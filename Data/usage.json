@@ -168,5 +168,20 @@
     "title": "Reminders !",
     "usage": "remind me to pick up laundry in 10 minutes [EXAMPLE]",
     "notes": "Allow DM's from bot"
+  },
+  "invite": {
+    "title": "Invite Link",
+    "usage": "invite",
+    "notes": "First link is direct invite link, 2nd link is to DBL page"
+  },
+  "afk": {
+    "title": "AFK status",
+    "usage": "afk [ on | off | edit ] [msg if editing]",
+    "notes": "{USER} is key for the afk username"
+  },
+  "ghost": {
+    "title": "Ghost Game",
+    "usage": "ghost",
+    "notes": "Cost: $5"
   }
 }

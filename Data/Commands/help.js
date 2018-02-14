@@ -18,6 +18,7 @@ ${prefix}quote      ::   Get one of 267 quotes.
 ${prefix}joke       ::   Get one of 18'000 jokes.
 ${prefix}wanted     ::   A wanted photo of you !
 ${prefix}fortune    ::   Open a fortune cookie !
+${prefix}ghost      ::   Play the ghost game !
 
 == Pictures ==
 ${prefix}cat        ::   Get a Cat
@@ -49,6 +50,7 @@ ${prefix}settings   ::   Change your server settings !
 ${prefix}serverinfo ::   Get server Information !
 ${prefix}userinfo   ::   Get a users Information !
 ${prefix}reminder   ::   View/Set Reminders !
+${prefix}afk        ::   Set your AFK status.
 
 == Other ==
 ${prefix}help       ::   Shows this again.
