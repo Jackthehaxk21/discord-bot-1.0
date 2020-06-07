@@ -1,0 +1,9 @@
+---
+branches:
+- master
+projects:
+  discord-bot-1.0:
+    path: /
+    lang:
+    - en
+...
